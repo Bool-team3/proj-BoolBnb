@@ -17,7 +17,7 @@ class AddForeignUserIdOnApartmentsTable extends Migration
 
             $table->unsignedBigInteger('user_id')->after('id')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
         });
     }
@@ -30,7 +30,7 @@ class AddForeignUserIdOnApartmentsTable extends Migration
     public function down()
     {
         Schema::table('apartments', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);      
+            $table->dropForeign('apartments_user_id_foreign');      
             
             $table->dropColumn('user_id');
         });
