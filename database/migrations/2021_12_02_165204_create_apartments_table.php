@@ -15,7 +15,25 @@ class CreateApartmentsTable extends Migration
     {
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
+            $table->string('title');
+            $table->tinyInteger('room')->unsigned();
+            $table->tinyInteger('bedroom')->unsigned();
+            $table->tinyInteger('bathroom')->unsigned();
+            $table->tinyInteger('bed')->unsigned();
+            $table->smallInteger('mq')->unsigned();
+            $table->text('img_url')->nullable();
+            $table->boolean('visible');
+            $table->string('street_name');
+            $table->string('street_number');
+            $table->string('province')->nullable();
+            $table->string('postal_code', 5);
+            $table->text('lat');
+            $table->text('lot');
+
+             //soft delete for apartments
+            $table->softDeletes();
+
         });
     }
 
