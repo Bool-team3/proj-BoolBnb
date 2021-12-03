@@ -1,6 +1,11 @@
 <?php
 
+use Faker\Generator as Faker;
+
+use App\Models\Apartment;
+use App\Models\Email;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class EmailSeeder extends Seeder
 {
@@ -9,8 +14,21 @@ class EmailSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        //
+        $apartment_ids  = Apartment::pluck('id')->toArray();
+
+        for($i = 0; $i < 10 ; $i++){
+            
+            $newEmail = new Email();
+            $newEmail->apartment_id = Arr::random($apartment_ids);
+
+            $newEmail->name = $faker->firstName();
+            $newEmail->email_address = $faker->email();
+            $newEmail->subject = $faker->sentence(5);
+            $newEmail->message = $faker->paragraph(10);
+
+            $newEmail->save();
+        }
     }
 }
