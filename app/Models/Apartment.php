@@ -21,4 +21,8 @@ class Apartment extends Model
     public function sponsors(){
         return $this->belongsToMany('App\Models\Sponsor');
     }
+
+    public function emails(){
+        return $this->hasMany("App\Models\Email");
+    }
 }
