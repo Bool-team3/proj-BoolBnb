@@ -22,7 +22,7 @@ class CreateApartmentSponsorTable extends Migration
             $table->unsignedBigInteger('sponsor_id');
             $table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('cascade');
 
-            // $table->date('expiration_date');
+            $table->date('expiration_date');
             $table->timestamps();
         });
     }

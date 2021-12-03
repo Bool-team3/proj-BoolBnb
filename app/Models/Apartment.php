@@ -22,7 +22,7 @@ class Apartment extends Model
     }
 
     public function sponsors(){
-        return $this->belongsToMany('App\Models\Sponsor');
+        return $this->belongsToMany('App\Models\Sponsor')->withPivot("expiration_date");
     }
 
     public function emails(){
