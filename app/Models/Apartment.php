@@ -25,4 +25,8 @@ class Apartment extends Model
     public function emails(){
         return $this->hasMany("App\Models\Email");
     }
+
+    public function visitors(){
+        return $this->hasMany("App\Models\Visitor");
+    }
 }
