@@ -25,11 +25,11 @@ class CreateApartmentsTable extends Migration
             $table->text('img_url')->nullable();
             $table->boolean('visible');
             $table->string('street_name');
-            $table->string('street_number');
+            $table->string('street_number', 10);
             $table->string('province')->nullable();
             $table->string('postal_code', 5);
-            $table->text('lat');
-            $table->text('lot');
+            $table->string('lat');
+            $table->string('lon');
 
              //soft delete for apartments
             $table->softDeletes();
