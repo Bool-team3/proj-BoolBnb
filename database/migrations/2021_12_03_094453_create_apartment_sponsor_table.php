@@ -17,10 +17,10 @@ class CreateApartmentSponsorTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('apartment_id');
-            $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('set null');
-
+            $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
+            // verificare cascade onDelete
             $table->unsignedBigInteger('sponsor_id');
-            $table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('set null');
+            $table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('cascade');
 
             $table->date('expiration_date');
             $table->timestamps();
@@ -34,6 +34,7 @@ class CreateApartmentSponsorTable extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('apartment_sponsor');
     }
 }
