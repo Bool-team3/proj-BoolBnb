@@ -24,6 +24,7 @@ class CreateApartmentsTable extends Migration
             $table->smallInteger('mq')->unsigned();
             $table->text('img_url')->nullable();
             $table->boolean('visible');
+            $table->string('city');
             $table->string('street_name');
             $table->string('street_number', 10);
             $table->string('province')->nullable();
@@ -33,6 +34,9 @@ class CreateApartmentsTable extends Migration
 
              //soft delete for apartments
             $table->softDeletes();
+
+            $table->timestamps();
+
 
         });
     }
