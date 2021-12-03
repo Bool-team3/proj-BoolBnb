@@ -25,7 +25,7 @@ class EmailSeeder extends Seeder
 
             $newEmail->name = $faker->firstName();
             $newEmail->email_address = $faker->email();
-            $newEmail->subject = $faker->sentence(5);
+            $newEmail->subject = $faker->word(6);
             $newEmail->message = $faker->paragraph(10);
 
             $newEmail->save();
