@@ -44,7 +44,21 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([]);
+        $request->validate([
+            'title' => 'required|string|max:120',
+            'room' => 'numeric|required|between:1,20',
+            'bedroom' => 'numeric|required|between:1,20',
+            'bathroom' => 'numeric|required|between:1,20',
+            'bed' => 'numeric|required|between:1,20',
+            'mq' => 'numeric|required|between:10,700',
+            //urL img - upload
+            'city' => 'required|string|max:30',
+            'street_name' => 'required|string|max:60',
+            'street_number' => 'required|string|max:10',
+            'province' => 'required|string|max:30',
+            'postal_code' => 'required|string|between:5,5',
+
+        ]);
 
         $data = $request->all();   
         $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [

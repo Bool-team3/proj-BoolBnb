@@ -25,7 +25,7 @@ class CreateApartmentsTable extends Migration
             $table->text('img_url')->nullable();
             $table->boolean('visible');
             $table->string('city');
-            $table->string('street_name');
+            $table->string('street_name', 50);
             $table->string('street_number', 10);
             $table->string('province')->nullable();
             $table->string('postal_code', 5);

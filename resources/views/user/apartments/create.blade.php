@@ -22,7 +22,7 @@
         <input type="text" id="title" name="title" value="{{ old('title', $apartment->title) }}">
         
         <label for="room">Stanze:</label>
-        <input type="number" min="0" id="room" name="room" value="{{ old('room', $apartment->room) }}">
+        <input type="number" min="1" id="room" name="room" value="{{ old('room', $apartment->room) }}">
 
         <label for="bedroom">Letti:</label>
         <input type="number" min="0"  id="bedroom" name="bedroom" value="{{ old('bedroom', $apartment->bedroom) }}">
@@ -55,7 +55,7 @@
         <input type="text" id="street_name" name="street_name" value="{{ old('city', $apartment->street_name) }}">
 
         <label for="street_number">Numero civico:</label>
-        <input type="number" min="1" id="street_number" name="street_number" value="{{ old('street_number', $apartment->street_number) }}">
+        <input type="text" min="0" id="street_number" name="street_number" value="{{ old('street_number', $apartment->street_number) }}">
 
         <label for="province">Provincia:</label>
         <input type="text" id="province" name="province" value="{{ old('province', $apartment->province) }}">
