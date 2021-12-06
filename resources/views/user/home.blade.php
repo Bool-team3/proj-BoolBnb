@@ -19,6 +19,6 @@
             </div>
         </div>
     </div>
-    <a href="{{route('user.apartments.index')}}">asda</a>
+    <a href="{{route('user.apartments.index')}}">I tuoi appartamenti</a>
 </div>
 @endsection
