@@ -3,7 +3,20 @@
 
 @section('content')
 
-    <form action="" method="POST" enctype="multipart/form-data">
+
+<section id="apartment_form">
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>        
+    @endif
+
+    <form action="{{route('user.apartments.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="title">Inserisci un titolo</label>
         <input type="text" id="title" name="title" value="{{ old('title', $apartment->title) }}">
@@ -29,14 +42,14 @@
         {{-- sezione visibilità appartamento  --}}
         <label for="visible">L'appartamento sarà:</label>
 
-        <input type="radio" id="visible_true" name="visible" value="true">
+        <input type="radio" id="visible_true" name="visible" value=1>
         <label for="visible_true">Visibile</label>
         
-        <input type="radio"  id="visible_false" name="visible" value="false">
+        <input type="radio"  id="visible_false" name="visible" value=0>
         <label for="visible_false">NON Visibile</label>
     
         <label for="city">Città:</label>
-        <input type="url" min="10" id="city" name="city" value="{{ old('city', $apartment->city) }}">
+        <input type="text" id="city" name="city" value="{{ old('city', $apartment->city) }}">
 
         <label for="street_name">Indirizzo:</label>
         <input type="text" id="street_name" name="street_name" value="{{ old('city', $apartment->street_name) }}">
@@ -50,7 +63,12 @@
         <label for="postal_code">C.A.P:</label>
         <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code', $apartment->postal_code) }}">
 
+        <button type="submit">Submit</button>
     </form>
+
+</section>
+
 @endsection
+
 
 

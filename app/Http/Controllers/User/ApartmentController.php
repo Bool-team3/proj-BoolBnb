@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ApartmentController extends Controller
 {
@@ -30,7 +31,6 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-
         $apartment = new Apartment();
         
         return view('user.apartments.create', compact('apartment'));
@@ -46,9 +46,30 @@ class ApartmentController extends Controller
     {
         $request->validate([]);
 
-        $data = $request->all();
+        $data = $request->all();   
+        $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
-        
+            'countryCode' => 'IT',
+            'streetNumber' =>  $data['street_number'],           
+            'streetName' =>  $data['street_name'],
+            'municipality' => $data['city'],
+            'municipalitySubdivision' => $data['province'],
+            'postalCode' => $data['postal_code'],
+            'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
+        ]);
+
+        $lat = $response->json()['results'][0]['position']['lat'];
+        $lon = $response->json()['results'][0]['position']['lon'];
+
+        $apartment = new Apartment();
+
+        $apartment->lat = $lat;
+        $apartment->lon = $lon;
+
+        $apartment->fill($data);
+        $apartment->save();
+
+        return redirect()->route('user.apartments.show', compact('apartment'));
     }
 
     
