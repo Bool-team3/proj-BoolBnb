@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Apartment;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -14,8 +17,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        return view('user.apartments.index');
-        
+        $apartments = Apartment::where("id", Auth::user()->id)->orderBy("asc")->paginate(10);
+        return view('user.apartments.index', compact("apartments"));
     }
 
     /**
