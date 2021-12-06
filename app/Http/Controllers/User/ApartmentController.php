@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -24,7 +25,10 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+
+        $apartment = new Apartment();
+        
+        return view('user.apartments.create', compact('apartment'));
     }
 
     /**
