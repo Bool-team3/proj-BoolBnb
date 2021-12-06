@@ -25,6 +25,5 @@ class ApartmentSponsorSeeder extends Seeder
             $apartments[$i]->sponsors()->sync([Arr::random($sponsor_ids) => 
             ["expiration_date" => Carbon::now()->addDays(Arr::random($sponsor_time))]]);
         }
-     
     }
 }

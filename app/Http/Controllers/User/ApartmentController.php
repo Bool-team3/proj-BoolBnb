@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Visitor;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class VisitorController extends Controller
+class ApartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class VisitorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Visitor  $visitor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Visitor $visitor)
+    public function show($id)
     {
         //
     }
@@ -52,10 +52,10 @@ class VisitorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Visitor  $visitor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Visitor $visitor)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +64,10 @@ class VisitorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Visitor  $visitor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Visitor $visitor)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +75,10 @@ class VisitorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Visitor  $visitor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Visitor $visitor)
+    public function destroy($id)
     {
         //
     }
