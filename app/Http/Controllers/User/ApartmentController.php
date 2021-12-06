@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -74,6 +75,8 @@ class ApartmentController extends Controller
 
         $lat = $response->json()['results'][0]['position']['lat'];
         $lon = $response->json()['results'][0]['position']['lon'];
+
+        $data['img_url'] = Storage::put('public', $data['img']);
 
         $apartment = new Apartment();
 
