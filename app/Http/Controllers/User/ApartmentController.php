@@ -110,12 +110,13 @@ class ApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Apartment $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Apartment $apartment)
     {
-        //
+        // $apartment = Apartment::all();
+        return view('user.apartments.edit', compact('apartment'));
     }
 
     /**
@@ -127,7 +128,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
