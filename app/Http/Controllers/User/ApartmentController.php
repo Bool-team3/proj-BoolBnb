@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 use App\User;
@@ -33,8 +34,10 @@ class ApartmentController extends Controller
     public function create()
     {
         $apartment = new Apartment();
+
+        $services = Service::all();
         
-        return view('user.apartments.create', compact('apartment'));
+        return view('user.apartments.create', compact('apartment', 'services'));
     }
 
     /**
@@ -85,6 +88,8 @@ class ApartmentController extends Controller
 
         $apartment->fill($data);
         $apartment->save();
+
+        if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
 
         return redirect()->route('user.apartments.show', compact('apartment'));
     }

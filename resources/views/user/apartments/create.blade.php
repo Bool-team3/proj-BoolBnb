@@ -63,6 +63,20 @@
         <label for="postal_code">C.A.P:</label>
         <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code', $apartment->postal_code) }}">
 
+        
+        {{-- form per Services --}}
+
+        <div class="form-check form-check-inline">
+            <legend class="h5">Servizzi</legend>
+            @foreach ($services as $service)
+                <input type="checkbox" class="form-check-input" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]">
+                
+                <label class="form-check-label px-2" for="service-{{$service->id}}">
+                    {{$service->name}}
+                </label>
+            @endforeach
+        </div>
+
         <button type="submit">Submit</button>
     </form>
 
