@@ -17,7 +17,7 @@
     @endif
     <div class="card-body">
 
-        <form action="{{route('user.apartments.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('user.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="form-group row">
@@ -92,17 +92,16 @@
             
             {{-- form per Services --}}
 
-            {{-- <div class="form-check form-check-inline">
-                <legend class="h5">Servizzi</legend>
+            <div class="form-check ">
+                <legend class="h5">Servizi</legend>
                 @foreach ($services as $service)
-                    <input type="checkbox" class="form-check-input" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]">
-                    
-                    <label class="form-check-label px-2" for="service-{{$service->id}}">
-                        {{$service->name}}
-                    </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{$service->id}}" id="tag-{{$service->id}}" name="services[]" 
+                            @if(in_array($service->id, old('services', $serviceIds ? $serviceIds : []))) checked @endif>
+                        <label class="form-check-label" for="service-{{$service->id}}">{{$service->name}}</label>
+                    </div>
                 @endforeach
-            </div> --}}
-
+            </div>
             <button type="submit">Submit</button>
         </form>
     </div>

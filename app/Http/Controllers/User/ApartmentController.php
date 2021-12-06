@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
-use App\Models\Apartment;
-use App\Models\Service;
-use Illuminate\Http\Request;
-
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Models\Apartment;
+use App\Models\Service;
+// use App\User;
+
 
 class ApartmentController extends Controller
 {
@@ -104,7 +104,10 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view("user.apartments.show", compact("apartment"));
+        //servizi da aggiustare perché così li prende tutti, invece bisogna prendere quelli del singolo appartamento
+        //dobbiamo prendere l'id invece della dependency injection?????????
+        $services = Service::all();
+        return view("user.apartments.show", compact("apartment", 'services'));
     }
 
     /**
@@ -124,12 +127,58 @@ class ApartmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param   Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Apartment $apartment)
     {
         
+        // $request->validate([
+        //     'title' => 'required|string|max:120',
+        //     'room' => 'numeric|required|between:1,20',
+        //     'bedroom' => 'numeric|required|between:1,20',
+        //     'bathroom' => 'numeric|required|between:1,20',
+        //     'bed' => 'numeric|required|between:1,20',
+        //     'mq' => 'numeric|required|between:10,700',
+        //     //urL img - upload
+        //     'city' => 'required|string|max:30',
+        //     'street_name' => 'required|string|max:60',
+        //     'street_number' => 'required|string|max:10',
+        //     'province' => 'required|string|max:30',
+        //     'postal_code' => 'required|string|between:5,5',
+
+        // ]);
+
+        $data = $request->all();   
+        // $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
+
+        //     'countryCode' => 'IT',
+        //     'streetNumber' =>  $data['street_number'],           
+        //     'streetName' =>  $data['street_name'],
+        //     'municipality' => $data['city'],
+        //     'municipalitySubdivision' => $data['province'],
+        //     'postalCode' => $data['postal_code'],
+        //     'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
+        // ]);
+
+        // $data['user_id'] = Auth::user()->id;
+
+        // $lat = $response->json()['results'][0]['position']['lat'];
+        // $lon = $response->json()['results'][0]['position']['lon'];
+
+        // $data['img_url'] = Storage::put('public', $data['img']);
+
+
+
+        // $apartment->lat = $lat;
+        // $apartment->lon = $lon;
+
+        // $apartment->fill($data);
+        $apartment->update($data);
+
+        if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
+
+        return redirect()->route('user.apartments.show', $apartment);
     }
 
     /**
