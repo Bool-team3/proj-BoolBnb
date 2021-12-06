@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 
+use App\User;
+use Illuminate\Support\Facades\Auth;
+
 class ApartmentController extends Controller
 {
     /**
@@ -15,7 +18,9 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        return view('user.apartments.index');
+        // $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->paginate(10);
+        $apartments = Apartment::all();
+        return view('user.apartments.index', compact("apartments"));
     }
 
     /**
@@ -48,9 +53,9 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Apartment $apartment)
     {
-        //
+        return view("user.apartments.show", compact("apartment"));
     }
 
     /**
