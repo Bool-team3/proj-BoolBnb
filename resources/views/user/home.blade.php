@@ -19,5 +19,6 @@
             </div>
         </div>
     </div>
+    <a href="{{route('user.apartments.index')}}">asda</a>
 </div>
 @endsection
