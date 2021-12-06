@@ -67,7 +67,7 @@
         {{-- form per Services --}}
 
         <div class="form-check form-check-inline">
-            <legend class="h5">Servizzi</legend>
+            <legend class="h5">Servizi</legend>
             @foreach ($services as $service)
                 <input type="checkbox" class="form-check-input" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]">
                 
