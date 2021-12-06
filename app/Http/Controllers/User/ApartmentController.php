@@ -115,8 +115,9 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        // $apartment = Apartment::all();
-        return view('user.apartments.edit', compact('apartment'));
+        $services = Service::all();
+        $serviceIds = $apartment->services->pluck('id')->toArray();
+        return view('user.apartments.edit', compact('apartment', 'services', 'serviceIds'));
     }
 
     /**
