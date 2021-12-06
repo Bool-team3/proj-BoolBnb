@@ -44,8 +44,14 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([]);
+
+        $data = $request->all();
+
+        
     }
+
+    
 
     /**
      * Display the specified resource.
