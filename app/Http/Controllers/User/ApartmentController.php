@@ -194,11 +194,13 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        // DETACH DEI SERVIZI AGGIUNTIVI 
         if($apartment->service)
         {
             $apartment->services()->detach();    
         }
         $apartment->delete();
-        return redirect()->route('user.apartment.index')->with('delete', $apartment->title);
+        // RITORNO ALLA VIEW INDEX E NEL FORM DEL DELETE RITORNO IL NOME DELL'APPARTAMENTO COSì ESCE SCRITTO: APPARTAMENTO ECC ECC ELIMINATO CON SUCCESSO 
+        return redirect()->route('user.apartments.index')->with('delete', $apartment->title);
     }
 }

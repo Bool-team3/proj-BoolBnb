@@ -3,6 +3,13 @@
 @section('content')
     
     <div class="container">
+        {{-- AVVISO IN CASO DI ELIMINAZIONE AVVENUTA CON SUCCESSO  --}}
+        @if(session('delete'))
+            <div class="alert alert-success" role="alert">
+                {{session('delete') }} è stato eliminato con successo!
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
                 <h2>I tuoi appartamenti</h2>
@@ -23,6 +30,13 @@
                                     <p class="card-text">Città: {{$apartment->city}}</p>
                                     <p class="card-text"><small class="text-muted">Last updated {{$apartment->created_at}} ago</small></p>
                                     <a href="{{route('user.apartments.edit', $apartment)}}">Modifica Informazioni</a>
+                                    {{-- FORM PER ELIMINARE UN APPARTAMENTO  --}}
+                                    <form method="POST" action="{{route('user.apartments.destroy', $apartment)}}" class="delete-form" data-apartment-id="{{$apartment->id}}" data-apartment-title="{{$apartment->title}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
+                                        <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -24,6 +24,12 @@
                         </ul>
                         <p class="card-text"><small class="text-muted">Last updated {{$apartment->created_at}} ago</small></p>
                         <a href="{{route('user.apartments.edit', $apartment)}}">Modifica Informazioni</a>
+                        <form method="POST" action="{{route('user.apartments.destroy', $apartment)}}" class="delete-form" data-apartment-id="{{$apartment->id}}" data-apartment-title="{{$apartment->title}}">
+                            @csrf
+                            @method('DELETE')
+                            {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
+                            <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
+                        </form>
                     </div>
                 </div>
             </div>
