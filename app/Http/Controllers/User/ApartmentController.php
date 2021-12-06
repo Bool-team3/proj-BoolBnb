@@ -17,7 +17,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::where("id", Auth::user()->id)->orderBy("asc")->paginate(10);
+        // $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->paginate(10);
+        $apartments = Apartment::all();
         return view('user.apartments.index', compact("apartments"));
     }
 
@@ -48,9 +49,9 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Apartment $apartment)
     {
-        //
+        return view("user.apartments.show", compact("apartment"));
     }
 
     /**
