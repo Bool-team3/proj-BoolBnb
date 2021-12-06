@@ -133,23 +133,28 @@ class ApartmentController extends Controller
     public function update(Request $request, Apartment $apartment)
     {
         
-        // $request->validate([
-        //     'title' => 'required|string|max:120',
-        //     'room' => 'numeric|required|between:1,20',
-        //     'bedroom' => 'numeric|required|between:1,20',
-        //     'bathroom' => 'numeric|required|between:1,20',
-        //     'bed' => 'numeric|required|between:1,20',
-        //     'mq' => 'numeric|required|between:10,700',
-        //     //urL img - upload
-        //     'city' => 'required|string|max:30',
-        //     'street_name' => 'required|string|max:60',
-        //     'street_number' => 'required|string|max:10',
-        //     'province' => 'required|string|max:30',
-        //     'postal_code' => 'required|string|between:5,5',
+        
+        $request->validate([
+            'title' => 'required|string|max:120',
+            'room' => 'numeric|required|between:1,20',
+            'bedroom' => 'numeric|required|between:1,20',
+            'bathroom' => 'numeric|required|between:1,20',
+            'bed' => 'numeric|required|between:1,20',
+            'mq' => 'numeric|required|between:10,700',
+            //urL img - upload
+            'city' => 'required|string|max:30',
+            'street_name' => 'required|string|max:60',
+            'street_number' => 'required|string|max:10',
+            'province' => 'required|string|max:30',
+            'postal_code' => 'required|string|between:5,5',
 
-        // ]);
+        ]);
 
         $data = $request->all();   
+
+        //SU QUESTA COSA MI DA UN ERRORE: cURL error 60: SSL certificate problem: unable to get local issuer certificate
+        //CREDO ABBIA A CHE FARE CON LA CHIAMATA API
+
         // $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
         //     'countryCode' => 'IT',
@@ -184,11 +189,16 @@ class ApartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Apartment $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Apartment $apartment)
     {
-        //
+        if($apartment->service)
+        {
+            $apartment->services()->detach();    
+        }
+        $apartment->delete();
+        return redirect()->route('user.apartment.index')->with('delete', $apartment->title);
     }
 }
