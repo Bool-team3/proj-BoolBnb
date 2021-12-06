@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>I tuoi appartamenti</h2>
+                <a href="{{route('user.apartments.create')}}">Carica un nuovo appartamento</a>
                 @forelse ($apartments as $apartment)
                     <div class="card-deck">
                         <div class="card">
@@ -21,6 +22,7 @@
                                     <h6 class="card-title">Metri quadrati: {{$apartment->mq}}</h6>
                                     <p class="card-text">Città: {{$apartment->city}}</p>
                                     <p class="card-text"><small class="text-muted">Last updated {{$apartment->created_at}} ago</small></p>
+                                    <a href="{{route('user.apartments.edit', $apartment)}}">Modifica Informazioni</a>
                                 </div>
                             </div>
                         </div>
