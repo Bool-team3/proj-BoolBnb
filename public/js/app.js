@@ -50293,13 +50293,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! C:\Users\cicci\Documents\proj-BoolBnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\cicci\Documents\proj-BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> main
+__webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
