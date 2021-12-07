@@ -16,7 +16,7 @@
                         <p class="card-text">Città: {{$apartment->city}}</p>
                         <legend>Servizi:</legend>
                         <ul>
-                            @forelse ($services as $service)
+                            @forelse ($apartment->services as $service)
                                 <li>{{$service->name}}</li>
                             @empty
                                 nessun servizio aggiuntivo

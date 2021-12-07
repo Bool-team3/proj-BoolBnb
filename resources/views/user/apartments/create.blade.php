@@ -16,6 +16,13 @@
     </div>        
     @endif
 
+    @if (session('error'))
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ session('error_message') }}
+        </div>
+    @endif
+
     <form action="{{route('user.apartments.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="title">Inserisci un titolo</label>

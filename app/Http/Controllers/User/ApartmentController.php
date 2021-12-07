@@ -76,10 +76,16 @@ class ApartmentController extends Controller
             'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
         ]);
 
+        // dd($response->json()['summary']['numResults']);
+        if($response->json()['summary']['numResults'] != 1){
+            return redirect()->route('user.apartments.create')->with('error', $response->json()['results'][0]['position'])->with('error_message', 'L\'indirizzo inserito non è corretto.');
+        }
+
+        // dd($response->json()['summary']['numResults']);
         $lat = $response->json()['results'][0]['position']['lat'];
         $lon = $response->json()['results'][0]['position']['lon'];
 
-        $data['img_url'] = Storage::put('public', $data['img']);
+        // $data['img_url'] = Storage::put('public', $data['img']);
 
         $apartment = new Apartment();
 
@@ -104,10 +110,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //servizi da aggiustare perché così li prende tutti, invece bisogna prendere quelli del singolo appartamento
-        //dobbiamo prendere l'id invece della dependency injection?????????
-        $services = Service::all();
-        return view("user.apartments.show", compact("apartment", 'services'));
+        return view("user.apartments.show", compact("apartment"));
     }
 
     /**
