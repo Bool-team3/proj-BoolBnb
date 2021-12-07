@@ -78,7 +78,9 @@ class ApartmentController extends Controller
             'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
         ]);
 
+        // dd($response->json()['results']);
         // dd($response->json()['summary']['numResults']);
+        
         if($response->json()['summary']['numResults'] != 1){
             return redirect()->route('user.apartments.create')->with('error', 'L\'indirizzo non è corretto' );
         }
