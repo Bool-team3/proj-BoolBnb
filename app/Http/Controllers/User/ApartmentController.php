@@ -21,8 +21,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        // $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->paginate(10);
-        $apartments = Apartment::all();
+        $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->get();
         return view('user.apartments.index', compact("apartments"));
     }
 
@@ -36,6 +35,7 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
 
         $services = Service::all();
+
         
         return view('user.apartments.create', compact('apartment', 'services'));
     }
@@ -64,7 +64,8 @@ class ApartmentController extends Controller
 
         ]);
 
-        $data = $request->all();   
+        $data = $request->all();
+
         $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
             'countryCode' => 'IT',
@@ -85,13 +86,18 @@ class ApartmentController extends Controller
         $lon = $response->json()['results'][0]['position']['lon'];
 
         // $data['img_url'] = Storage::put('public', $data['img']);
+        
 
         $apartment = new Apartment();
 
+        $apartment["user_id"] = Auth::user()->id;
         $apartment->lat = $lat;
         $apartment->lon = $lon;
 
         $apartment->fill($data);
+        if($data["img_url"] == null){
+            $apartment['img_url'] = 'https://www.iyengaryoga.it/app/public/files/scuola/default.png';
+        }
         $apartment->save();
 
         if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
