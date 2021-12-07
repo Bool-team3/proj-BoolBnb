@@ -22,6 +22,7 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->get();
+        // $apartments = Apartment::all();
         return view('user.apartments.index', compact("apartments"));
     }
 
@@ -55,7 +56,7 @@ class ApartmentController extends Controller
             'bathroom' => 'numeric|required|between:1,20',
             'bed' => 'numeric|required|between:1,20',
             'mq' => 'numeric|required|between:10,700',
-            //urL img - upload
+            "image_url" => "image|mimes:jpg,png,jpeg,gif,svg",
             'city' => 'required|string|max:30',
             'street_name' => 'required|string|max:60',
             'street_number' => 'required|string|max:10',
@@ -85,7 +86,7 @@ class ApartmentController extends Controller
         $lat = $response->json()['results'][0]['position']['lat'];
         $lon = $response->json()['results'][0]['position']['lon'];
 
-        // $data['img_url'] = Storage::put('public', $data['img']);
+        $data['img_url'] = Storage::put('public', $data['img']);
         
 
         $apartment = new Apartment();
@@ -149,7 +150,7 @@ class ApartmentController extends Controller
             'bathroom' => 'numeric|required|between:1,20',
             'bed' => 'numeric|required|between:1,20',
             'mq' => 'numeric|required|between:10,700',
-            //urL img - upload
+            "image_url" => "image|mimes:jpg,png,jpeg,gif,svg",
             'city' => 'required|string|max:30',
             'street_name' => 'required|string|max:60',
             'street_number' => 'required|string|max:10',
@@ -160,33 +161,31 @@ class ApartmentController extends Controller
 
         $data = $request->all();   
 
-        //SU QUESTA COSA MI DA UN ERRORE: cURL error 60: SSL certificate problem: unable to get local issuer certificate
-        //CREDO ABBIA A CHE FARE CON LA CHIAMATA API
+        $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
-        // $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
+            'countryCode' => 'IT',
+            'streetNumber' =>  $data['street_number'],           
+            'streetName' =>  $data['street_name'],
+            'municipality' => $data['city'],
+            'municipalitySubdivision' => $data['province'],
+            'postalCode' => $data['postal_code'],
+            'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
+        ]);
 
-        //     'countryCode' => 'IT',
-        //     'streetNumber' =>  $data['street_number'],           
-        //     'streetName' =>  $data['street_name'],
-        //     'municipality' => $data['city'],
-        //     'municipalitySubdivision' => $data['province'],
-        //     'postalCode' => $data['postal_code'],
-        //     'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
-        // ]);
+        $data['user_id'] = Auth::user()->id;
 
-        // $data['user_id'] = Auth::user()->id;
+        $lat = $response->json()['results'][0]['position']['lat'];
+        $lon = $response->json()['results'][0]['position']['lon'];
 
-        // $lat = $response->json()['results'][0]['position']['lat'];
-        // $lon = $response->json()['results'][0]['position']['lon'];
+        $data['img_url'] = Storage::put('public', $data['img_url']);
 
-        // $data['img_url'] = Storage::put('public', $data['img']);
+        $apartment->lat = $lat;
+        $apartment->lon = $lon;
 
-
-
-        // $apartment->lat = $lat;
-        // $apartment->lon = $lon;
-
-        // $apartment->fill($data);
+        $apartment->fill($data);
+        if($data["img_url"] == null){
+            $apartment['img_url'] = 'https://www.iyengaryoga.it/app/public/files/scuola/default.png';
+        }
         $apartment->update($data);
 
         if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);

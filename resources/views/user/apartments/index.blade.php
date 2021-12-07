@@ -18,7 +18,7 @@
                     <div class="card-deck">
                         <div class="card">
                             <div class="d-flex">
-                                <img class="card-img-top img-fluid" style="width:300px" src="{{$apartment->img_url}}" alt="Appartamento">
+                                <img class="card-img-top img-fluid" style="width:300px" src="{{ $apartment->getImagePrefix() . $apartment->img_url }}" alt="Appartamento">
 
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{route("user.apartments.show", $apartment->id)}}">{{$apartment->title}}</a></h5>

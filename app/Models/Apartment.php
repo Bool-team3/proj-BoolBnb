@@ -32,4 +32,11 @@ class Apartment extends Model
     public function visitors(){
         return $this->hasMany("App\Models\Visitor");
     }
+
+    public function getImagePrefix(){
+        if (str_starts_with($this->img_url, "public")){
+            return asset("storage") . "/";
+        }
+        return "";
+    }
 }

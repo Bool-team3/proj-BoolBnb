@@ -5,7 +5,7 @@
         <div class="row">
             <div class="card-deck">
                 <div class="card">
-                    <img class="card-img-top" src="{{$apartment->img_url}}" alt="Appartamento">
+                    <img class="card-img-top img-fluid" style="width:300px" src="{{ $apartment->getImagePrefix() . $apartment->img_url }}" alt="Appartamento">
                     <div class="card-body">
                         <h5 class="card-title">{{$apartment->title}}</h5>
                         <h6 class="card-title">Stanze: {{$apartment->room}}</h6>
