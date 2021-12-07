@@ -78,10 +78,9 @@ class ApartmentController extends Controller
 
         // dd($response->json()['summary']['numResults']);
         if($response->json()['summary']['numResults'] != 1){
-            return redirect()->route('user.apartments.create')->with('error', $response->json()['results'][0]['position'])->with('error_message', 'L\'indirizzo inserito non è corretto.');
+            return redirect()->route('user.apartments.create')->with('error', 'L\'indirizzo non è corretto' );
         }
 
-        // dd($response->json()['summary']['numResults']);
         $lat = $response->json()['results'][0]['position']['lat'];
         $lon = $response->json()['results'][0]['position']['lon'];
 
