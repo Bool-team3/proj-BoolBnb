@@ -22,8 +22,13 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('apartments', ApartmentController::class);
         // Route::resource('users', UserController::class);
+        
+        Route::resource('emails', EmailController::class)->only([
+            'index', 'show', 'destroy'
+        ]);
 });
 
 Route::get('{any?}', function(){
     return view('404');
 })->where('any', '.*');
+
