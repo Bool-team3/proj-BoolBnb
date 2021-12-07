@@ -56,7 +56,7 @@ class ApartmentController extends Controller
             'bathroom' => 'numeric|required|between:1,20',
             'bed' => 'numeric|required|between:1,20',
             'mq' => 'numeric|required|between:10,700',
-            "img_url" => "required|mimes:jpg,png,jpeg,gif,svg",
+            "img_url" => "mimes:jpg,png,jpeg,gif,svg",
             'city' => 'required|string|max:30',
             'street_name' => 'required|string|max:60',
             'street_number' => 'required|string|max:10',
@@ -95,12 +95,12 @@ class ApartmentController extends Controller
         $apartment["user_id"] = Auth::user()->id;
         $apartment->lat = $lat;
         $apartment->lon = $lon;
-        
-        $data['img_url'] = Storage::put('public', $data['img_url']);
+        if( array_key_exists('img_url', $data)){
+            $data['img_url'] = Storage::put('public', $data['img_url']);
+        }
         $apartment->fill($data);
-        
         $apartment->save();
-
+        
         if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
 
         return redirect()->route('user.apartments.show', compact('apartment'));
@@ -150,7 +150,7 @@ class ApartmentController extends Controller
             'bathroom' => 'numeric|required|between:1,20',
             'bed' => 'numeric|required|between:1,20',
             'mq' => 'numeric|required|between:10,700',
-            "img_url" => "required|mimes:jpg,png,jpeg,gif,svg",
+            "img_url" => "mimes:jpg,png,jpeg,gif,svg",
             'city' => 'required|string|max:30',
             'street_name' => 'required|string|max:60',
             'street_number' => 'required|string|max:10',
@@ -177,15 +177,14 @@ class ApartmentController extends Controller
         $lat = $response->json()['results'][0]['position']['lat'];
         $lon = $response->json()['results'][0]['position']['lon'];
 
-        $data['img_url'] = Storage::put('public', $data['img_url']);
+        if( array_key_exists('img_url', $data)){
+            $data['img_url'] = Storage::put('public', $data['img_url']);
+        }
 
         $apartment->lat = $lat;
         $apartment->lon = $lon;
 
         $apartment->fill($data);
-        if($data["img_url"] == null){
-            $apartment['img_url'] = 'https://www.iyengaryoga.it/app/public/files/scuola/default.png';
-        }
         $apartment->update($data);
 
         if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
