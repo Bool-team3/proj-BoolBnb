@@ -43,7 +43,6 @@
                     </div>
                 @empty
                     <h4>Non hai appartamenti, carica un appartamento</h4>
-                    <a href="{{route("user.apartments.create")}}">Crea appartamento</a>
                 @endforelse
             </div>
         </div>
