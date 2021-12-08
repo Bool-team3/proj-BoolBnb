@@ -27,11 +27,11 @@
                                 <p class="card-text"><small class="text-muted">Ricevuta il:{{$email->created_at}} ago</small></p>
 
                                 {{-- FORM PER ELIMINARE UN APPARTAMENTO  --}}
-                                 <form method="POST" action="{{route('user.emails.destroy', $email)}}" class="delete-form" data-email-id="{{$email->id}}" data-email-subject="{{$email->subject}}">
-                                    @csrf
-                                    @method('DELETE') 
+                                <form method="POST" action="{{route('user.emails.destroy', $email)}}" class="delete-form" data-email-id="{{$email->id}}" data-email-subject="{{$email->subject}}">
+                                @csrf
+                                @method('DELETE') 
                                     {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
-                                   <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questa email?');">
+                                    <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questa email?');">
                                 </form>
                             </div>
                         </div>
