@@ -20,5 +20,8 @@
         </div>
     </div>
     <a href="{{route('user.apartments.index')}}">I tuoi appartamenti</a>
+    <a href="{{route('user.emails.index')}}">I tuoi messaggi</a>
 </div>
+
+
 @endsection

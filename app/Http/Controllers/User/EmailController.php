@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
+use App\Models\Email;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmailController extends Controller
 {
@@ -14,7 +17,13 @@ class EmailController extends Controller
      */
     public function index()
     {
-        //
+        $userApartments = Apartment::where('user_id', Auth::user()->id)->pluck('id')->toArray();
+        
+        $emails = Email::where('apartment_id',$userApartments)->orderBy("created_at","desc")->get();
+        
+        // $emails = Email::all();
+
+        return view('user.emails.index', compact('emails'));
     }
 
     /**
@@ -44,9 +53,9 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Email $email)
     {
-        //
+        return view('user.emails.show', compact('email'));
     }
 
     /**
@@ -78,8 +87,10 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Email $email)
     {
-        //
+        $email->delete();
+       
+        return redirect()->route('user.emails.index')->with('delete', $email->subject);
     }
 }
