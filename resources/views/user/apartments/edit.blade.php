@@ -50,8 +50,8 @@
             </div>
             <div class="form-group row">
                 {{-- aggiungere upload file --}}
-                <label for="img_url" class="col-md-1 col-form-label ">Inserisci foto:</label>
-                <input type="file" id="img" name="img" value="{{ old('img', $apartment->img_url) }}">
+                <label for="img_url" class="col-md-1 col-form-label ">Inserisci foto</label>
+                <input type="file" id="img_url" name="img_url" value="{{ old('img_url', $apartment->img_url) }}">
             </div>
 
             <div class="form-group row">

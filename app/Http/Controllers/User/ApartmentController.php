@@ -21,8 +21,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        // $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->paginate(10);
-        $apartments = Apartment::all();
+        $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->get();
+        // $apartments = Apartment::all();
         return view('user.apartments.index', compact("apartments"));
     }
 
@@ -36,6 +36,7 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
 
         $services = Service::all();
+
         
         return view('user.apartments.create', compact('apartment', 'services'));
     }
@@ -55,7 +56,7 @@ class ApartmentController extends Controller
             'bathroom' => 'numeric|required|between:1,20',
             'bed' => 'numeric|required|between:1,20',
             'mq' => 'numeric|required|between:10,700',
-            //urL img - upload
+            "img_url" => "mimes:jpg,png,jpeg,gif,svg",
             'city' => 'required|string|max:30',
             'street_name' => 'required|string|max:60',
             'street_number' => 'required|string|max:10',
@@ -64,7 +65,8 @@ class ApartmentController extends Controller
 
         ]);
 
-        $data = $request->all();   
+        $data = $request->all();
+
         $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
             'countryCode' => 'IT',
@@ -76,19 +78,29 @@ class ApartmentController extends Controller
             'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
         ]);
 
+        // dd($response->json()['results']);
+        // dd($response->json()['summary']['numResults']);
+
+        if($response->json()['summary']['numResults'] == 0){
+            return redirect()->route('user.apartments.create')->with('error', 'L\'indirizzo non è corretto' );
+        }
+
         $lat = $response->json()['results'][0]['position']['lat'];
         $lon = $response->json()['results'][0]['position']['lon'];
 
-        $data['img_url'] = Storage::put('public', $data['img']);
+        
 
         $apartment = new Apartment();
 
+        $apartment["user_id"] = Auth::user()->id;
         $apartment->lat = $lat;
         $apartment->lon = $lon;
-
+        if( array_key_exists('img_url', $data)){
+            $data['img_url'] = Storage::put('public', $data['img_url']);
+        }
         $apartment->fill($data);
         $apartment->save();
-
+        
         if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
 
         return redirect()->route('user.apartments.show', compact('apartment'));
@@ -104,10 +116,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //servizi da aggiustare perché così li prende tutti, invece bisogna prendere quelli del singolo appartamento
-        //dobbiamo prendere l'id invece della dependency injection?????????
-        $services = Service::all();
-        return view("user.apartments.show", compact("apartment", 'services'));
+        return view("user.apartments.show", compact("apartment"));
     }
 
     /**
@@ -141,7 +150,7 @@ class ApartmentController extends Controller
             'bathroom' => 'numeric|required|between:1,20',
             'bed' => 'numeric|required|between:1,20',
             'mq' => 'numeric|required|between:10,700',
-            //urL img - upload
+            "img_url" => "mimes:jpg,png,jpeg,gif,svg",
             'city' => 'required|string|max:30',
             'street_name' => 'required|string|max:60',
             'street_number' => 'required|string|max:10',
@@ -152,33 +161,34 @@ class ApartmentController extends Controller
 
         $data = $request->all();   
 
-        //SU QUESTA COSA MI DA UN ERRORE: cURL error 60: SSL certificate problem: unable to get local issuer certificate
-        //CREDO ABBIA A CHE FARE CON LA CHIAMATA API
+        $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
-        // $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
+            'countryCode' => 'IT',
+            'streetNumber' =>  $data['street_number'],           
+            'streetName' =>  $data['street_name'],
+            'municipality' => $data['city'],
+            'municipalitySubdivision' => $data['province'],
+            'postalCode' => $data['postal_code'],
+            'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
+        ]);
 
-        //     'countryCode' => 'IT',
-        //     'streetNumber' =>  $data['street_number'],           
-        //     'streetName' =>  $data['street_name'],
-        //     'municipality' => $data['city'],
-        //     'municipalitySubdivision' => $data['province'],
-        //     'postalCode' => $data['postal_code'],
-        //     'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
-        // ]);
+        if($response->json()['summary']['numResults'] == 0){
+            return redirect()->route('user.apartments.edit')->with('error', 'L\'indirizzo non è corretto' );
+        }
 
-        // $data['user_id'] = Auth::user()->id;
+        $data['user_id'] = Auth::user()->id;
 
-        // $lat = $response->json()['results'][0]['position']['lat'];
-        // $lon = $response->json()['results'][0]['position']['lon'];
+        $lat = $response->json()['results'][0]['position']['lat'];
+        $lon = $response->json()['results'][0]['position']['lon'];
 
-        // $data['img_url'] = Storage::put('public', $data['img']);
+        if( array_key_exists('img_url', $data)){
+            $data['img_url'] = Storage::put('public', $data['img_url']);
+        }
 
+        $apartment->lat = $lat;
+        $apartment->lon = $lon;
 
-
-        // $apartment->lat = $lat;
-        // $apartment->lon = $lon;
-
-        // $apartment->fill($data);
+        $apartment->fill($data);
         $apartment->update($data);
 
         if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);

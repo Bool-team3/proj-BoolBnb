@@ -18,7 +18,7 @@
                     <div class="card-deck">
                         <div class="card">
                             <div class="d-flex">
-                                <img class="card-img-top img-fluid" style="width:300px" src="{{$apartment->img_url}}" alt="Appartamento">
+                                <img class="card-img-top img-fluid" style="width:300px" src="{{ $apartment->img_url ? $apartment->getImagePrefix() . $apartment->img_url : 'https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png' }}" alt="Appartamento">
 
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{route("user.apartments.show", $apartment->id)}}">{{$apartment->title}}</a></h5>
@@ -37,6 +37,8 @@
                                         {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
                                         <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
                                     </form>
+
+                                    <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
                                 </div>
                             </div>
                         </div>
