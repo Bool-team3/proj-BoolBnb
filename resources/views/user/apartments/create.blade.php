@@ -42,8 +42,8 @@
         <label for="mq">Metri quadri:</label>
         <input type="number" min="10" id="mq" name="mq" value="{{ old('mq', $apartment->mq) }}">
         {{-- aggiungere upload file --}}
-        <label for="img_url">Inserisci foto:</label>
-        <input type="text" id="img_url" name="img_url" value="{{ old('img_url', $apartment->img_url) }}">
+        <label for="img_url">Inserisci foto</label>
+        <input type="file" id="img_url" name="img_url" value="{{ old('img_url', $apartment->img_url) }}">
         
         {{-- sezione visibilità appartamento  --}}
         <label for="visible">L'appartamento sarà:</label>

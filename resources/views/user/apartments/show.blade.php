@@ -5,7 +5,7 @@
         <div class="row">
             <div class="card-deck">
                 <div class="card">
-                    <img class="card-img-top" src="{{$apartment->img_url}}" alt="Appartamento">
+                    <img class="card-img-top img-fluid" style="width:300px" src="{{ $apartment->img_url ? $apartment->getImagePrefix() . $apartment->img_url : 'https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png' }}" alt="Appartamento">
                     <div class="card-body">
                         <h5 class="card-title">{{$apartment->title}}</h5>
                         <h6 class="card-title">Stanze: {{$apartment->room}}</h6>
