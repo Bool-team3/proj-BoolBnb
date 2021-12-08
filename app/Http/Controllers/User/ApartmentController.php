@@ -81,7 +81,7 @@ class ApartmentController extends Controller
         // dd($response->json()['results']);
         // dd($response->json()['summary']['numResults']);
 
-        if($response->json()['summary']['numResults'] != 1){
+        if($response->json()['summary']['numResults'] == 0){
             return redirect()->route('user.apartments.create')->with('error', 'L\'indirizzo non è corretto' );
         }
 
@@ -171,6 +171,10 @@ class ApartmentController extends Controller
             'postalCode' => $data['postal_code'],
             'key' => 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
         ]);
+
+        if($response->json()['summary']['numResults'] == 0){
+            return redirect()->route('user.apartments.edit')->with('error', 'L\'indirizzo non è corretto' );
+        }
 
         $data['user_id'] = Auth::user()->id;
 

@@ -21,7 +21,11 @@ class CreateEmailsTable extends Migration
             $table->text("message");
 
             $table->timestamps();
+
+            $table->softDeletes();
+            
         });
+
     }
 
     /**

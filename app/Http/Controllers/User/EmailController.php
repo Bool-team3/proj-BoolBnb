@@ -87,8 +87,10 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Email $email)
     {
-        //
+        $email->delete();
+       
+        return redirect()->route('user.emails.index')->with('delete', $email->subject);
     }
 }
