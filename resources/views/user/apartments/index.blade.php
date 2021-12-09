@@ -44,6 +44,7 @@
                                         <legend class="text-success">Sponsorizzato</legend>
                                     
                                     
+
                                     @endif
                                     <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
                                 </div>
@@ -56,4 +57,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('page-title')
+    Apartments
 @endsection
