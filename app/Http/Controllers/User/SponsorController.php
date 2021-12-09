@@ -60,9 +60,6 @@ class SponsorController extends Controller
                 ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
         }
 
-        $apartment->sponsors()->sync([$data['sponsor_id'] => ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
-
-
         return redirect()->route('user.apartments.index');
 
     }
