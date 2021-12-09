@@ -58,3 +58,7 @@
         </div>
     </div>
 @endsection
+
+@section('page-title')
+    Apartments
+@endsection

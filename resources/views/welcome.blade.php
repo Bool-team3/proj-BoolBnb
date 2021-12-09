@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>BoolBnB | HOME</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ route('user.home') }}">Home</a>
+                        <a href="{{ route('user.home') }}">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -79,9 +79,9 @@
                 </div>
             @endif
 
-            <div class="content">
+            {{-- <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    BoolBnB
                 </div>
 
                 <div class="links">
@@ -94,10 +94,8 @@
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
 
-
-                    {{-- <a href="{{route('user.apartments.index')}}">sdfsdf</a> --}}
                 </div>
-            </div>
+            </div> --}}
         </div>
     </body>
 </html>
