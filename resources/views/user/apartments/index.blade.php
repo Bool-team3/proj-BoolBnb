@@ -37,22 +37,22 @@
                                         {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
                                         <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
                                     </form>
-                                    @if(!$apartment->sponsors()->exists('expiration_date'))
-                                        <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>                 
-                                    @else 
-                                        {{-- @if ($apartment->sponsors()->id == 1)
-                                            <img src="https://img.favpng.com/16/11/19/sponsor-bronze-business-organization-silver-png-favpng-jPT8npJbwizHxt5UiWwCHbstD.jpg" alt="">
-                                        @endif --}}
+
+                                    @if($apartment->sponsors()->exists('expiration_date'))
                                         <img src="https://www.pngitem.com/pimgs/m/163-1636749_iconos-website-3-01-sponsor-icon-hd-png.png" style="width: 50px;" alt="">
-                                        <legend class="text-success badge">Sponsorizzato</legend>
+                                        
+                                        <legend class="text-success">Sponsorizzato</legend>
+                                    
+                                    
+
                                     @endif
+                                    <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @empty
                     <h4>Non hai appartamenti, carica un appartamento</h4>
-                    <a href="{{route("user.apartments.create")}}">Crea appartamento</a>
                 @endforelse
             </div>
         </div>
