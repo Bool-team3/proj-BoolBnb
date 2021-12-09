@@ -91,11 +91,6 @@ class ApartmentController extends Controller
         
 
         $apartment = new Apartment();
-<<<<<<< HEAD
-
-=======
-        // dd($apartment->sponsors());
->>>>>>> cdf420e292af81e7fd316c5758cdac47cdc86d99
         $apartment["user_id"] = Auth::user()->id;
         $apartment->lat = $lat;
         $apartment->lon = $lon;
