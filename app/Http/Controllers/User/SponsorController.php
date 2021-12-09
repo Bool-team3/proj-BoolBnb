@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SponsorController extends Controller
 {
@@ -14,7 +18,8 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        //
+        $sponsors = Sponsor::all();
+        return view('user.sponsors.index', compact('sponsors', 'apartment'));
     }
 
     /**
@@ -35,7 +40,15 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+    
+        $apartment = Apartment::find($data['apartment_id']);
+        $sponsor = Sponsor::find($data['sponsor_id']);
+
+        $apartment->sponsors()->sync([$data['sponsor_id'] => ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
+
+        return redirect()->route('user.apartments.index');
+
     }
 
     /**
@@ -44,9 +57,12 @@ class SponsorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($apartment)
     {
-        //
+        // dd($apartment);
+        $sponsors = Sponsor::all(); 
+
+        return view('user.sponsors.show', compact('sponsors', 'apartment'));
     }
 
     /**
