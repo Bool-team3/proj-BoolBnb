@@ -15084,4 +15084,4 @@ module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js
 
 /***/ })
 
-})
+})})
