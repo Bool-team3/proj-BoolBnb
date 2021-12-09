@@ -41,20 +41,16 @@ class SponsorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // $apartment = Apartment::where('id', $data['apartment_id'])->get();
+    
+        $apartment = Apartment::find($data['apartment_id']);
+        $sponsor = Sponsor::find($data['sponsor_id']);
 
-        // $sponsors = new Sponsor();
-        $sponsors = Sponsor::find(1);
-        // dd($apartment->sponsor());
-
-        // $sponsors->apartments()->sync([1 => [ 'apartment_id' => $data['apartment_id'] ], 2 => ['expiration_date'] => $sponsors->time ]);
-        
-        // dd($sponsors->apartments());
-        // dd($sponsors->time);
-
-        // if(array_key_exists('sponsors', $data)) $apartment->sponsors()->sync($data['sponsors']);
-
-        $sponsors->apartments()->sync([['apartment_id' => $data['apartment_id']], ['expiration_date' => Carbon::now()->addDays($sponsors->time)]]);
+        if($apartment->sponsors()->exists('expiration_date')){
+            $apartment->sponsors()->sync([$data['sponsor_id'] => 
+                ["expiration_date" => $apartment->sponsors()->expiration_date->addDays($sponsor->time)]]);
+        }
+        $apartment->sponsors()->sync([$data['sponsor_id'] => 
+            ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
 
         return redirect()->route('user.apartments.index');
 
