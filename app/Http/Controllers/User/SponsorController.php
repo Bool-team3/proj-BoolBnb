@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class SponsorController extends Controller
@@ -40,12 +41,20 @@ class SponsorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $apartment = Apartment::where('id', $data['apartment_id'])->get();
-        // dd($apartment);
+        // $apartment = Apartment::where('id', $data['apartment_id'])->get();
 
-        // $apartment->sponsors()->sync([$data('sponsor_id')] => [$data('id')]);
-        // $apartment->sponsors()->sync([0 => ['sponsor_id' => $data('sponsor_id')], 1 => ['apartment_id' => $data('apartment_id')]]);
-        $apartment->sponsors()->sync($data['sponsor_id']);
+        // $sponsors = new Sponsor();
+        $sponsors = Sponsor::find(1);
+        // dd($apartment->sponsor());
+
+        // $sponsors->apartments()->sync([1 => [ 'apartment_id' => $data['apartment_id'] ], 2 => ['expiration_date'] => $sponsors->time ]);
+        
+        // dd($sponsors->apartments());
+        // dd($sponsors->time);
+
+        // if(array_key_exists('sponsors', $data)) $apartment->sponsors()->sync($data['sponsors']);
+
+        $sponsors->apartments()->sync([['apartment_id' => $data['apartment_id']], ['expiration_date' => Carbon::now()->addDays($sponsors->time)]]);
 
         return redirect()->route('user.apartments.index');
 
@@ -57,12 +66,12 @@ class SponsorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($apartment)
     {
         // dd($apartment);
         $sponsors = Sponsor::all(); 
 
-        return view('user.sponsors.show', compact('sponsors', 'id'));
+        return view('user.sponsors.show', compact('sponsors', 'apartment'));
     }
 
     /**

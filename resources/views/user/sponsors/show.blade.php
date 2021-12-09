@@ -19,7 +19,7 @@
                                     <h5 class="card-title" > {{ $sponsor->name }} </h5>
                                     <h6 class="card-title"> Prezzo: {{ $sponsor->price }} &euro; </h6>
                                     <input class="d-none" type="text" name="sponsor_id" value="{{ $sponsor->id }}" readonly >
-                                    <input class="d-none" type="text" name="apartment_id" value="{{ $id }}" readonly >
+                                    <input class="d-none" type="text" name="apartment_id" value="{{ $apartment }}" readonly >
                                     <h6 class="card-title"> Durata: {{ $sponsor->time }} giorni </h6>
                                     <button type="submit" class="btn btn-primary" >Compra</button>
                                 </div>
