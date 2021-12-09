@@ -38,11 +38,13 @@
                                         <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
                                     </form>
                                     @if(!$apartment->sponsors()->exists('expiration_date'))
-                                        <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
-                                    
+                                        <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>                 
                                     @else 
+                                        {{-- @if ($apartment->sponsors()->id == 1)
+                                            <img src="https://img.favpng.com/16/11/19/sponsor-bronze-business-organization-silver-png-favpng-jPT8npJbwizHxt5UiWwCHbstD.jpg" alt="">
+                                        @endif --}}
                                         <img src="https://www.pngitem.com/pimgs/m/163-1636749_iconos-website-3-01-sponsor-icon-hd-png.png" style="width: 50px;" alt="">
-                                        <legend class="text-success">Sponsorizzato</legend>
+                                        <legend class="text-success badge">Sponsorizzato</legend>
                                     @endif
                                 </div>
                             </div>

@@ -86,8 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -15030,17 +15028,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
->>>>>>> 2402b7b0ba6884880fe592d0fa66540aab03e29a
 /***/ "./resources/js/front.js":
 /*!*******************************!*\
   !*** ./resources/js/front.js ***!
   \*******************************/
 /*! no exports provided */
-<<<<<<< HEAD
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\LaravelBooleanProj\\proj-BoolBnb\\resources\\js\\front.js'");
-=======
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15061,7 +15053,6 @@ var app = new Vue({
     return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
   }
 });
->>>>>>> 2402b7b0ba6884880fe592d0fa66540aab03e29a
 
 /***/ }),
 
@@ -15072,11 +15063,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
-=======
-module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
->>>>>>> 2402b7b0ba6884880fe592d0fa66540aab03e29a
 
 
 /***/ })
