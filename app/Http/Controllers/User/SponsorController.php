@@ -45,14 +45,17 @@ class SponsorController extends Controller
         $apartment = Apartment::find($data['apartment_id']);
         $sponsor = Sponsor::find($data['sponsor_id']);
         
-        foreach ($apartment->sponsors as $sponsor) {
-            $addTime = $sponsor->pivot->expiration_date;
-        }
-
-        $date = new Carbon($addTime);
+        
         
     
         if($apartment->sponsors()->exists('expiration_date')){
+
+            foreach ($apartment->sponsors as $sponsor) {
+                $addTime = $sponsor->pivot->expiration_date;
+            }
+    
+            $date = new Carbon($addTime);
+
             $apartment->sponsors()->sync([$data['sponsor_id'] => 
                 ["expiration_date" => $date->addDays($sponsor->time)]]);
         }else{
