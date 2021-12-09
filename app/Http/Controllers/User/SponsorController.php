@@ -40,14 +40,14 @@ class SponsorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
-        $apartment = new Apartment();
-        $apartment['user_id'] = Auth::user()->id;
-        // $apartment->sponsors()->sync([$data('sponsor_id')] => [$data('id')]);
-        // $apartment->sponsors()->sync([1 => ['sponsor_id' => $data('sponsor_id')], 2 => ['apartment_id' => $data('apartment_id')]]);
-        // $sponsor->apartments()->sync($data['sponsor_id']);
+        $apartment = Apartment::where('id', $data['apartment_id'])->get();
+        // dd($apartment);
 
-        // return redirect()->route('user.apartments.index');
+        // $apartment->sponsors()->sync([$data('sponsor_id')] => [$data('id')]);
+        // $apartment->sponsors()->sync([0 => ['sponsor_id' => $data('sponsor_id')], 1 => ['apartment_id' => $data('apartment_id')]]);
+        $apartment->sponsors()->sync($data['sponsor_id']);
+
+        return redirect()->route('user.apartments.index');
 
     }
 
