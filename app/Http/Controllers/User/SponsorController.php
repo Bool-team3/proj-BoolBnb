@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SponsorController extends Controller
 {
@@ -14,7 +17,8 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        //
+        $sponsors = Sponsor::all();
+        return view('user.sponsors.index', compact('sponsors', 'apartment'));
     }
 
     /**
@@ -35,7 +39,16 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $apartment = Apartment::where('id', $data['apartment_id'])->get();
+        // dd($apartment);
+
+        // $apartment->sponsors()->sync([$data('sponsor_id')] => [$data('id')]);
+        // $apartment->sponsors()->sync([0 => ['sponsor_id' => $data('sponsor_id')], 1 => ['apartment_id' => $data('apartment_id')]]);
+        $apartment->sponsors()->sync($data['sponsor_id']);
+
+        return redirect()->route('user.apartments.index');
+
     }
 
     /**
@@ -46,7 +59,10 @@ class SponsorController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd($apartment);
+        $sponsors = Sponsor::all(); 
+
+        return view('user.sponsors.show', compact('sponsors', 'id'));
     }
 
     /**

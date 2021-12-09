@@ -26,6 +26,11 @@ Route::middleware('auth')
         Route::resource('emails', EmailController::class)->only([
             'index', 'show', 'destroy'
         ]);
+
+        Route::resource('sponsors', SponsorController::class)->only([
+            'index', 'store', 'show'
+        ]);
+
 });
 
 Route::get('{any?}', function(){
