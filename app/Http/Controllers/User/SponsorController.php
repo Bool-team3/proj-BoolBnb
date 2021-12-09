@@ -44,7 +44,7 @@ class SponsorController extends Controller
     
         $apartment = Apartment::find($data['apartment_id']);
         $sponsor = Sponsor::find($data['sponsor_id']);
-
+        
         foreach ($apartment->sponsors as $sponsor) {
             $addTime = $sponsor->pivot->expiration_date;
         }
@@ -59,6 +59,9 @@ class SponsorController extends Controller
             $apartment->sponsors()->sync([$data['sponsor_id'] => 
                 ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
         }
+
+        $apartment->sponsors()->sync([$data['sponsor_id'] => ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
+
 
         return redirect()->route('user.apartments.index');
 

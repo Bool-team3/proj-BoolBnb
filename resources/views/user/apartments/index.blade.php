@@ -37,8 +37,13 @@
                                         {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
                                         <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
                                     </form>
-
-                                    <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
+                                    @if(!$apartment->sponsors()->exists('expiration_date'))
+                                        <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
+                                    
+                                    @else 
+                                        <img src="https://www.pngitem.com/pimgs/m/163-1636749_iconos-website-3-01-sponsor-icon-hd-png.png" style="width: 50px;" alt="">
+                                        <legend class="text-success">Sponsorizzato</legend>
+                                    @endif
                                 </div>
                             </div>
                         </div>
