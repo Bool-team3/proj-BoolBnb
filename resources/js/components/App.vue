@@ -11,15 +11,15 @@ import ApartmentView from "./ApartmentView.vue";
 
 export default {
     name: "App",
-      data() {
+    data() {
         return {
             
         }
-        },
-        components:{
-            
-            ApartmentView           
-        },
+    },
+
+    components:{
+        ApartmentView           
+    },
         
     }
 
