@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="container">
       <div class="row">
           <div class="col">
@@ -10,9 +11,28 @@
           </div>
       </div>
   </div>
+=======
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <Loading v-if="loading"/>
+
+                <div>
+                    <nav class="navbar navbar-light bg-light">
+                        <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @keyup.enter="searchApartment(search)">Search</button>              
+                    </nav>
+                    <ApartmentCard v-for="element in apartmentList" 
+                        :key="element.id" :apartment='element' />              
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> main
 </template>
 
 <script>
+import Loading from "./Loading.vue";
 
 import ApartmentCard from './ApartmentCard.vue';
 
@@ -22,10 +42,12 @@ export default {
         return {
             apartmentList: [],
             search: "",
+            loading: true,
         }
     },
     components:{           
-        ApartmentCard
+        ApartmentCard,
+        Loading
     },
     methods:{
         getApartmentList(){
@@ -36,7 +58,7 @@ export default {
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
-                // this.loading = false;
+                this.loading = false;
             });
         },
 
@@ -50,7 +72,7 @@ export default {
                 this.apartmentList = [];
 
                 response.data.apartments.forEach(element => {
-                    if(element.title.toLowerCase().includes(search.toLowerCase())){
+                    if(element.city.toLowerCase().includes(search.toLowerCase())){
                         console.log(search);
                         if(!this.apartmentList.includes(element)){
                             this.apartmentList.push(element);
@@ -61,7 +83,7 @@ export default {
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
-                // this.loading = false;
+                this.loading = false;
             });
         },
         resetModel(){
