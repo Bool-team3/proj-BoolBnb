@@ -3709,6 +3709,23 @@ var render = function () {
                   {
                     staticClass: "btn btn-outline-success my-2 my-sm-0",
                     attrs: { type: "submit" },
+                    on: {
+                      keyup: function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.searchApartment(_vm.search)
+                      },
+                    },
                   },
                   [_vm._v("Search")]
                 ),
