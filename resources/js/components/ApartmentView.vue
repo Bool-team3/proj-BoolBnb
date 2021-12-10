@@ -3,7 +3,7 @@
       <div class="row">
           <div class="col">
              <nav class="navbar navbar-light bg-light">
-                <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" v-model.trim="search" @keyup="searchApartment(search)" @keyup.enter="resetModel()" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>              
             </nav>
             <ApartmentCard v-for="element in apartmentList" :key="element.id" :apartment='element' />              
@@ -54,8 +54,7 @@ export default {
                         console.log(search);
                         if(!this.apartmentList.includes(element)){
                             this.apartmentList.push(element);
-                            console.log(this.apartmentList);
-                            this.search = "";
+                            console.log(this.apartmentList);              
                         }
                     }
                 });
@@ -64,6 +63,9 @@ export default {
             }).then( () =>{
                 // this.loading = false;
             });
+        },
+        resetModel(){
+            this.search = '';
         }
 
     },

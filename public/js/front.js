@@ -2369,7 +2369,6 @@ __webpack_require__.r(__webpack_exports__);
               _this2.apartmentList.push(element);
 
               console.log(_this2.apartmentList);
-              _this2.search = "";
             }
           }
         });
@@ -2377,6 +2376,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       }).then(function () {// this.loading = false;
       });
+    },
+    resetModel: function resetModel() {
+      this.search = '';
     }
   },
   created: function created() {
@@ -2994,15 +2996,20 @@ var render = function () {
               },
               domProps: { value: _vm.search },
               on: {
-                keyup: function ($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
-                  }
-                  return _vm.searchApartment(_vm.search)
-                },
+                keyup: [
+                  function ($event) {
+                    return _vm.searchApartment(_vm.search)
+                  },
+                  function ($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.resetModel()
+                  },
+                ],
                 input: function ($event) {
                   if ($event.target.composing) {
                     return
@@ -15488,7 +15495,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
