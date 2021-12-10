@@ -23,5 +23,8 @@
     <a href="{{route('user.emails.index')}}">I tuoi messaggi</a>
 </div>
 
+@endsection
 
+@section('page-title')
+    Dashboard
 @endsection

@@ -92,4 +92,6 @@
 @endsection
 
 
-
+@section('page-title')
+    Create
+@endsection

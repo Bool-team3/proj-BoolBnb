@@ -64,7 +64,6 @@ class SponsorController extends Controller
         }
 
         return redirect()->route('user.apartments.index');
-
     }
 
     /**
