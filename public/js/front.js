@@ -2292,6 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ApartmentCard',
   data: function data() {
@@ -2315,6 +2316,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ApartmentCard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ApartmentCard.vue */ "./resources/js/components/ApartmentCard.vue");
+//
+//
+//
 //
 //
 //
@@ -2352,7 +2356,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getApartmentList();
-  }
+  },
+  computed: function computed() {}
 });
 
 /***/ }),
@@ -2952,7 +2957,7 @@ var render = function () {
         "div",
         { staticClass: "col" },
         [
-          _c("h1", { staticClass: "text text-success" }, [_vm._v("ciao")]),
+          _vm._m(0),
           _vm._v(" "),
           _vm._l(_vm.apartmentList, function (element) {
             return _c("ApartmentCard", {
@@ -2966,7 +2971,32 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "navbar navbar-light bg-light" }, [
+      _c("input", {
+        staticClass: "form-control mr-sm-2",
+        attrs: {
+          type: "search",
+          placeholder: "Search",
+          "aria-label": "Search",
+        },
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-success my-2 my-sm-0",
+          attrs: { type: "submit" },
+        },
+        [_vm._v("Search")]
+      ),
+    ])
+  },
+]
 render._withStripped = true
 
 

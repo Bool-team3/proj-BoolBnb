@@ -2,8 +2,11 @@
   <div class="container">
       <div class="row">
           <div class="col">
-              <h1 class="text text-success">ciao</h1>
-                <ApartmentCard v-for="element in apartmentList" :key="element.id" :apartment='element' />              
+             <nav class="navbar navbar-light bg-light">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>              
+            </nav>
+            <ApartmentCard v-for="element in apartmentList" :key="element.id" :apartment='element' />              
           </div>
       </div>
   </div>
@@ -34,10 +37,14 @@ export default {
             }).then( () =>{
                 // this.loading = false;
             });
-        }
+        },
+
     },
     created(){
         this.getApartmentList();
+    },
+    computed(){
+        
     }
 }
 </script>
