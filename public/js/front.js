@@ -2292,7 +2292,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ApartmentCard',
   data: function data() {
@@ -2335,7 +2334,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "ApartmentView",
   data: function data() {
     return {
-      apartmentList: []
+      apartmentList: [],
+      search: ""
     };
   },
   components: {
@@ -2346,8 +2346,33 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/apartments").then(function (response) {
-        _this.apartmentList = response.data.apartments;
-        console.log(response.data.apartments[0].sponsors);
+        _this.apartmentList = response.data.apartments; // console.log(response.data.apartments);
+      })["catch"](function (error) {
+        console.log(error);
+      }).then(function () {// this.loading = false;
+      });
+    },
+    searchApartment: function searchApartment(search) {
+      var _this2 = this;
+
+      axios.get("/api/apartments", {
+        params: {
+          query: search
+        }
+      }).then(function (response) {
+        _this2.apartmentList = [];
+        response.data.apartments.forEach(function (element) {
+          if (element.title.toLowerCase().includes(search.toLowerCase())) {
+            console.log(search);
+
+            if (!_this2.apartmentList.includes(element)) {
+              _this2.apartmentList.push(element);
+
+              console.log(_this2.apartmentList);
+              _this2.search = "";
+            }
+          }
+        });
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {// this.loading = false;
@@ -2356,8 +2381,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getApartmentList();
-  },
-  computed: function computed() {}
+  }
 });
 
 /***/ }),
@@ -2878,53 +2902,47 @@ var render = function () {
   return _c("div", { staticClass: "container" }, [
     _vm.apartment.visible
       ? _c("div", [
-          _vm.apartment.sponsors.length
-            ? _c("div", [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.apartment.title) +
-                        "\n                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "card-title" }, [
-                    _vm._v("Stanze: " + _vm._s(_vm.apartment.room)),
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "card-title" }, [
-                    _vm._v("Stanze da letto: " + _vm._s(_vm.apartment.bedroom)),
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "card-title" }, [
-                    _vm._v("Posti letto: " + _vm._s(_vm.apartment.bed)),
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "card-title" }, [
-                    _vm._v("Bagni: " + _vm._s(_vm.apartment.bathroom)),
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "card-title" }, [
-                    _vm._v("Metri quadrati: " + _vm._s(_vm.apartment.mq)),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("Città: " + _vm._s(_vm.apartment.city)),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _c("small", { staticClass: "text-muted" }, [
-                      _vm._v(
-                        "Last updated " +
-                          _vm._s(_vm.apartment.created_at) +
-                          " ago"
-                      ),
-                    ]),
-                  ]),
-                ]),
-              ])
-            : _vm._e(),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.apartment.title) +
+                  "\n                "
+              ),
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Stanze: " + _vm._s(_vm.apartment.room)),
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Stanze da letto: " + _vm._s(_vm.apartment.bedroom)),
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Posti letto: " + _vm._s(_vm.apartment.bed)),
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Bagni: " + _vm._s(_vm.apartment.bathroom)),
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Metri quadrati: " + _vm._s(_vm.apartment.mq)),
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "card-text" }, [
+              _vm._v("Città: " + _vm._s(_vm.apartment.city)),
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "card-text" }, [
+              _c("small", { staticClass: "text-muted" }, [
+                _vm._v(
+                  "Last updated " + _vm._s(_vm.apartment.created_at) + " ago"
+                ),
+              ]),
+            ]),
+          ]),
         ])
       : _vm._e(),
   ])
@@ -2957,7 +2975,55 @@ var render = function () {
         "div",
         { staticClass: "col" },
         [
-          _vm._m(0),
+          _c("nav", { staticClass: "navbar navbar-light bg-light" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model.trim",
+                  value: _vm.search,
+                  expression: "search",
+                  modifiers: { trim: true },
+                },
+              ],
+              staticClass: "form-control mr-sm-2",
+              attrs: {
+                type: "search",
+                placeholder: "Search",
+                "aria-label": "Search",
+              },
+              domProps: { value: _vm.search },
+              on: {
+                keyup: function ($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.searchApartment(_vm.search)
+                },
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search = $event.target.value.trim()
+                },
+                blur: function ($event) {
+                  return _vm.$forceUpdate()
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-success my-2 my-sm-0",
+                attrs: { type: "submit" },
+              },
+              [_vm._v("Search")]
+            ),
+          ]),
           _vm._v(" "),
           _vm._l(_vm.apartmentList, function (element) {
             return _c("ApartmentCard", {
@@ -2971,32 +3037,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "navbar navbar-light bg-light" }, [
-      _c("input", {
-        staticClass: "form-control mr-sm-2",
-        attrs: {
-          type: "search",
-          placeholder: "Search",
-          "aria-label": "Search",
-        },
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success my-2 my-sm-0",
-          attrs: { type: "submit" },
-        },
-        [_vm._v("Search")]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -15447,11 +15488,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-module.exports = __webpack_require__(/*! C:\Users\cicci\Documents\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
-
-module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
-
+module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
