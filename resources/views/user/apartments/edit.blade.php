@@ -110,5 +110,7 @@
 
 @endsection
 
-
+@section('page-title')
+    Edit
+@endsection
 

@@ -1,11 +1,26 @@
 <template>
     <div>
-        <h1>Sono App</h1>
+        <ApartmentView/>
+        
     </div>
 </template>
 
 <script>
+
+import ApartmentView from "./ApartmentView.vue";
+
 export default {
-    name: "App"
-}
+    name: "App",
+      data() {
+        return {
+            
+        }
+        },
+        components:{
+            
+            ApartmentView           
+        },
+        
+    }
+
 </script>
