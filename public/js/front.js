@@ -2368,7 +2368,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.apartmentList = [];
         response.data.apartments.forEach(function (element) {
-          if (element.city.toLowerCase().includes(search.toLowerCase())) {
+          if (element.city.toLowerCase().includes(search.toLowerCase()) || element.street_name.toLowerCase().includes(search.toLowerCase())) {
             console.log(search);
 
             if (!_this2.apartmentList.includes(element)) {

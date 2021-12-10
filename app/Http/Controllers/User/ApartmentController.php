@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\Sponsor;
+
 // use App\User;
 
 
@@ -24,7 +26,7 @@ class ApartmentController extends Controller
         $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->get();
         // $apartments = Apartment::all();
         return view('user.apartments.index', compact("apartments"));
-    }
+    }       
 
     /**
      * Show the form for creating a new resource.

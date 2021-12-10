@@ -12,6 +12,7 @@
 
         <div class="row">
             <div class="col-12">
+                <a href="{{route('user.home')}}">Torna alla dashboard</a>
                 <h2>I tuoi appartamenti</h2>
                 <a href="{{route('user.apartments.create')}}">Carica un nuovo appartamento</a>
                 @forelse ($apartments as $apartment)
@@ -36,17 +37,25 @@
                                         @method('DELETE')
                                         {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
                                         <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
-                                    </form>
-
+                                    </form>          
+                                    {{-- @dd($apartment)  --}}
                                     @if($apartment->sponsors()->exists('expiration_date'))
-                                        <img src="https://www.pngitem.com/pimgs/m/163-1636749_iconos-website-3-01-sponsor-icon-hd-png.png" style="width: 50px;" alt="">
-                                        
-                                        <legend class="text-success">Sponsorizzato</legend>
-                                    
-                                    
+                                        @dd($rank)
+                                        {{-- @if($sponsors->id)                                   
+                                            <img src="https://banner2.cleanpng.com/20180701/czu/kisspng-sponsor-bronze-business-organization-silver-5b39330112f541.7032012215304752650777.jpg" alt="">
+                                        @endif --}}
+                                       {{--@if ($rank == '2')
+                                            <img src="https://img.favpng.com/1/7/8/medal-gold-sponsor-logo-silver-png-favpng-MV15xaYwJQ3wQrK6fWu5FPHFF.jpg" alt="">
+                                        @else
+                                            <img src="https://agredfoundation.com/assets/uploads/2020/10/Gold-Sponsor.png" alt="">
+                                        @endif 
+                                        <img src="https://agredfoundation.com/assets/uploads/2020/10/Gold-Sponsor.png" style="width: 75px;" alt=""> --}}
 
-                                    @endif
-                                    <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
+                                        {{-- @dd($rank); --}}
+                                        <h1>ciao</h1>
+                                        @else
+                                            <a href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
+                                    @endif  
                                 </div>
                             </div>
                         </div>

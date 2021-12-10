@@ -54,7 +54,7 @@ export default {
                 this.apartmentList = [];
 
                 response.data.apartments.forEach(element => {
-                    if(element.city.toLowerCase().includes(search.toLowerCase())){
+                    if(element.city.toLowerCase().includes(search.toLowerCase()) || element.street_name.toLowerCase().includes(search.toLowerCase())){
                         console.log(search);
                         if(!this.apartmentList.includes(element)){
                             this.apartmentList.push(element);
