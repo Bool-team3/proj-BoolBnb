@@ -2316,6 +2316,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Loading_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loading.vue */ "./resources/js/components/Loading.vue");
 /* harmony import */ var _ApartmentCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ApartmentCard.vue */ "./resources/js/components/ApartmentCard.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -2342,6 +2348,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apartmentList: [],
+      poiList: [],
       search: "",
       loading: true
     };
@@ -2360,33 +2367,84 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       }).then(function () {
         _this.loading = false;
+
+        var _iterator = _createForOfIteratorHelper(_this.apartmentList),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var apartment = _step.value;
+
+            _this.poiList.push({
+              "poi": {
+                "title": apartment.title
+              },
+              "position": {
+                "lat": apartment.lat,
+                "lon": apartment.lon
+              }
+            });
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        console.log(_this.poiList);
       });
     },
     searchApartment: function searchApartment(search) {
       var _this2 = this;
 
-      axios.get("/api/apartments", {
+      delete axios.defaults.headers.common['X-Requested-With']; // axios.get("/api/apartments", {
+      //     params: {
+      //         query: search
+      //     }
+      // })
+      // .then( (response) => {
+      //     this.apartmentList = [];
+      //     response.data.apartments.forEach(element => {
+      //         if(element.city.toLowerCase().includes(search.toLowerCase()) || element.province.toLowerCase().includes(search.toLowerCase()) ){
+      //             // console.log(search);
+      //             if(!this.apartmentList.includes(element)){
+      //                 this.apartmentList.push(element);
+      //                 // console.log(this.apartmentList);
+      //                 this.search = "";
+      //             }
+      //         }
+      //     });
+      // }).catch( (error) =>{
+      //     console.log(error);
+      // }).then( () =>{
+      //     this.loading = false;
+      // });
+
+      axios.get("https://api.tomtom.com/search/2/geocode/".concat(search, ".json"), {
         params: {
-          query: search
+          key: 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
         }
       }).then(function (response) {
-        _this2.apartmentList = [];
-        response.data.apartments.forEach(function (element) {
-          if (element.city.toLowerCase().includes(search.toLowerCase())) {
-            console.log(search);
+        // console.log('Risposta TomTom: ',response.data.results[0].position)
+        var geometryListArray = [{
+          "type": "CIRCLE",
+          "position": "".concat(response.data.results[0].position.lat, ", ").concat(response.data.results[0].position.lon),
+          "radius": 20000
+        }];
+        axios.get("https://api.tomtom.com/search/2/geometryFilter.json", {
+          params: {
+            geometryList: geometryListArray,
+            poiList: _this2.poiList,
+            key: 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4' // geometryList : [{"type":"CIRCLE", "position":"40.80558, -73.96548", "radius":100}],
+            // poiList : [{"poi":{"name":"S Restaurant Toms"},"address":{"freeformAddress":"2880 Broadway, New York, NY 10025"},"position":{"lat":40.80558,"lon":-73.96548}},{"poi":{"name":"Yasha Raman Corporation"},"address":{"freeformAddress":"940 Amsterdam Ave, New York, NY 10025"},"position":{"lat":40.80076,"lon":-73.96556}}],
+            // key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'                    
 
-            if (!_this2.apartmentList.includes(element)) {
-              _this2.apartmentList.push(element);
-
-              console.log(_this2.apartmentList);
-              _this2.search = "";
-            }
           }
+        }).then(function (response) {
+          console.log(response);
         });
       })["catch"](function (error) {
         console.log(error);
-      }).then(function () {
-        _this2.loading = false;
       });
     }
   },
@@ -16310,7 +16368,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel_projects\boolean-projects\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
