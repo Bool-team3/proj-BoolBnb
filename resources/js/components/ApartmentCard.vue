@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div v-if="apartment.visible">
-            <div v-if="apartment.sponsors.length">
+            <!-- <div v-if="apartment.sponsors.length"> -->
                 <!-- <h6 v-for="sponsor in apartment.sponsors" :key="sponsor.id">{{sponsor.name}}</h6> -->
                 <div class="card-body">
                     <h5 class="card-title">
@@ -15,8 +15,7 @@
                     <p class="card-text">Città: {{apartment.city}}</p>
                     <p class="card-text"><small class="text-muted">Last updated {{apartment.created_at}} ago</small></p>
                 </div>       
-            </div>  
-           
+            <!-- </div>   -->
         </div>       
     </div>
 </template>
