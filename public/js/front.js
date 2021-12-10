@@ -2331,10 +2331,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3661,7 +3657,6 @@ var render = function () {
         "div",
         { staticClass: "col" },
         [
-
           _c("nav", { staticClass: "navbar navbar-light bg-light" }, [
             _c("input", {
               directives: [
@@ -3716,90 +3711,15 @@ var render = function () {
               [_vm._v("Search")]
             ),
           ]),
-       _vm.loading ? _c("Loading") : _vm._e(),
-
           _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c("nav", { staticClass: "navbar navbar-light bg-light" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.trim",
-                      value: _vm.search,
-                      expression: "search",
-                      modifiers: { trim: true },
-                    },
-                  ],
-                  staticClass: "form-control mr-sm-2",
-                  attrs: {
-                    type: "search",
-                    placeholder: "Search",
-                    "aria-label": "Search",
-                  },
-                  domProps: { value: _vm.search },
-                  on: {
-                    keyup: function ($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.searchApartment(_vm.search)
-                    },
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.search = $event.target.value.trim()
-                    },
-                    blur: function ($event) {
-                      return _vm.$forceUpdate()
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-success my-2 my-sm-0",
-                    attrs: { type: "submit" },
-                    on: {
-                      keyup: function ($event) {
-                        if (
-                          !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
-                        }
-                        return _vm.searchApartment(_vm.search)
-                      },
-                    },
-                  },
-                  [_vm._v("Search")]
-                ),
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.apartmentList, function (element) {
-                return _c("ApartmentCard", {
-                  key: element.id,
-                  attrs: { apartment: element },
-                })
-              }),
-            ],
-            2
-          ),
+          _vm._l(_vm.apartmentList, function (element) {
+            return _c("ApartmentCard", {
+              key: element.id,
+              attrs: { apartment: element },
+            })
+          }),
         ],
-        1
+        2
       ),
     ]),
   ])
