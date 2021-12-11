@@ -3709,6 +3709,23 @@ var render = function () {
                   {
                     staticClass: "btn btn-outline-success my-2 my-sm-0",
                     attrs: { type: "submit" },
+                    on: {
+                      keyup: function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.searchApartment(_vm.search)
+                      },
+                    },
                   },
                   [_vm._v("Search")]
                 ),
@@ -16310,7 +16327,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

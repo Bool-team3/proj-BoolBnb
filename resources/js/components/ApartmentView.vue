@@ -7,7 +7,7 @@
                 <div>
                     <nav class="navbar navbar-light bg-light">
                         <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>              
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @keyup.enter="searchApartment(search)">Search</button>              
                     </nav>
                     <ApartmentCard v-for="element in apartmentList" 
                         :key="element.id" :apartment='element' />              
