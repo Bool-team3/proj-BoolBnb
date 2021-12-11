@@ -1,4 +1,5 @@
 @extends('layouts.user_app')
+@section('title', "Appartamenti")
 
 @section('content')
     
