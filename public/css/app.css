@@ -10113,3 +10113,52 @@ h3 {
   background: #ffa6f6;
   background: linear-gradient(90deg, rgba(255, 166, 246, 0.300157563) 0%, #fbfbfb 50%, rgba(161, 155, 204, 0.6026785714) 100%);
 }
+
+@media screen and (max-width: 768px) {
+  .header_user {
+    width: 150px;
+  }
+  .header_user #logo-header {
+    display: flex;
+    justify-content: center;
+    width: 125px;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 20px 0;
+  }
+  .header_user #logo-header img {
+    width: 80px;
+  }
+  .header_user #navbar_header ul li a {
+    font-size: 1.2rem;
+  }
+  .header_user #navbar_header ul li .line-decoration {
+    height: 3.5px;
+  }
+  .header_user #logout-navbar li a {
+    font-size: 1.2rem;
+  }
+
+  .main-user {
+    width: calc(100vw - 150px);
+  }
+}
+@media screen and (max-width: 576px) {
+  .header_user {
+    width: 100px;
+  }
+  .header_user #logo-header img {
+    width: 50px;
+  }
+  .header_user #navbar_header ul li a {
+    font-size: 0.9rem;
+  }
+  .header_user #logout-navbar li a {
+    font-size: 1rem;
+  }
+
+  .main-user {
+    width: calc(100vw - 100px);
+  }
+}

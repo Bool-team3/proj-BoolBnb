@@ -3,8 +3,11 @@
     <nav id="navbar_header">
         <div>
             <a href="{{ route('home') }}">
-                <figure id="logo-header">
+                <figure id="logo-header" class="d-none d-md-block d-lg-block d-xl-block">
                     <img src="{{ asset('storage/public/logo/logo_small.png') }}" alt="Logo b&b">
+                </figure>
+                <figure id="logo-header" class="d-md-none d-lg-none">
+                    <img src="{{ asset('storage/public/logo/logo_small_icon_only.png') }}" alt="Logo b&b">
                 </figure>
             </a>
         </div>
