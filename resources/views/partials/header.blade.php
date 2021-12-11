@@ -4,17 +4,19 @@
         <div>
             <a href="{{ route('home') }}">
                 <figure id="logo-header" class="d-none d-md-block d-lg-block d-xl-block">
-                    <img src="{{ asset('storage/public/logo/logo_small.png') }}" alt="Logo b&b">
+                    <img src="{{ asset('storage/public/logo/logo_small.png') }}" 
+                    alt="Logo b&b" title="Torna alla Home">
                 </figure>
                 <figure id="logo-header" class="d-md-none d-lg-none">
-                    <img src="{{ asset('storage/public/logo/logo_small_icon_only.png') }}" alt="Logo b&b">
+                    <img src="{{ asset('storage/public/logo/logo_small_icon_only.png') }}" 
+                    alt="Logo b&b" title="Torna alla Home">
                 </figure>
             </a>
         </div>
         <ul>
             @foreach($header_link as $link)
                 <li class="{{request()->routeIs($link['route']) ? 'active' : ''}}">
-                    <a href="{{ route($link["route"]) }}">{{ $link["text"] }}</a>
+                    <a href="{{ route($link["route"]) }}" title="{{ $link["text"] }}">{{ $link["text"] }}</a>
                     <div class="line-decoration"></div>
                 </li>
             @endforeach
