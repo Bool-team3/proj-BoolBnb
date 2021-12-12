@@ -2348,6 +2348,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       apartmentList: [],
+      apartmentResults: [],
       poiList: [],
       search: "",
       loading: true
@@ -2362,7 +2363,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this = this;
 
       axios.get("/api/apartments").then(function (response) {
-        _this.apartmentList = response.data.apartments; // console.log(response.data.apartments);
+        _this.apartmentList = response.data.apartments; // Ordina La lista di appartamenti per sponsorizzazione
+
+        _this.apartmentList.sort(function (a, b) {
+          return a.sponsors < b.sponsors ? 1 : b.sponsors < a.sponsors ? -1 : 0;
+        });
+
+        _this.apartmentResults = response.data.apartments;
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {
@@ -2377,7 +2384,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
             _this.poiList.push({
               "poi": {
-                "title": apartment.title
+                "title": apartment.title,
+                "id": apartment.id
               },
               "position": {
                 "lat": apartment.lat,
@@ -2390,62 +2398,66 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         } finally {
           _iterator.f();
         }
-
-        console.log(_this.poiList);
       });
     },
     searchApartment: function searchApartment(search) {
       var _this2 = this;
 
-      delete axios.defaults.headers.common['X-Requested-With']; // axios.get("/api/apartments", {
-      //     params: {
-      //         query: search
-      //     }
-      // })
-      // .then( (response) => {
-      //     this.apartmentList = [];
-      //     response.data.apartments.forEach(element => {
-      //         if(element.city.toLowerCase().includes(search.toLowerCase()) || element.province.toLowerCase().includes(search.toLowerCase()) ){
-      //             // console.log(search);
-      //             if(!this.apartmentList.includes(element)){
-      //                 this.apartmentList.push(element);
-      //                 // console.log(this.apartmentList);
-      //                 this.search = "";
-      //             }
-      //         }
-      //     });
-      // }).catch( (error) =>{
-      //     console.log(error);
-      // }).then( () =>{
-      //     this.loading = false;
-      // });
+      delete axios.defaults.headers.common['X-Requested-With'];
 
-      axios.get("https://api.tomtom.com/search/2/geocode/".concat(search, ".json"), {
-        params: {
-          key: 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
-        }
-      }).then(function (response) {
-        // console.log('Risposta TomTom: ',response.data.results[0].position)
-        var geometryListArray = [{
-          "type": "CIRCLE",
-          "position": "".concat(response.data.results[0].position.lat, ", ").concat(response.data.results[0].position.lon),
-          "radius": 20000
-        }];
-        axios.get("https://api.tomtom.com/search/2/geometryFilter.json", {
+      if (search == '') {
+        this.apartmentResults = this.apartmentList;
+      } else {
+        axios.get("https://api.tomtom.com/search/2/geocode/".concat(search, ".json"), {
           params: {
-            geometryList: geometryListArray,
-            poiList: _this2.poiList,
-            key: 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4' // geometryList : [{"type":"CIRCLE", "position":"40.80558, -73.96548", "radius":100}],
-            // poiList : [{"poi":{"name":"S Restaurant Toms"},"address":{"freeformAddress":"2880 Broadway, New York, NY 10025"},"position":{"lat":40.80558,"lon":-73.96548}},{"poi":{"name":"Yasha Raman Corporation"},"address":{"freeformAddress":"940 Amsterdam Ave, New York, NY 10025"},"position":{"lat":40.80076,"lon":-73.96556}}],
-            // key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'                    
-
+            key: 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
           }
         }).then(function (response) {
-          console.log(response);
+          var geometryListArray = {
+            "type": "CIRCLE",
+            "position": "".concat(response.data.results[0].position.lat, ", ").concat(response.data.results[0].position.lon),
+            "radius": 20000
+          };
+          axios.get("https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[".concat(JSON.stringify(geometryListArray), "]&poiList=").concat(JSON.stringify(_this2.poiList), "&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4")).then(function (response) {
+            _this2.apartmentResults = []; //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
+
+            var _iterator2 = _createForOfIteratorHelper(response.data.results),
+                _step2;
+
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var elementResult = _step2.value;
+                console.log(elementResult.poi.id);
+
+                var _iterator3 = _createForOfIteratorHelper(_this2.apartmentList),
+                    _step3;
+
+                try {
+                  for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                    var element = _step3.value;
+
+                    if (elementResult.poi.id == element.id) {
+                      _this2.apartmentResults.push(element);
+                    }
+                  }
+                } catch (err) {
+                  _iterator3.e(err);
+                } finally {
+                  _iterator3.f();
+                }
+              }
+            } catch (err) {
+              _iterator2.e(err);
+            } finally {
+              _iterator2.f();
+            }
+          });
+        })["catch"](function (error) {
+          console.log(error);
+        }).then(function () {
+          _this2.loading = false;
         });
-      })["catch"](function (error) {
-        console.log(error);
-      });
+      }
     }
   },
   created: function created() {
@@ -3772,7 +3784,7 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
-              _vm._l(_vm.apartmentList, function (element) {
+              _vm._l(_vm.apartmentResults, function (element) {
                 return _c("ApartmentCard", {
                   key: element.id,
                   attrs: { apartment: element },
