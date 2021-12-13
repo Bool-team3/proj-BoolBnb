@@ -186,25 +186,6 @@ export default {
     created(){
         this.getApartmentList();
     },
-
-    // mounted() {
-    //     // var map = tt.map({
-    //     //     key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
-    //     //     container: 'map',
-    //     //     center: [12, 41],
-    //     //     zoom: 4
-    //     // });
-    //     // map.addControl(new tt.FullscreenControl());
-    //     // map.addControl(new tt.NavigationControl());
-    //     // this.allCoords.forEach(element => {
-    //     //     var customMarker = document.createElement('div');
-    //     //     customMarker.id = 'marker';
-    //     //     new tt.Marker({element: customMarker}).setLngLat([element.lon, element.lat]).addTo(map);
-    //     // });
-    //     // map.setCenter(12, 41);
-    //     // map.setZoom(9.5);
-    // }
-     
 }
 </script>
 
