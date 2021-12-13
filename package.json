@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@fortawesome/vue-fontawesome": "^2.0.6",
         "qs": "^6.10.2"
     }
 }

@@ -10,6 +10,10 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
+Route::get('/user/egg', function () {
+    return view('egg');
+})->name('egg');
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

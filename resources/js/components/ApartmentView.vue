@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col">
                 <Loading v-if="loading"/>
-
+                <!-- <router-link v-if="egg">egg</router-link> -->
+                <a href="user/egg" v-if="egg" class="ml-3">EGG<i class="fas fa-egg ml-3"></i></a>
                 <div>
                     <nav class="navbar navbar-light bg-light">
                         <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
@@ -19,7 +20,6 @@
 
 <script>
 import Loading from "./Loading.vue";
-
 import ApartmentCard from './ApartmentCard.vue';
 
 export default {
@@ -31,6 +31,7 @@ export default {
             poiList: [],
             search: "",
             loading: true, 
+            egg: false, 
         }
     },
     components:{           
@@ -111,6 +112,10 @@ export default {
                     this.loading = false;
                 });
             }
+            if(search == 230621){
+                this.egg = true;
+                search = '';
+            }
         }
     },
 
@@ -119,3 +124,7 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+
+</style>
