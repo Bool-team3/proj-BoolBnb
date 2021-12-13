@@ -112,7 +112,7 @@ export default {
                     this.loading = false;
                 });
             }
-            if(search == 230621){
+            if(search == '#41'){
                 this.egg = true;
                 search = '';
             }
