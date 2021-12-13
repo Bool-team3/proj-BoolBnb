@@ -22,6 +22,8 @@
                     <ApartmentCard v-for="element in apartmentResults" 
                         :key="element.id" :apartment='element' />              
                 </div>
+                <div id='map'></div>
+
             </div>
         </div>
     </div>
@@ -29,7 +31,6 @@
 
 <script>
 import Loading from "./Loading.vue";
-
 import ApartmentCard from './ApartmentCard.vue';
 
 export default {
@@ -40,16 +41,20 @@ export default {
             apartmentResults: [],
             poiList: [],
             search: "",
+
             radius: 20 ,
             room: 1,
             bed : 1,
             serviceList: [],
             loading: true, 
+
+            poi: [],
+
         }
     },
     components:{           
         ApartmentCard,
-        Loading
+        Loading,
     },
     methods:{
         
@@ -115,9 +120,35 @@ export default {
                             for(let element of this.apartmentList){
                                 if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed){
                                     this.apartmentResults.push(element);
+                                    this.poi.push({
+                                        position: {
+                                            lon: element.lon, 
+                                            lat: element.lat
+                                        }
+                                    });
                                 }
                             }
                         }
+                        
+                        //creazione mappa
+                        var map = tt.map({
+                            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+                            container: 'map',
+                            center: [12, 41],
+                            zoom: 4
+                        });
+                        map.addControl(new tt.FullscreenControl());
+                        map.addControl(new tt.NavigationControl());
+
+                        //stampa i marker dalle nostre coordinate
+                        this.poi.forEach(element => {
+                            
+                            var customMarker = document.createElement('div');
+                            customMarker.id = 'marker';
+                            new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
+                        });
+                        map.setCenter([this.poi[0].position.lon, this.poi[0].position.lat]);
+                        map.setZoom(9.5);
                     })
                 })
                 .catch( (error) =>{
@@ -127,12 +158,43 @@ export default {
                     this.loading = false;
                 });
             }
+
         }
        
+
+        
+
     },
 
     created(){
         this.getApartmentList();
     },
+
+    mounted() {
+        var map = tt.map({
+            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+            container: 'map',
+            center: [12, 41],
+            zoom: 4
+        });
+        map.addControl(new tt.FullscreenControl());
+        map.addControl(new tt.NavigationControl());
+    }
+     
 }
 </script>
+
+<style> 
+#map{ 
+    height: 50vh; 
+    width: 50vw; 
+}
+#marker{
+  background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
+  filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 55px;
+  height: 75px;
+}
+</style> 
