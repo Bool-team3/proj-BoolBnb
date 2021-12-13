@@ -22,6 +22,7 @@ export default {
     name: "ApartmentView",
     data() {
         return {
+            baseUri : 'http://127.0.0.1:8000',
             apartmentList: [],
             search: "",
             loading: true,
@@ -33,7 +34,7 @@ export default {
     },
     methods:{
         getApartmentList(){
-            axios.get("/api/apartments")
+            axios.get(`${this.baseUri}/api/apartments`)
             .then( (response) => {
                 this.apartmentList = response.data.apartments;
                 // console.log(response.data.apartments);

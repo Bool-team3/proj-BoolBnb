@@ -2337,6 +2337,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "ApartmentView",
   data: function data() {
     return {
+      baseUri: 'http://127.0.0.1:8000',
       apartmentList: [],
       search: "",
       loading: true
@@ -2350,7 +2351,7 @@ __webpack_require__.r(__webpack_exports__);
     getApartmentList: function getApartmentList() {
       var _this = this;
 
-      axios.get("/api/apartments").then(function (response) {
+      axios.get("".concat(this.baseUri, "/api/apartments")).then(function (response) {
         _this.apartmentList = response.data.apartments; // console.log(response.data.apartments);
       })["catch"](function (error) {
         console.log(error);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 
@@ -15,7 +16,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::with(["services", "sponsors"])->get();
+        // $apartments = Apartment::with(["services", "sponsors"])->get();
+        $apartments = Apartment::orderBy('title', 'asc')->with('services')->with('sponsors')->get();
 
         return response()->json(compact("apartments"));
     }
