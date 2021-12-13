@@ -165,9 +165,9 @@ class ApartmentController extends Controller
         ]);
 
         $data = $request->all();
-        
-        
-
+        if(($data['bathroom'] + $data['bedroom']) > $data['room']){
+            return redirect()->route('user.apartments.edit', $apartment)->with('error', 'stanze sbagliate');
+        }
         $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
             'countryCode' => 'IT',
@@ -198,11 +198,7 @@ class ApartmentController extends Controller
         $apartment->fill($data);
         $apartment->update($data);
 
-        if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
-
-        if(($data['bathroom'] + $data['bedroom']) > $data['room']){
-            return redirect()->route('user.apartments.edit', $apartment)->with('error', 'stanze sbagliate');
-        }
+        if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']); 
         return redirect()->route('user.apartments.show', $apartment);
     }
 
