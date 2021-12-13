@@ -15,7 +15,7 @@
         </div>
         <ul>
             @foreach($header_link as $link)
-                <li class="{{request()->routeIs($link['route']) ? 'active' : ''}}">
+                <li class="{{request()->routeIs($link['route']) ? 'active' : ''}} text-center">
                     <a href="{{ route($link["route"]) }}" title="{{ $link["text"] }}">{{ $link["text"] }}</a>
                     <div class="line-decoration"></div>
                 </li>
