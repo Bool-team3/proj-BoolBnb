@@ -1,16 +1,17 @@
 <template>
 
-  <div class="container">
-      <div class="row">
-          <div class="col">
-             <nav class="navbar navbar-light bg-light">
-                <input class="form-control mr-sm-2" v-model.trim="search" @keyup="searchApartment(search)" @keyup.enter="resetModel()" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>              
-            </nav>
-            <ApartmentCard v-for="element in apartmentList" :key="element.id" :apartment='element' />              
-          </div>
-      </div>
-  </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- <router-link :to="'/posts/' + post.id" v-if="egg"> sdasd </router-link> -->
+                <nav class="navbar navbar-light bg-light">
+                    <input class="form-control mr-sm-2" v-model.trim="search" @keyup="searchApartment(search)" @keyup.enter="resetModel()" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>              
+                </nav>
+                <ApartmentCard v-for="element in apartmentList" :key="element.id" :apartment='element' />              
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -25,6 +26,7 @@ export default {
             apartmentList: [],
             search: "",
             loading: true,
+            egg = false,
         }
     },
     components:{           
@@ -62,6 +64,11 @@ export default {
                         }
                     }
                 });
+
+                // if(search == 240201){
+                    
+                //     console.log('mana');
+                // }
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
