@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-6" id="apartments_list">
                 <Loading v-if="loading"/>
 
                 <div>
@@ -12,8 +12,9 @@
                     <ApartmentCard v-for="element in apartmentResults" 
                         :key="element.id" :apartment='element' />              
                 </div>
+            </div>
+            <div class="col-6" id="mappa">
                 <div id='map'></div>
-
             </div>
         </div>
     </div>
@@ -29,6 +30,7 @@ export default {
         return {
             apartmentList: [],
             apartmentResults: [],
+            alela: [],
             poiList: [],
             search: "",
             loading: true,
@@ -48,7 +50,8 @@ export default {
                 // Ordina La lista di appartamenti per sponsorizzazione
                 this.apartmentList.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
 
-                this.apartmentResults = response.data.apartments;
+                this.apartmentResults = response.data.apartments;     
+                
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
@@ -162,8 +165,8 @@ export default {
 
 <style> 
 #map{ 
-    height: 50vh; 
-    width: 50vw; 
+    height: 100%; 
+    width: 100%; 
 }
 #marker{
   background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
@@ -172,5 +175,17 @@ export default {
   background-repeat: no-repeat;
   width: 55px;
   height: 75px;
+}
+
+#mappa{
+    position: fixed;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#apartments_list{
+    overflow-y: scroll;
+    overflow-y: hidden;
 }
 </style> 
