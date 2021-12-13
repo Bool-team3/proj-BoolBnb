@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,7 @@ class ApartmentController extends Controller
             'street_number' => 'required|string|max:10',
             'province' => 'required|string|max:30',
             'postal_code' => 'required|string|between:5,5',
+            'visible' => 'required'
 
         ]);
 
@@ -155,6 +157,7 @@ class ApartmentController extends Controller
             'street_number' => 'required|string|max:10',
             'province' => 'required|string|max:30',
             'postal_code' => 'required|string|between:5,5',
+            'visible' => 'required'
 
         ]);
 
