@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
+use App\Models\Service;
+
 
 class ApartmentController extends Controller
 {
@@ -16,9 +18,12 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartments = Apartment::with(["services", "sponsors"])->get();
+        $services = Service::all();
 
-        return response()->json(compact("apartments"));
+        return response()->json(compact("apartments", "services"));       
     }
+        
+
 
     /**
      * Store a newly created resource in storage.

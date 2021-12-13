@@ -6,9 +6,19 @@
 
                 <div>
                     <nav class="navbar navbar-light bg-light">
-                        <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @keyup.enter="searchApartment(search)">Search</button>              
+                        <input class="form-control mr-sm-2 w-75" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">                     
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>                                   
                     </nav>
+                    <label for="radius">Km area di ricerca</label>
+                    <input type="number" id="radius" min="1" v-model="radius">
+
+                    <label for="room">Numero stanze:</label>  
+                    <input type="number" id="room" min="1" v-model="room"> 
+                    <label for="bed">Numero letti:</label> 
+                    <input type="number" id="bed" min="1" v-model="bed"> 
+                    <div >
+
+                    </div>
                     <ApartmentCard v-for="element in apartmentResults" 
                         :key="element.id" :apartment='element' />              
                 </div>
@@ -30,6 +40,10 @@ export default {
             apartmentResults: [],
             poiList: [],
             search: "",
+            radius: 20 ,
+            room: 1,
+            bed : 1,
+            serviceList: [],
             loading: true, 
         }
     },
@@ -42,7 +56,9 @@ export default {
         getApartmentList(){
             axios.get("/api/apartments")
             .then( (response) => {
+                
                 this.apartmentList = response.data.apartments;
+                this.serviceList = response.data.services;
                 // Ordina La lista di appartamenti per sponsorizzazione
                 this.apartmentList.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
 
@@ -73,7 +89,7 @@ export default {
             delete axios.defaults.headers.common['X-Requested-With'];
 
             if(search == ''){
-                this.apartmentResults = this.apartmentList
+               this.apartmentResults = this.apartmentList;
             }
             else
             {    
@@ -87,7 +103,7 @@ export default {
                         {
                             "type":"CIRCLE", 
                             "position": `${response.data.results[0].position.lat}, ${response.data.results[0].position.lon}`, 
-                            "radius":20000
+                            "radius": this.radius*1000,
                         }
                     
                     axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryListArray)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
@@ -97,7 +113,7 @@ export default {
                         for(let elementResult of response.data.results){
                             console.log(elementResult.poi.id)
                             for(let element of this.apartmentList){
-                                if(elementResult.poi.id == element.id){
+                                if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed){
                                     this.apartmentResults.push(element);
                                 }
                             }
@@ -112,6 +128,7 @@ export default {
                 });
             }
         }
+       
     },
 
     created(){

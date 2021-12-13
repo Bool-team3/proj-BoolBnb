@@ -2341,6 +2341,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2351,6 +2361,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       apartmentResults: [],
       poiList: [],
       search: "",
+      radius: 20,
+      room: 1,
+      bed: 1,
+      serviceList: [],
       loading: true
     };
   },
@@ -2363,7 +2377,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this = this;
 
       axios.get("/api/apartments").then(function (response) {
-        _this.apartmentList = response.data.apartments; // Ordina La lista di appartamenti per sponsorizzazione
+        _this.apartmentList = response.data.apartments;
+        _this.serviceList = response.data.services; // Ordina La lista di appartamenti per sponsorizzazione
 
         _this.apartmentList.sort(function (a, b) {
           return a.sponsors < b.sponsors ? 1 : b.sponsors < a.sponsors ? -1 : 0;
@@ -2416,7 +2431,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var geometryListArray = {
             "type": "CIRCLE",
             "position": "".concat(response.data.results[0].position.lat, ", ").concat(response.data.results[0].position.lon),
-            "radius": 20000
+            "radius": _this2.radius * 1000
           };
           axios.get("https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[".concat(JSON.stringify(geometryListArray), "]&poiList=").concat(JSON.stringify(_this2.poiList), "&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4")).then(function (response) {
             _this2.apartmentResults = []; //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
@@ -2436,7 +2451,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
                     var element = _step3.value;
 
-                    if (elementResult.poi.id == element.id) {
+                    if (elementResult.poi.id == element.id && element.room >= _this2.room && element.bed >= _this2.bed) {
                       _this2.apartmentResults.push(element);
                     }
                   }
@@ -3745,7 +3760,7 @@ var render = function () {
                       modifiers: { trim: true },
                     },
                   ],
-                  staticClass: "form-control mr-sm-2",
+                  staticClass: "form-control mr-sm-2 w-75",
                   attrs: {
                     type: "search",
                     placeholder: "Search",
@@ -3780,17 +3795,17 @@ var render = function () {
                     staticClass: "btn btn-outline-success my-2 my-sm-0",
                     attrs: { type: "submit" },
                     on: {
-                      keyup: function ($event) {
+                      click: function ($event) {
                         if (
                           !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
+                          _vm._k($event.keyCode, "left", 37, $event.key, [
+                            "Left",
+                            "ArrowLeft",
+                          ])
                         ) {
+                          return null
+                        }
+                        if ("button" in $event && $event.button !== 0) {
                           return null
                         }
                         return _vm.searchApartment(_vm.search)
@@ -3800,6 +3815,81 @@ var render = function () {
                   [_vm._v("Search")]
                 ),
               ]),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "radius" } }, [
+                _vm._v("Km area di ricerca"),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.radius,
+                    expression: "radius",
+                  },
+                ],
+                attrs: { type: "number", id: "radius", min: "1" },
+                domProps: { value: _vm.radius },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.radius = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "room" } }, [
+                _vm._v("Numero stanze:"),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.room,
+                    expression: "room",
+                  },
+                ],
+                attrs: { type: "number", id: "room", min: "1" },
+                domProps: { value: _vm.room },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.room = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "bed" } }, [_vm._v("Numero letti:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.bed,
+                    expression: "bed",
+                  },
+                ],
+                attrs: { type: "number", id: "bed", min: "1" },
+                domProps: { value: _vm.bed },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.bed = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("div"),
               _vm._v(" "),
               _vm._l(_vm.apartmentResults, function (element) {
                 return _c("ApartmentCard", {
@@ -16397,7 +16487,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laravel_projects\boolean-projects\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\cicci\Documents\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
