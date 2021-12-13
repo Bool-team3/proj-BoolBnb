@@ -31,6 +31,8 @@
                             {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
                             <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
                         </form>
+                        <a href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
+
                     </div>
                 </div>
             </div>

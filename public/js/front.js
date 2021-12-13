@@ -2399,7 +2399,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     searchApartment: function searchApartment(search) {
       var _this2 = this;
 
+<<<<<<< HEAD
       delete axios.defaults.headers.common['X-Requested-With'];
+=======
+      axios.get("/api/apartments", {
+        params: {
+          query: search
+        }
+      }).then(function (response) {
+        _this2.apartmentList = [];
+        response.data.apartments.forEach(function (element) {
+          if (element.city.toLowerCase().includes(search.toLowerCase()) || element.street_name.toLowerCase().includes(search.toLowerCase())) {
+            console.log(search);
+>>>>>>> manasse-sponsor
 
       if (search == '') {
         this.apartmentResults = this.apartmentList;

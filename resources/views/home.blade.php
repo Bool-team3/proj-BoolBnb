@@ -2,8 +2,14 @@
 @section('content')
 
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
+            @if(Route::has('login'))
                 <div class="top-right links">
+                    @auth
+                        <a href="{{ route('user.home') }}">Dashboard</a>
+                    @endauth
+                </div>
+            @endif
+            {{-- @if (Route::has('login'))
                     @auth
                         <a href="{{ route('user.home') }}">Home</a>
                     {{-- @else
@@ -14,7 +20,7 @@
                         @endif --}}
                     @endauth
                 </div>
-            @endif
+            @endif --}}
 
             <div id="root">
                
