@@ -33,6 +33,7 @@ export default {
             search: "",
             loading: true,
             poi: [],
+            allCoords: []
         }
     },
     components:{           
@@ -67,7 +68,30 @@ export default {
                             "lon": apartment.lon
                         }
                     })
+                    this.allCoords.push({
+                        position: {
+                            lon: apartment.lon, 
+                            lat: apartment.lat
+                        }
+                    })
                 }
+
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                this.allCoords.forEach(element => {
+                    console.log(element);
+                    var customMarker = document.createElement('div');
+                    customMarker.id = 'marker';
+                    new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
+                });
+                map.setCenter(12, 41);
+                map.setZoom(9.5);
             });
         },
 
@@ -75,7 +99,23 @@ export default {
             delete axios.defaults.headers.common['X-Requested-With'];
 
             if(search == ''){
-                this.apartmentResults = this.apartmentList
+                this.apartmentResults = this.apartmentList;
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                this.allCoords.forEach(element => {
+                    console.log(element);
+                    var customMarker = document.createElement('div');
+                    customMarker.id = 'marker';
+                    new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
+                });
+                map.setCenter(12, 41);
+                map.setZoom(9.5);
             }
             else
             {    
@@ -130,6 +170,7 @@ export default {
                         });
                         map.setCenter([this.poi[0].position.lon, this.poi[0].position.lat]);
                         map.setZoom(9.5);
+                        this.poi = [];
                     })
                 })
                 .catch( (error) =>{
@@ -146,16 +187,23 @@ export default {
         this.getApartmentList();
     },
 
-    mounted() {
-        var map = tt.map({
-            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
-            container: 'map',
-            center: [12, 41],
-            zoom: 4
-        });
-        map.addControl(new tt.FullscreenControl());
-        map.addControl(new tt.NavigationControl());
-    }
+    // mounted() {
+    //     // var map = tt.map({
+    //     //     key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+    //     //     container: 'map',
+    //     //     center: [12, 41],
+    //     //     zoom: 4
+    //     // });
+    //     // map.addControl(new tt.FullscreenControl());
+    //     // map.addControl(new tt.NavigationControl());
+    //     // this.allCoords.forEach(element => {
+    //     //     var customMarker = document.createElement('div');
+    //     //     customMarker.id = 'marker';
+    //     //     new tt.Marker({element: customMarker}).setLngLat([element.lon, element.lat]).addTo(map);
+    //     // });
+    //     // map.setCenter(12, 41);
+    //     // map.setZoom(9.5);
+    // }
      
 }
 </script>
