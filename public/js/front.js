@@ -2316,6 +2316,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Loading_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loading.vue */ "./resources/js/components/Loading.vue");
 /* harmony import */ var _ApartmentCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ApartmentCard.vue */ "./resources/js/components/ApartmentCard.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -2338,6 +2344,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apartmentList: [],
+      apartmentResults: [],
+      poiList: [],
       search: "",
       loading: true
     };
@@ -2351,33 +2359,105 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/apartments").then(function (response) {
-        _this.apartmentList = response.data.apartments; // console.log(response.data.apartments);
+        _this.apartmentList = response.data.apartments; // Ordina La lista di appartamenti per sponsorizzazione
+
+        _this.apartmentList.sort(function (a, b) {
+          return a.sponsors < b.sponsors ? 1 : b.sponsors < a.sponsors ? -1 : 0;
+        });
+
+        _this.apartmentResults = response.data.apartments;
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {
         _this.loading = false;
+
+        var _iterator = _createForOfIteratorHelper(_this.apartmentList),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var apartment = _step.value;
+
+            _this.poiList.push({
+              "poi": {
+                "title": apartment.title,
+                "id": apartment.id
+              },
+              "position": {
+                "lat": apartment.lat,
+                "lon": apartment.lon
+              }
+            });
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
       });
     },
     searchApartment: function searchApartment(search) {
       var _this2 = this;
 
-      axios.get("/api/apartments", {
-        params: {
-          query: search
-        }
-      }).then(function (response) {
-        _this2.apartmentList = [];
-        response.data.apartments.forEach(function (element) {
-          if (element.city.toLowerCase().includes(search.toLowerCase())) {
-            console.log(search);
+      delete axios.defaults.headers.common['X-Requested-With'];
 
-            if (!_this2.apartmentList.includes(element)) {
-              _this2.apartmentList.push(element);
-
-              console.log(_this2.apartmentList);
-            }
+      if (search == '') {
+        this.apartmentResults = this.apartmentList;
+      } else {
+        axios.get("https://api.tomtom.com/search/2/geocode/".concat(search, ".json"), {
+          params: {
+            key: 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'
           }
+        }).then(function (response) {
+          var geometryListArray = {
+            "type": "CIRCLE",
+            "position": "".concat(response.data.results[0].position.lat, ", ").concat(response.data.results[0].position.lon),
+            "radius": 20000
+          };
+          axios.get("https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[".concat(JSON.stringify(geometryListArray), "]&poiList=").concat(JSON.stringify(_this2.poiList), "&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4")).then(function (response) {
+            _this2.apartmentResults = []; //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
+
+<<<<<<< HEAD
+              console.log(_this2.apartmentList);
+=======
+            var _iterator2 = _createForOfIteratorHelper(response.data.results),
+                _step2;
+
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var elementResult = _step2.value;
+                console.log(elementResult.poi.id);
+
+                var _iterator3 = _createForOfIteratorHelper(_this2.apartmentList),
+                    _step3;
+
+                try {
+                  for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                    var element = _step3.value;
+
+                    if (elementResult.poi.id == element.id) {
+                      _this2.apartmentResults.push(element);
+                    }
+                  }
+                } catch (err) {
+                  _iterator3.e(err);
+                } finally {
+                  _iterator3.f();
+                }
+              }
+            } catch (err) {
+              _iterator2.e(err);
+            } finally {
+              _iterator2.f();
+>>>>>>> main
+            }
+          });
+        })["catch"](function (error) {
+          console.log(error);
+        }).then(function () {
+          _this2.loading = false;
         });
+<<<<<<< HEAD
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {
@@ -2386,6 +2466,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     resetModel: function resetModel() {
       this.search = '';
+=======
+      }
+>>>>>>> main
     }
   },
   created: function created() {
@@ -3689,6 +3772,7 @@ var render = function () {
                     }
                     return _vm.resetModel()
                   },
+<<<<<<< HEAD
                 ],
                 input: function ($event) {
                   if ($event.target.composing) {
@@ -3718,6 +3802,46 @@ var render = function () {
               attrs: { apartment: element },
             })
           }),
+=======
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-success my-2 my-sm-0",
+                    attrs: { type: "submit" },
+                    on: {
+                      keyup: function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.searchApartment(_vm.search)
+                      },
+                    },
+                  },
+                  [_vm._v("Search")]
+                ),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.apartmentResults, function (element) {
+                return _c("ApartmentCard", {
+                  key: element.id,
+                  attrs: { apartment: element },
+                })
+              }),
+            ],
+            2
+          ),
+>>>>>>> main
         ],
         2
       ),
@@ -16305,7 +16429,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\laravel_projects\boolean-projects\proj-BoolBnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
