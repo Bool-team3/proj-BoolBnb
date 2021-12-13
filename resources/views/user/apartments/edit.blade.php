@@ -15,6 +15,11 @@
         </ul>
     </div>        
     @endif
+    @if (session('error'))
+        <div class="alert alert-warning">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="card-body">
 
         <form action="{{route('user.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
