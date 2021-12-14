@@ -1,0 +1,25 @@
+#index-apartment{
+    .edit-delete-sponsor{
+        position: relative;
+        img{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            right: 0;
+            bottom: 0;
+        }
+
+        #myBtn{
+            margin-top: 100px;
+            background-color: white;
+            border-color: #6153CC;
+            color: #6153CC;
+
+            &:hover{
+                background-color: #6153CC;
+                color: white;
+
+            }
+        }
+    }
+}
