@@ -15,6 +15,11 @@
         </ul>
     </div>        
     @endif
+    @if (session('error'))
+        <div class="alert alert-warning">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="card-body">
 
         <form action="{{route('user.apartments.update', $apartment)}}" method="POST" enctype="multipart/form-data">
@@ -58,10 +63,10 @@
                 {{-- sezione visibilità appartamento  --}}
                 <label for="visible" class="col-md-1">L'appartamento sarà:</label>
                 <div>
-                    <input type="radio" id="visible_true" name="visible" value=1>
+                    <input type="radio" id="visible_true" name="visible" value=1 @if(old('visible', $apartment->visible)) checked @endif >
                     <label for="visible_true" >Visibile</label>
                 
-                    <input type="radio"  id="visible_false" name="visible" value=0>
+                    <input type="radio"  id="visible_false" name="visible" value=0 @if(!old('visible', $apartment->visible)) checked @endif >
                     <label for="visible_false">NON Visibile</label>
                 </div>
             </div>

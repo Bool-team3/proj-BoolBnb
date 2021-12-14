@@ -12,7 +12,7 @@ class SponsorSeeder extends Seeder
      */
     public function run()
     {
-        $sponsors_name = ['basic','premium','business'];
+        $sponsors_name = ['bronze','silver','gold'];
         $sponsors_time = [1, 2 , 3];
         
         $sponsors_price = [2.99, 5.99, 9.99 ];

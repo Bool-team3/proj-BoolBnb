@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -62,11 +63,15 @@ class ApartmentController extends Controller
             'street_number' => 'required|string|max:10',
             'province' => 'required|string|max:30',
             'postal_code' => 'required|string|between:5,5',
+            'visible' => 'required'
 
         ]);
 
         $data = $request->all();
 
+        if(($data['bathroom'] + $data['bedroom']) > $data['room']){
+            return redirect()->route('user.apartments.create')->with('error', 'stanze sbagliate');
+        }
         $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
             'countryCode' => 'IT',
@@ -155,11 +160,14 @@ class ApartmentController extends Controller
             'street_number' => 'required|string|max:10',
             'province' => 'required|string|max:30',
             'postal_code' => 'required|string|between:5,5',
+            'visible' => 'required'
 
         ]);
 
-        $data = $request->all();   
-
+        $data = $request->all();
+        if(($data['bathroom'] + $data['bedroom']) > $data['room']){
+            return redirect()->route('user.apartments.edit', $apartment)->with('error', 'stanze sbagliate');
+        }
         $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json', [
 
             'countryCode' => 'IT',
@@ -190,8 +198,7 @@ class ApartmentController extends Controller
         $apartment->fill($data);
         $apartment->update($data);
 
-        if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
-
+        if(array_key_exists('services', $data)) $apartment->services()->sync($data['services']); 
         return redirect()->route('user.apartments.show', $apartment);
     }
 

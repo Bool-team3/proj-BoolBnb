@@ -37,18 +37,27 @@
                                         @method('DELETE')
                                         {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
                                         <input type="submit" value="Delete" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?');">
-                                    </form>
-
-                                    @if($apartment->sponsors()->exists('expiration_date'))
-                                        <img src="https://www.pngitem.com/pimgs/m/163-1636749_iconos-website-3-01-sponsor-icon-hd-png.png" style="width: 50px;" alt="">
-                                        
-                                        <legend class="text-success">Sponsorizzato</legend>
-                                    
-                                    
-
-                                    @endif
-                                    <a  class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>
+                                    </form> 
                                 </div>
+                                @if ($apartment->sponsors()->exists('sponsor_id'))
+                                    @foreach ($apartment->sponsors as $sponsor)
+                                        <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}} </span>
+                                        @switch($myID)
+                                            @case(1)
+                                                <img src="https://banner2.cleanpng.com/20180701/czu/kisspng-sponsor-bronze-business-organization-silver-5b39330112f541.7032012215304752650777.jpg" class="img-fluid" alt=""  style="width: 200px; height: 200px;">
+                                                @break
+                                            @case(2)
+                                                <img src="https://img.favpng.com/1/7/8/medal-gold-sponsor-logo-silver-png-favpng-MV15xaYwJQ3wQrK6fWu5FPHFF.jpg" class="img-fluid" alt="" style="width: 200px; height: 200px;">  
+                                                @break
+                                            @case(3)
+                                                <img src="https://agredfoundation.com/assets/uploads/2020/10/Gold-Sponsor.png"  class="img-fluid" alt="" style="width: 200px; height: 200px;">
+                                                @break
+                                            @default
+                                        @endswitch         
+                                    @endforeach
+                                @else
+                                    <a class="btn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>            
+                                @endif                                              
                             </div>
                         </div>
                     </div>
