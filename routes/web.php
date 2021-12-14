@@ -10,12 +10,13 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
-Route::get('/show', function () {
+Route::get('/user/show', function () {
     return view('singleApartment');
 })->name("singleApartment");
+
+
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')
     ->namespace('User')
