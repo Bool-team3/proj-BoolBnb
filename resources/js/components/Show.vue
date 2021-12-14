@@ -1,22 +1,23 @@
 <template>
     <div class="container">
-        <Loading v-if="loading"/>
+        <h2>gg mana</h2>
+        <ApartmentShow />
     </div>
 </template>
 
 <script>
-import Loading from "./Loading.vue";
+import ApartmentShow from "./ApartmentShow.vue";
 export default {
-    name: "ApartmentShow",
+    name: "Show",
     data() {
         return {
-            //per mo lo lascio falso
-            loading: false,
-        }
+            
+        }      
     },
     components:{           
-        Loading,
+        ApartmentShow,
     },
+   
 }
 </script>
 

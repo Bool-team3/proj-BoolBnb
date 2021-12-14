@@ -8,8 +8,15 @@ window.axios = require("axios");
  */
 
 import App from "./components/App.vue";
+import Show from "./components/Show.vue";
 
 const app = new Vue({
     el: '#root',
     render: h=>h(App),
 });
+
+const show = new Vue({
+    el: '#prova',
+    render: h=>h(Show),
+});
+

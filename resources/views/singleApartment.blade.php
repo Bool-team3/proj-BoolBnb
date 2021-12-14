@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="app">
+
+    <div id="prova">
         <form action=""></form>
     </div>
+    <script src="{{asset('js/front.js')}}"></script>
 @endsection
