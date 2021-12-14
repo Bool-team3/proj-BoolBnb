@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-6" id="apartments_list">
                 <Loading v-if="loading"/>
 
                 <div>
@@ -22,8 +22,9 @@
                     <ApartmentCard v-for="element in apartmentResults" 
                         :key="element.id" :apartment='element' />              
                 </div>
+            </div>
+            <div class="col-6" id="mappa">
                 <div id='map'></div>
-
             </div>
         </div>
     </div>
@@ -39,6 +40,7 @@ export default {
         return {
             apartmentList: [],
             apartmentResults: [],
+            alela: [],
             poiList: [],
             search: "",
 
@@ -50,6 +52,9 @@ export default {
 
             poi: [],
 
+
+
+            allCoords: []
         }
     },
     components:{           
@@ -67,7 +72,8 @@ export default {
                 // Ordina La lista di appartamenti per sponsorizzazione
                 this.apartmentList.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
 
-                this.apartmentResults = response.data.apartments;
+                this.apartmentResults = response.data.apartments;     
+                
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
@@ -86,7 +92,30 @@ export default {
                             "lon": apartment.lon
                         }
                     })
+                    this.allCoords.push({
+                        position: {
+                            lon: apartment.lon, 
+                            lat: apartment.lat
+                        }
+                    })
                 }
+
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                this.allCoords.forEach(element => {
+                    console.log(element);
+                    var customMarker = document.createElement('div');
+                    customMarker.id = 'marker';
+                    new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
+                });
+                map.setCenter(12, 41);
+                map.setZoom(9.5);
             });
         },
 
@@ -94,7 +123,27 @@ export default {
             delete axios.defaults.headers.common['X-Requested-With'];
 
             if(search == ''){
+
                this.apartmentResults = this.apartmentList;
+
+                this.apartmentResults = this.apartmentList;
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                this.allCoords.forEach(element => {
+                    console.log(element);
+                    var customMarker = document.createElement('div');
+                    customMarker.id = 'marker';
+                    new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
+                });
+                map.setCenter(12, 41);
+                map.setZoom(9.5);
+
             }
             else
             {    
@@ -149,6 +198,7 @@ export default {
                         });
                         map.setCenter([this.poi[0].position.lon, this.poi[0].position.lat]);
                         map.setZoom(9.5);
+                        this.poi = [];
                     })
                 })
                 .catch( (error) =>{
@@ -169,25 +219,13 @@ export default {
     created(){
         this.getApartmentList();
     },
-
-    mounted() {
-        var map = tt.map({
-            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
-            container: 'map',
-            center: [12, 41],
-            zoom: 4
-        });
-        map.addControl(new tt.FullscreenControl());
-        map.addControl(new tt.NavigationControl());
-    }
-     
 }
 </script>
 
 <style> 
 #map{ 
-    height: 50vh; 
-    width: 50vw; 
+    height: 100%; 
+    width: 100%; 
 }
 #marker{
   background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
@@ -196,5 +234,17 @@ export default {
   background-repeat: no-repeat;
   width: 55px;
   height: 75px;
+}
+
+#mappa{
+    position: fixed;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#apartments_list{
+    overflow-y: scroll;
+    overflow-y: hidden;
 }
 </style> 
