@@ -10,6 +10,9 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
+Route::get('/show', function () {
+    return view('singleApartment');
+})->name("singleApartment");
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
