@@ -2293,15 +2293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ApartmentCard',
   data: function data() {
-    return {
-      props: {
-        source: {
-          string: string,
-          required: true,
-          "default": "{{route('user.singleApartment.show')}}"
-        }
-      }
-    };
+    return {};
   },
   props: ['apartment'],
   components: {},
@@ -3831,7 +3823,7 @@ var render = function () {
               _vm._v(" "),
               _c("a", {
                 staticClass: "stretched-link",
-                attrs: { href: _vm.source },
+                attrs: { href: "user/show" },
               }),
             ]),
           ]),

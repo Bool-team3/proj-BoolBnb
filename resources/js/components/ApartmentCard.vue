@@ -11,7 +11,7 @@
                     <h6 class="card-title">Metri quadrati: {{apartment.mq}}</h6>
                     <p class="card-text">Città: {{apartment.city}}</p>
                     <p class="card-text"><small class="text-muted">Last updated {{apartment.created_at}} ago</small></p>
-                    <a :href="source" class="stretched-link"></a>
+                    <a href="user/show" class="stretched-link"></a>
                 </div>       
             </div>
         </div>       
@@ -23,13 +23,7 @@ export default {
     name: 'ApartmentCard',
     data() {
         return {
-            props: {
-                source: {
-                    string,
-                    required: true,
-                    default: "{{route('user.singleApartment.show')}}"
-                }
-            }
+            
         }
     },
     props: ['apartment'],
