@@ -32,14 +32,14 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $apartment = new Apartment();
 
         $services = Service::all();
+        $serviceIds = $apartment->services->pluck('id')->toArray();
 
-        
-        return view('user.apartments.create', compact('apartment', 'services'));
+        return view('user.apartments.create', compact('apartment', 'services', 'serviceIds', 'request'));
     }
 
     /**
@@ -129,11 +129,11 @@ class ApartmentController extends Controller
      * @param  Apartment $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+    public function edit(Apartment $apartment, Request $request)
     {
         $services = Service::all();
         $serviceIds = $apartment->services->pluck('id')->toArray();
-        return view('user.apartments.edit', compact('apartment', 'services', 'serviceIds'));
+        return view('user.apartments.edit', compact('apartment', 'services', 'serviceIds', 'request'));
     }
 
     /**
