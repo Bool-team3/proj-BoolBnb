@@ -22,7 +22,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->get();
+        $apartments = Apartment::where("user_id", Auth::user()->id)->orderBy("created_at","desc")->paginate(5);
         // $apartments = Apartment::all();
         return view('user.apartments.index', compact("apartments"));
     }

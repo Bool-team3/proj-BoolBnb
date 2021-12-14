@@ -23,12 +23,14 @@
                                     <h5 class="card-title"><strong>Appartamento: </strong>{{$apartment->title}}</h5>
 
                                     <p class="card-text mb-2">
-                                        Visibilità:
-                                        @if ($apartment->visible)
-                                            <i class="fas fa-eye" title="Visibile"></i>
-                                        @else
-                                            <i class="fas fa-eye-slash" title="Non visibile"></i>
-                                        @endif
+                                        <div class="d-flex align-items-center">
+                                            Visibilità:
+                                            @if ($apartment->visible)
+                                                <i class="fas fa-eye fa-2x mx-2" title="Visibile"></i>
+                                            @else
+                                                <i class="fas fa-eye-slash fa-2x mx-2" title="Non visibile"></i>
+                                            @endif
+                                        </div>
                                     </p>
 
                                     <p class="card-text">
@@ -92,5 +94,6 @@
                 @endforelse
             </div>
         </div>
+        {{ $apartments->links() }}
     </div>
 @endsection
