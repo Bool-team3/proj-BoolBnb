@@ -13,8 +13,12 @@
 
         <div class="row">
             <div class="col-12 p-3">
-                <h2>I tuoi appartamenti</h2>
-                <a href="{{route('user.apartments.create')}}">Carica un nuovo appartamento</a>
+                <h2 class="mb-3">I tuoi appartamenti</h2>
+                <h4>Appartamenti totali: {{count($apartments)}}</h4>
+                <a href="{{route('user.apartments.create')}}">
+                    <img id="add-house" src="{{ asset('storage/public/add.png') }}" alt="add house">
+                    Carica un nuovo appartamento
+                </a>
                 @forelse ($apartments as $apartment)
                     <div class="card w-75 mb-2">
                         <div class="card-body">

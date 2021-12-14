@@ -14767,6 +14767,9 @@ h3 {
     width: calc(100vw - 100px);
   }
 }
+#index-apartment #add-house {
+  width: 30px;
+}
 #index-apartment .edit-delete-sponsor {
   position: relative;
 }
