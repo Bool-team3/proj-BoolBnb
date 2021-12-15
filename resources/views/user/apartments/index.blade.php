@@ -41,7 +41,7 @@
                                 </div>
                                 @if ($apartment->sponsors()->exists('sponsor_id'))
                                     @foreach ($apartment->sponsors as $sponsor)
-                                        <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}} </span>
+                                        <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}}</span>
                                         @switch($myID)
                                             @case(1)
                                                 <img src="https://banner2.cleanpng.com/20180701/czu/kisspng-sponsor-bronze-business-organization-silver-5b39330112f541.7032012215304752650777.jpg" class="img-fluid" alt=""  style="width: 200px; height: 200px;">
@@ -69,6 +69,3 @@
     </div>
 @endsection
 
-@section('page-title')
-    Apartments
-@endsection

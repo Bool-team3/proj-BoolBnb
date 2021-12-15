@@ -34,12 +34,12 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Apartment $apartment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        
+        $apartment = Apartment::find($id);
         return response()->json(compact("apartment"));
     }
 

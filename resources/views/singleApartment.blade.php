@@ -5,5 +5,5 @@
     <div id="prova">
         <form action=""></form>
     </div>
-    <script src="{{asset('js/front.js')}}"></script>
+    <script src="{{asset('js/back.js')}}"></script>
 @endsection
