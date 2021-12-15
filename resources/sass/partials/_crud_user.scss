@@ -69,6 +69,35 @@ label{
   to {margin-left: 10px;}
 }
 
+#apartment-show{
+  position: relative;
+  
+  .back-to-home{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    color: black;
+
+    &:hover{
+      .fa-long-arrow-alt-left{
+        animation: move 0.7s linear infinite;
+        color: #6153CC;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .card-text{
+    margin-bottom: 5px;
+  }
+}
+  
+@keyframes move {
+  from {margin-left: -10px;}
+  to {margin-left: 10px;}
+}
+
+
 
 
 .error-message{
