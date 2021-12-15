@@ -2,7 +2,7 @@
     <div class="container">
         <Loading v-if="loading"/>
 
-
+        <h1>asdgbasidghasi</h1>
     </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
         }
     },
     created(){
-         this.getApartmentDetails();
+        this.getApartmentDetails();
     }
 }
 </script>

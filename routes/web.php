@@ -10,7 +10,10 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
-Route::get('/user/show', 'Api\ApartmentController@show')->name('singleApartment');
+
+Route::get('/apartments/{id}', 'ApartmentController@show');
+
+
 
 Route::get('{any?}', function(){
     return view('404');
