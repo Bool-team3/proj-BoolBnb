@@ -18,7 +18,7 @@ export default {
     },
     methods: {
         getApartmentDetails(){
-            axios.get(`/api/apartments/${}`)       
+            axios.get(`/api/apartments/`)       
             .then((response) => {
                 console.log(response);
                 this.apartment = response.data.apartment;
