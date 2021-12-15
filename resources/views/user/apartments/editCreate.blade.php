@@ -3,7 +3,9 @@
 @section('content')
 
     <section id="apartment_form">
-
+        <a href="{{route('user.apartments.index')}}" class="back-to-home" title="Torna indietro">
+            <i class="fas fa-long-arrow-alt-left fa-4x"></i>
+        </a>
         @if ($errors->any())
         <div class="alert alert-danger error-message">
             <ul>

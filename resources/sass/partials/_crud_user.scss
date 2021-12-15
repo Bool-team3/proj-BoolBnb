@@ -45,6 +45,32 @@ label{
   font-size: 1.2rem;
 }
 
+#apartment_form{
+  position: relative;
+
+  .back-to-home{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    color: black;
+
+    &:hover{
+      .fa-long-arrow-alt-left{
+        animation: move 0.7s linear infinite;
+        color: #6153CC;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@keyframes move {
+  from {margin-left: -10px;}
+  to {margin-left: 10px;}
+}
+
+
+
 .error-message{
   ul{
     list-style: none;

@@ -14802,6 +14802,39 @@ label {
   font-size: 1.2rem;
 }
 
+#apartment_form {
+  position: relative;
+}
+#apartment_form .back-to-home {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  color: black;
+}
+#apartment_form .back-to-home:hover .fa-long-arrow-alt-left {
+  -webkit-animation: move 0.7s linear infinite;
+          animation: move 0.7s linear infinite;
+  color: #6153CC;
+  cursor: pointer;
+}
+
+@-webkit-keyframes move {
+  from {
+    margin-left: -10px;
+  }
+  to {
+    margin-left: 10px;
+  }
+}
+
+@keyframes move {
+  from {
+    margin-left: -10px;
+  }
+  to {
+    margin-left: 10px;
+  }
+}
 .error-message ul {
   list-style: none;
   padding: 0;
