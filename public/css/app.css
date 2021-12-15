@@ -15005,3 +15005,18 @@ label {
 #page-not-found img {
   width: 750px;
 }
+
+.email {
+  position: relative;
+}
+.email a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.email form {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 5;
+}
