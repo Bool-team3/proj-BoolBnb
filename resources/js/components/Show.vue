@@ -1,23 +1,36 @@
 <template>
     <div class="container">
-        <h2>gg mana</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui libero tempora blanditiis possimus sapiente excepturi. Aut fugiat reiciendis nostrum sed et a ipsam cumque nisi ad recusandae, beatae quod voluptatum.</p>
-        <ApartmentShow />
+        <h1>{{apartment.id}}</h1>    
     </div>
 </template>
 
 <script>
-import ApartmentShow from "./ApartmentShow.vue";
+// import ApartmentShow from "./ApartmentShow.vue";
 export default {
     name: "Show",
     data() {
         return {
-            
+            apartment: []
         }      
     },
     components:{           
-        ApartmentShow,
+        // ApartmentShow,
     },
+    methods: {
+        getApartmentDetails(){
+            axios.get(`/api/apartments/${}`)       
+            .then((response) => {
+                console.log(response);
+                this.apartment = response.data.apartment;
+                
+            }).catch( (error) =>{
+                console.log(error);
+            });
+        }
+    },
+    created(){
+        this.getApartmentDetails();
+    }
    
 }
 </script>

@@ -15,8 +15,7 @@
                     <a :href="`/apartments/${apartment.id}`" class="stretched-link"></a>
                 </div>       
             </div>
-        </div>       
-        
+        </div>               
     </div>
 </template>
 
