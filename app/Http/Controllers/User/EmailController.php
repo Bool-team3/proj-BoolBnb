@@ -74,7 +74,8 @@ class EmailController extends Controller
      */
     public function show(Email $email)
     {
-        return view('user.emails.show', compact('email'));
+        $allApp = Apartment::all();
+        return view('user.emails.show', compact('email', 'allApp'));
     }
 
     /**

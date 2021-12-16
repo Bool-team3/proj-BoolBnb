@@ -11,6 +11,29 @@
         </div>
     @endif
 
+    {{-- box di conferma --}}
+    <div id="confirm" class="d-none">
+        <div class="display-overlay"></div>
+        <div class="box-confirm text-center p-3">
+            <div>
+                <div class="mb-3">
+                    <h3>
+                        Sei sicuro?
+                    </h3>
+                    <h6>
+                        Vuoi davvero cancellare il messaggio. <br>
+                        Una volta cancellato non potrai tornare indietro
+                    </h6>
+                </div>
+                <form class="formConfirm" method="GET" class="p-2">
+                    <input value="Cancella" class="btn btn-danger myBtn-confirm" type="button">
+                    <input value="Annulla" id="myBtn" class="btn btn-info myBtn-confirm" type="button">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
     <div class="row">
         <div class="col-12">
             <h2>I tuoi messaggi</h2>
@@ -27,7 +50,7 @@
                         <option value="{{$apartment->id}}">{{$apartment->title}}</option>
                     @endforeach
                 </select>
-                <button class="btn btn-outline-primary" type="submit">Invia</button>
+                <button class="btn" id="myBtn" type="submit">Invia</button>
             </form>
             @forelse ($emails as $email)
                 <div class="card-deck email w-75">
@@ -41,11 +64,11 @@
                                 <p class="card-text"><small class="text-muted">Ricevuta il:{{$email->created_at}}</small></p>
 
                                 {{-- FORM PER ELIMINARE UN APPARTAMENTO  --}}
-                                <form method="POST" action="{{route('user.emails.destroy', $email)}}" class="delete-form" data-email-id="{{$email->id}}" data-email-subject="{{$email->subject}}">
+                                <form class="delete-mex" method="POST" action="{{route('user.emails.destroy', $email)}}" data-email-id="{{$email->id}}" data-email-subject="{{$email->subject}}">
                                 @csrf
                                 @method('DELETE') 
                                     {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
-                                    <button class="btn btn-danger" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?')" title="Elimina">
+                                    <button class="btn btn-danger" title="Elimina">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -59,6 +82,35 @@
         </div>
         {{ $emails->links() }}
     </div>
+    <script>
+
+        const deleteConfirm = document.querySelectorAll('.delete-mex');
+        deleteConfirm.forEach(element => {
+
+            element.addEventListener("submit", function(event){
+                //stoppa l'evento
+                event.preventDefault();
+
+                //apre il box di conferma
+                let confirm = document.querySelector('#confirm');
+                confirm.classList.remove("d-none");
+
+                //prende il valore dei bottoni del box di conferma
+                const formConfirm = document.querySelector('.formConfirm');
+
+                formConfirm.elements[0].addEventListener("click", function(){
+                    element.submit();
+                    confirm.classList.add("d-none");
+                })
+
+                formConfirm.elements[1].addEventListener("click", function(){
+                    confirm.classList.add("d-none");
+                })
+                
+            });
+
+        });
+    </script>
 </div>
 
 
