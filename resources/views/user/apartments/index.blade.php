@@ -70,7 +70,7 @@
                                 <div>
                                 @if ($apartment->sponsors()->exists('sponsor_id'))
                                     @foreach ($apartment->sponsors as $sponsor)
-                                        <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}} </span>
+                                        <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}}</span>
                                         @switch($myID)
                                             @case(1)
                                             <img src="{{ asset('storage/public/sponsor/basic.png') }}" alt="basic sponsor"> 
@@ -101,3 +101,4 @@
         {{ $apartments->links() }}
     </div>
 @endsection
+

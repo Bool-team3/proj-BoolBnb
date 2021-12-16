@@ -25,3 +25,4 @@ Route::namespace("Api")
         "index", "show"
     ]);
 });
+

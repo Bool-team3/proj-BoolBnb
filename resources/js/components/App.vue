@@ -1,7 +1,6 @@
 <template>
     <div>
-        <ApartmentView/>
-        
+        <ApartmentView/>    
     </div>
 </template>
 
@@ -14,7 +13,7 @@ export default {
     data() {
         return {
             
-        }
+        }       
     },
 
     components:{
