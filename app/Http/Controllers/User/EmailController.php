@@ -7,6 +7,7 @@ use App\Models\Apartment;
 use App\Models\Email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class EmailController extends Controller
 {
@@ -15,15 +16,33 @@ class EmailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userApartments = Apartment::where('user_id', Auth::user()->id)->pluck('id')->toArray();
-        
-        $emails = Email::where('apartment_id',$userApartments)->orderBy("created_at","desc")->get();
-        
-        // $emails = Email::all();
+        //prende tutti gli appartamenti
+        $allApp = Apartment::all();
+        //prende solo gli appartamenti dell utente loggato
+        $apartments = Apartment::where('user_id', Auth::user()->id)->get();
+        $userApartments = $apartments->pluck('id')->toArray();
 
-        return view('user.emails.index', compact('emails'));
+        $data = $request->all();
+        if(array_key_exists('apartments', $data)){
+            if($data['apartments'][0] == null){
+                //trasforma gli id presi in un array
+                $userApartments = $apartments->pluck('id')->toArray();
+            }else{
+                $userApartments = $data;
+            }
+        }
+
+        $data = "";
+        
+        $emails = Email::whereIn('apartment_id', $userApartments)->paginate(7);
+        $emailsCount = Email::whereIn('apartment_id', $userApartments)->get();
+
+        
+        $allEmail = count($emailsCount);
+
+        return view('user.emails.index', compact('emails', 'allApp', 'allEmail', 'apartments'));
     }
 
     /**

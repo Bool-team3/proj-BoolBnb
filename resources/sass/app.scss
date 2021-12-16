@@ -1,6 +1,9 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+//Font-awesome
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 // Variables
 @import 'variables';
 
@@ -9,3 +12,11 @@
 
 // my variables
 @import "partials/content_user";
+@import "partials/crud_user";
+@import "partials/error_page";
+@import "partials/email";
+
+
+
+
+

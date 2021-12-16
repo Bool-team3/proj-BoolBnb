@@ -44,7 +44,8 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $apartment = Apartment::find($id);
+        return response()->json(compact("apartment"));
     }
 
     /**

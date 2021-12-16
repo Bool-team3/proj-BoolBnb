@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-6" id="apartments_list">
                 <Loading v-if="loading"/>
-
+            
                 <div>
                     <nav class="navbar navbar-light bg-light">
                         <input class="form-control mr-sm-2 w-75" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">                     

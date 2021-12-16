@@ -1,4 +1,3 @@
-
 window.Vue = require('vue');
 window.axios = require("axios");
 /**
@@ -7,10 +6,11 @@ window.axios = require("axios");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import App from "./components/App.vue";
+import Show from "./components/Show.vue";
 
-const app = new Vue({
-    el: '#root',
-    render: h=>h(App),
+
+const show = new Vue({
+    el: '#prova',
+    render: h=>h(Show),
 });
 
