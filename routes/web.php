@@ -10,9 +10,15 @@ Route::get('/', function () {
     return view('home');
 })->name("home");
 
-Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/apartments/{id}', 'ApartmentController@show');
+
+
+Route::get('{any?}', function(){
+    return view('404');
+})->where('any', '.*');
+
+Auth::routes();
 
 Route::middleware('auth')
     ->namespace('User')
@@ -30,10 +36,5 @@ Route::middleware('auth')
         Route::resource('sponsors', SponsorController::class)->only([
             'index', 'store', 'show'
         ]);
-
-});
-
-Route::get('{any?}', function(){
-    return view('404');
-})->where('any', '.*');
+    });
 

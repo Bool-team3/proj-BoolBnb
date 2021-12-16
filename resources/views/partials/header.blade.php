@@ -4,7 +4,7 @@
         <div>
             <a href="{{ route('home') }}">
                 <figure id="logo-header" class="d-none d-md-block d-lg-block d-xl-block">
-                    <img src="{{ asset('storage/public/logo/logo_small.png') }}" 
+                    <img src="{{ asset('storage/public/logo/logo_white_large.png') }}" 
                     alt="Logo b&b" title="Torna alla Home">
                 </figure>
                 <figure id="logo-header" class="d-md-none d-lg-none">
@@ -32,7 +32,7 @@
                     <a id="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('Esci') }}
                     </a>
     
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
