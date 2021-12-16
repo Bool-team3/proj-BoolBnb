@@ -37,8 +37,11 @@
     <div class="row">
         <div class="col-12">
             <h2>I tuoi messaggi</h2>
-            <h4>Hai {{$allEmail}} messaggi in totale</h4>
-
+            @if ($allEmail <= 1)
+                <h4>Hai {{$allEmail}} messaggio</h4>
+            @else
+                <h4>Hai {{$allEmail}} messaggi in totale</h4>
+            @endif
             {{-- filtro per email --}}
             <form class="filtered-mex" action="{{ route('user.emails.index')}}" method="GET" enctype="multipart/form-data">
                 <legend>Filtra messaggi per appartamenti</legend>
