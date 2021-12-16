@@ -11,6 +11,31 @@
             </div>
         @endif
 
+        <div id="confirm" class="d-none">
+            <div class="display-overlay"></div>
+            <div class="box-confirm text-center p-3">
+                <div>
+                    <div class="mb-3">
+                        <div class="circle">
+                            <div class="line"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <h3>
+                            Sei sicuro?
+                        </h3>
+                        <h6>
+                            Vuoi davvero cancellare l'appartamento? <br>
+                            Una volta cancellato non potrai tornare indietro
+                        </h6>
+                    </div>
+                    <form class="formConfirm" method="GET" class="p-2">
+                        <input value="Cancella" class="btn btn-danger myBtn-confirm" type="button">
+                        <input value="Annulla" id="myBtn" class="btn btn-info myBtn-confirm" type="button">
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12 p-3">
                 <h2 class="mb-3">I tuoi appartamenti</h2>
@@ -57,11 +82,11 @@
                                             </a>
                                         </div>     
                                         <div>
-                                            <form method="POST" action="{{route('user.apartments.destroy', $apartment)}}" class="delete-form" data-apartment-id="{{$apartment->id}}" data-apartment-title="{{$apartment->title}}">
+                                            <form method="POST" action="{{route('user.apartments.destroy', $apartment)}}" class="delete-appartment" data-apartment-id="{{$apartment->id}}" data-apartment-title="{{$apartment->title}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 {{-- BOTTONE CHE RICHIAMA UN 'POPUP' PER CONFERMARE DI VOLER ELIMINARE L'APPARTAMENTO  --}}
-                                                <button class="btn btn-danger" onclick="return confirm('Sei sicura/o di voler eliminare questo appartamento?')" title="Elimina">
+                                                <button class="btn btn-danger" title="Elimina">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
@@ -99,6 +124,36 @@
             </div>
         </div>
         {{ $apartments->links() }}
+
+        <script>
+            
+            const deleteConfirm = document.querySelectorAll('.delete-appartment');
+            deleteConfirm.forEach(element => {
+
+                element.addEventListener("submit", function(event){
+                    //stoppa l'evento
+                    event.preventDefault();
+
+                    //apre il box di conferma
+                    let confirm = document.querySelector('#confirm');
+                    confirm.classList.remove("d-none");
+
+                    //prende il valore dei bottoni del box di conferma
+                    const formConfirm = document.querySelector('.formConfirm');
+
+                    formConfirm.elements[0].addEventListener("click", function(){
+                        element.submit();
+                        confirm.classList.add("d-none");
+                    })
+
+                    formConfirm.elements[1].addEventListener("click", function(){
+                        confirm.classList.add("d-none");
+                    })
+                    
+                });
+
+            });
+        </script>
     </div>
 @endsection
 

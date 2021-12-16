@@ -89,9 +89,9 @@ to {margin-left: 10px;}
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 40%;
-    left: 50%;
+    left: 55%;
     transform: translate(-65%, -50%);
     height: 230px;
     width: 450px;
@@ -124,6 +124,17 @@ to {margin-left: 10px;}
     .box-confirm{
         transform: translate(-50%, -50%);
         height: 200px;
-        width: 400px;
+        width: 320px;
+    }
+    .email{
+        position: relative;
+        form{
+            position: absolute;
+            top: 80%;
+            right: 2px;
+            // margin-bottom: 25px;
+            z-index: 5;
+        }
+        
     }
 }

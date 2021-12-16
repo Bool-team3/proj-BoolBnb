@@ -14787,6 +14787,93 @@ h3 {
   background-color: #6153CC;
   color: white;
 }
+#index-apartment .display-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+#index-apartment .box-confirm {
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 30%;
+  left: 55%;
+  z-index: 6;
+  background-color: #dddddd;
+  border-radius: 15px;
+  -webkit-animation-name: showConfirm;
+          animation-name: showConfirm;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+}
+#index-apartment .circle {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid #dc3545;
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+}
+#index-apartment .line {
+  height: 55px;
+  width: 1px;
+  border: 3px solid #dc3545;
+  border-radius: 10px;
+  margin: 10px;
+}
+#index-apartment .dot {
+  height: 5px;
+  width: 1px;
+  border: 4px solid #dc3545;
+  border-radius: 10px;
+  margin: 3px;
+}
+#index-apartment .myBtn-confirm {
+  margin: 0 35px;
+}
+@-webkit-keyframes showConfirm {
+  0% {
+    opacity: 0;
+    top: 20%;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+    top: 30%;
+  }
+}
+@keyframes showConfirm {
+  0% {
+    opacity: 0;
+    top: 20%;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+    top: 30%;
+  }
+}
+@media screen and (max-width: 576px) {
+  #index-apartment .box-confirm {
+    transform: translate(-50%, -50%);
+    height: 320px;
+    width: 300px;
+  }
+}
 
 #myBtn {
   background-color: white;
@@ -15092,9 +15179,9 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 40%;
-  left: 50%;
+  left: 55%;
   transform: translate(-65%, -50%);
   height: 230px;
   width: 450px;
@@ -15109,20 +15196,6 @@ label {
 
 .myBtn-confirm {
   margin: 0 35px;
-}
-
-@-webkit-keyframes showConfirm {
-  0% {
-    opacity: 0;
-    top: 15%;
-  }
-  75% {
-    opacity: 0.75;
-  }
-  100% {
-    opacity: 1;
-    top: 40%;
-  }
 }
 
 @keyframes showConfirm {
@@ -15142,6 +15215,16 @@ label {
   .box-confirm {
     transform: translate(-50%, -50%);
     height: 200px;
-    width: 400px;
+    width: 320px;
+  }
+
+  .email {
+    position: relative;
+  }
+  .email form {
+    position: absolute;
+    top: 80%;
+    right: 2px;
+    z-index: 5;
   }
 }
