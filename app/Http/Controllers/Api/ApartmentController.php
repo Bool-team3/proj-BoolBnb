@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
+use App\Models\Service;
 
 class ApartmentController extends Controller
 {
@@ -17,7 +18,8 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::with(["services", "sponsors"])->get();
 
-        return response()->json(compact("apartments"));
+        $services = Service::all();
+        return response()->json(compact("apartments", "services"));
     }
 
     /**

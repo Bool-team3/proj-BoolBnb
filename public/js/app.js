@@ -550,8 +550,13 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+__webpack_require__(/*! C:\laravel_projects\boolean-projects\proj-BoolBnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laravel_projects\boolean-projects\proj-BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
 __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
+>>>>>>> 3bad6935a689a2c8cdab90770376819a5b4a337c
 
 
 /***/ })

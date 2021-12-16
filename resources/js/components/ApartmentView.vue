@@ -7,11 +7,26 @@
                 <div>
                     <nav class="navbar navbar-light bg-light">
                         <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @keyup.enter="searchApartment(search)">Search</button>              
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>              
                     </nav>
-                    <ApartmentCard v-for="element in apartmentResults" 
-                        :key="element.id" :apartment='element' />              
+                    <!-- Filters -->
+                    <label for="radius">Km area di ricerca</label>                     
+                    <input type="number" id="radius" min="1" v-model="radius"> 
+                    
+                    <label for="room">Numero stanze:</label>                       
+                    <input type="number" id="room" min="1" v-model="room"> 
+                    
+                    <label for="bed">Numero letti:</label>                      
+                    <input type="number" id="bed" min="1" v-model="bed"> 
+                    
+                    <div id="checkbox_service" class="form-check form-check-inline" v-for="service in serviceList" :key="service.id" >                                             
+                        <input class="form-check-input" type="checkbox" :id="`service-${service.id}`" :value="service.id" v-model="selectedServices">                         
+                        <label class="form-check-label" :for="`service-${service.id}`">{{service.name}}</label>
+                    </div>
                 </div>
+
+                <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />              
+
             </div>
             <div class="col-6" id="mappa">
                 <div id='map'></div>
@@ -34,6 +49,11 @@ export default {
             poiList: [],
             search: "",
             loading: true,
+            serviceList: [],
+            selectedServices: [],
+            radius: 20 ,                
+            room: 1,             
+            bed : 1,
             poi: [],
             allCoords: []
         }
@@ -51,8 +71,10 @@ export default {
                 // Ordina La lista di appartamenti per sponsorizzazione
                 this.apartmentList.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
 
-                this.apartmentResults = response.data.apartments;     
-                
+                this.apartmentResults = response.data.apartments;
+
+                this.serviceList = response.data.services;
+
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
@@ -88,7 +110,7 @@ export default {
                 map.addControl(new tt.FullscreenControl());
                 map.addControl(new tt.NavigationControl());
                 this.allCoords.forEach(element => {
-                    console.log(element);
+                    // console.log(element);
                     var customMarker = document.createElement('div');
                     customMarker.id = 'marker';
                     new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
@@ -98,10 +120,26 @@ export default {
             });
         },
 
+        isInSelectedServices(apartment){
+                
+            let apartmentServiceIds = []
+            
+            for(let service of apartment.services){
+                apartmentServiceIds.push(service.id) 
+            }
+            console.log(apartmentServiceIds)
+            console.log(apartment.services)
+
+            return this.selectedServices.every( (service) => {
+                return apartmentServiceIds.includes(service)
+            })
+        },
         searchApartment(search){
             delete axios.defaults.headers.common['X-Requested-With'];
+            console.clear()
 
             if(search == ''){
+
                 this.apartmentResults = this.apartmentList;
                 var map = tt.map({
                     key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
@@ -112,7 +150,7 @@ export default {
                 map.addControl(new tt.FullscreenControl());
                 map.addControl(new tt.NavigationControl());
                 this.allCoords.forEach(element => {
-                    console.log(element);
+                    // console.log(element);
                     var customMarker = document.createElement('div');
                     customMarker.id = 'marker';
                     new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
@@ -128,21 +166,21 @@ export default {
                     }
                 })
                 .then( (response) => {
-                    let geometryListArray =
+                    let geometryList =
                         {
                             "type":"CIRCLE", 
                             "position": `${response.data.results[0].position.lat}, ${response.data.results[0].position.lon}`, 
-                            "radius":20000
+                            "radius": this.radius*1000
                         }
                     
-                    axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryListArray)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
+                    axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryList)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
                     .then( (response) => {
                         this.apartmentResults=[];
                         //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
                         for(let elementResult of response.data.results){
                             console.log(elementResult.poi.id)
                             for(let element of this.apartmentList){
-                                if(elementResult.poi.id == element.id){
+                                if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
                                     this.apartmentResults.push(element);
                                     this.poi.push({
                                         position: {
@@ -189,6 +227,17 @@ export default {
     created(){
         this.getApartmentList();
     },
+
+    mounted() {
+        var map = tt.map({
+            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+            container: 'map',
+            center: [12, 41],
+            zoom: 4
+        });
+        map.addControl(new tt.FullscreenControl());
+        map.addControl(new tt.NavigationControl());
+    }
 }
 </script>
 
@@ -198,12 +247,12 @@ export default {
     width: 100%; 
 }
 #marker{
-  background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
-  filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 55px;
-  height: 75px;
+    background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
+    filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 55px;
+    height: 75px;
 }
 
 #mappa{
