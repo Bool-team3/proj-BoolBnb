@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
 
-
 class ApartmentController extends Controller
 {
     /**
@@ -20,7 +19,12 @@ class ApartmentController extends Controller
         $apartments = Apartment::with(["services", "sponsors"])->get();
         $services = Service::all();
 
+
         return response()->json(compact("apartments", "services"));       
+
+        $services = Service::all();
+        return response()->json(compact("apartments", "services"));
+
     }
         
 
