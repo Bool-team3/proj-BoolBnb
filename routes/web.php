@@ -24,9 +24,7 @@ Route::middleware('auth')
     Route::resource('apartments', ApartmentController::class);
     // Route::resource('users', UserController::class);
     
-    Route::resource('emails', EmailController::class)->only([
-        'index', 'show', 'destroy'
-    ]);
+    Route::resource('emails', EmailController::class);
 
     Route::resource('sponsors', SponsorController::class)->only([
         'index', 'store', 'show'

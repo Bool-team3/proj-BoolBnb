@@ -18,7 +18,6 @@
 
             {{-- filtro per email --}}
             <form action="{{ route('user.emails.index')}}" method="GET" enctype="multipart/form-data">
-            @csrf
                 <legend>Filtra messaggi per appartamenti</legend>
                 <label for="apartments">Appartamento</label>
 
