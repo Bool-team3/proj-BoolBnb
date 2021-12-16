@@ -39,3 +39,4 @@ Route::middleware('auth')
     Route::get('{any?}', function(){
         return view('404');
     })->where('any', '.*');
+
