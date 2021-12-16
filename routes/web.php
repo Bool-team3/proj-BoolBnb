@@ -13,11 +13,6 @@ Route::get('/', function () {
 
 Route::get('/apartments/{id}', 'ApartmentController@show');
 
-
-Route::get('{any?}', function(){
-    return view('404');
-})->where('any', '.*');
-
 Auth::routes();
 
 Route::middleware('auth')
@@ -25,16 +20,19 @@ Route::middleware('auth')
     ->prefix('user')
     ->name('user.')
     ->group(function(){
-        Route::get('/', 'HomeController@index')->name('home');
-        Route::resource('apartments', ApartmentController::class);
-        // Route::resource('users', UserController::class);
-        
-        Route::resource('emails', EmailController::class)->only([
-            'index', 'show', 'destroy'
-        ]);
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('apartments', ApartmentController::class);
+    // Route::resource('users', UserController::class);
+    
+    Route::resource('emails', EmailController::class)->only([
+        'index', 'show', 'destroy'
+    ]);
 
-        Route::resource('sponsors', SponsorController::class)->only([
-            'index', 'store', 'show'
-        ]);
-    });
+    Route::resource('sponsors', SponsorController::class)->only([
+        'index', 'store', 'show'
+    ]);
+});
 
+Route::get('{any?}', function(){
+    return view('404');
+})->where('any', '.*');
