@@ -13,6 +13,10 @@ Route::get('/', function () {
 
 Route::get('/apartments/{id}', 'ApartmentController@show');
 
+
+// Route per la store di un email che può essere effettuata da tutti e 3 i tipi di utente.
+Route::resource('/email', EmailController::class)->only(['create','store']);
+
 Auth::routes();
 
 Route::middleware('auth')
@@ -23,7 +27,6 @@ Route::middleware('auth')
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('apartments', ApartmentController::class);
     // Route::resource('users', UserController::class);
-    
     Route::resource('emails', EmailController::class);
 
     Route::resource('sponsors', SponsorController::class)->only([

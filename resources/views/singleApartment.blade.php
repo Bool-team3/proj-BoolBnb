@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')   
+@section('content')
     <div id="prova">
         
     </div>
@@ -46,6 +46,5 @@
             </div>
         </div>
     </div>
-
     <script src="{{asset('js/back.js')}}"></script>
 @endsection
