@@ -7,7 +7,7 @@
                 <div>
                     <nav class="navbar navbar-light bg-light">
                         <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @keyup.enter="searchApartment(search)">Search</button>              
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>              
                     </nav>
                     <!-- Filters -->
                     <label for="radius">Km area di ricerca</label>                     
@@ -26,7 +26,6 @@
                 </div>
 
                 <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />              
-                
 
             </div>
             <div class="col-6" id="mappa">
@@ -111,7 +110,7 @@ export default {
                 map.addControl(new tt.FullscreenControl());
                 map.addControl(new tt.NavigationControl());
                 this.allCoords.forEach(element => {
-                    console.log(element);
+                    // console.log(element);
                     var customMarker = document.createElement('div');
                     customMarker.id = 'marker';
                     new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
@@ -121,20 +120,25 @@ export default {
             });
         },
 
+        isInSelectedServices(apartment){
+                
+            let apartmentServiceIds = []
+            
+            for(let service of apartment.services){
+                apartmentServiceIds.push(service.id) 
+            }
+            console.log(apartmentServiceIds)
+            console.log(apartment.services)
 
+            return this.selectedServices.every( (service) => {
+                return apartmentServiceIds.includes(service)
+            })
+        },
         searchApartment(search){
             delete axios.defaults.headers.common['X-Requested-With'];
-            // Prova
-            console.log(this.selectedServices);
-            for(apartment of this.apartmentList){
-                if(this.selectedServices.length ){
-                    return
-                }
+            console.clear()
 
-            }
             if(search == ''){
-                
-                // this.apartmentResults = this.apartmentList
 
                 this.apartmentResults = this.apartmentList;
                 var map = tt.map({
@@ -146,7 +150,7 @@ export default {
                 map.addControl(new tt.FullscreenControl());
                 map.addControl(new tt.NavigationControl());
                 this.allCoords.forEach(element => {
-                    console.log(element);
+                    // console.log(element);
                     var customMarker = document.createElement('div');
                     customMarker.id = 'marker';
                     new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
@@ -162,21 +166,21 @@ export default {
                     }
                 })
                 .then( (response) => {
-                    let geometryListArray =
+                    let geometryList =
                         {
                             "type":"CIRCLE", 
                             "position": `${response.data.results[0].position.lat}, ${response.data.results[0].position.lon}`, 
                             "radius": this.radius*1000
                         }
                     
-                    axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryListArray)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
+                    axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryList)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
                     .then( (response) => {
                         this.apartmentResults=[];
                         //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
                         for(let elementResult of response.data.results){
                             console.log(elementResult.poi.id)
                             for(let element of this.apartmentList){
-                                if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed){
+                                if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
                                     this.apartmentResults.push(element);
                                     this.poi.push({
                                         position: {
