@@ -1,26 +1,37 @@
 <template>
     <div class="container">
-        <h1>{{apartment.id}}</h1>    
+       <div class="card">
+        <div class="card-body">
+            <h2>{{apartment.title}}</h2>
+            <h3>{{apartment.city}}</h3>        
+        </div>    
+    </div>
     </div>
 </template>
 
 <script>
-// import ApartmentShow from "./ApartmentShow.vue";
+
 export default {
     name: "Show",
     data() {
         return {
-            apartment: []
+            apartment: [],
+            apID : '',
         }      
     },
     components:{           
-        // ApartmentShow,
+    
     },
     methods: {
+        getIDfromURL(){
+            //prendo l'id dall0'url e sto.
+            this.apID =  window.location.pathname.split('/')[2];
+            console.log(this.apID);
+        },
         getApartmentDetails(){
-            axios.get(`/api/apartments/`)       
+            axios.get(`/api/apartments/${this.apID}`)       
             .then((response) => {
-                console.log(response);
+                
                 this.apartment = response.data.apartment;
                 
             }).catch( (error) =>{
@@ -29,6 +40,7 @@ export default {
         }
     },
     created(){
+        this.getIDfromURL();
         this.getApartmentDetails();
     }
    

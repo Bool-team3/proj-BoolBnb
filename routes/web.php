@@ -14,7 +14,6 @@ Route::get('/', function () {
 Route::get('/apartments/{id}', 'ApartmentController@show');
 
 
-
 Route::get('{any?}', function(){
     return view('404');
 })->where('any', '.*');

@@ -1,10 +1,9 @@
 <template>
     <div class="container">
         <div v-if="apartment.visible">
-            <div class="card" >
+            <div class="card">
                 <div class="card-body">                  
                     <h2 class="card-title">{{apartment.title}}</h2>
-                    <!-- <h2 class="card-title">{{apartment.id}}</h2> -->
                     <h6 class="card-title">Stanze: {{apartment.room}}</h6>
                     <h6 class="card-title">Stanze da letto: {{apartment.bedroom}}</h6>
                     <h6 class="card-title">Posti letto: {{apartment.bed}}</h6>
@@ -21,21 +20,17 @@
 
 <script>
 
-
 export default {
     name: 'ApartmentCard',
     data() {
         return {
-    
         }
     },
     props: ['apartment'],
-
+    
     components:{           
-        
     },
     methods:{
-        
     },
 }
 </script>
