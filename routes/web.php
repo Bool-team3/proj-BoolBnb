@@ -13,10 +13,8 @@ Route::get('/', function () {
 
 Route::get('/apartments/{id}', 'ApartmentController@show');
 
-
-Route::get('{any?}', function(){
-    return view('404');
-})->where('any', '.*');
+// Route per la store di un email che può essere effettuata da tutti e 3 i tipi di utente.
+Route::resource('/email', EmailController::class)->only(['create','store']);
 
 Auth::routes();
 
@@ -38,3 +36,6 @@ Route::middleware('auth')
         ]);
     });
 
+    Route::get('{any?}', function(){
+        return view('404');
+    })->where('any', '.*');
