@@ -27,7 +27,7 @@ export default {
         }
     },
     props: ['apartment'],
-    
+
     components:{           
     },
     methods:{

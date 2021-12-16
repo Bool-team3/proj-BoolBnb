@@ -1,8 +1,10 @@
 <template>
     <div class="container">
-       <div class="card">
+        <Loading v-if="loading"/>
+        <div class="card" v-else>
         <div class="card-body">
             <h2>{{apartment.title}}</h2>
+            <h2>{{apartment.id}}</h2>
             <h3>{{apartment.city}}</h3>        
         </div>    
     </div>
@@ -10,6 +12,7 @@
 </template>
 
 <script>
+import Loading from "./Loading.vue";
 
 export default {
     name: "Show",
@@ -17,10 +20,11 @@ export default {
         return {
             apartment: [],
             apID : '',
+            loading: true,
         }      
     },
     components:{           
-    
+        Loading,
     },
     methods: {
         getIDfromURL(){
@@ -30,12 +34,12 @@ export default {
         },
         getApartmentDetails(){
             axios.get(`/api/apartments/${this.apID}`)       
-            .then((response) => {
-                
-                this.apartment = response.data.apartment;
-                
+            .then((response) => {              
+                this.apartment = response.data.apartment;    
             }).catch( (error) =>{
                 console.log(error);
+            }).then( () =>{
+                this.loading = false;
             });
         }
     },
@@ -43,7 +47,6 @@ export default {
         this.getIDfromURL();
         this.getApartmentDetails();
     }
-   
 }
 </script>
 
