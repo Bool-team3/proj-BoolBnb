@@ -17,7 +17,7 @@
             <h4>Hai {{$allEmail}} messaggi in totale</h4>
 
             {{-- filtro per email --}}
-            <form action="{{ route('user.emails.index')}}" method="GET" enctype="multipart/form-data">
+            <form class="filtered-mex" action="{{ route('user.emails.index')}}" method="GET" enctype="multipart/form-data">
                 <legend>Filtra messaggi per appartamenti</legend>
                 <label for="apartments">Appartamento</label>
 
@@ -30,13 +30,12 @@
                 <button class="btn btn-outline-primary" type="submit">Invia</button>
             </form>
             @forelse ($emails as $email)
-                <div class="card-deck email">
+                <div class="card-deck email w-75">
                     <div class="card">
                         <div class="d-flex">
                             <div class="card-body">
                                 <h4 class="card-title">Appartamento: {{$allApp[($email->apartment_id) - 2]->title}}</h4>
                                 <h5 class="card-title"><a class="stretched-link" href="{{route("user.emails.show", $email->id)}}">Oggetto: {{$email->subject}}</a></h5>
-
                                 <h6 class="card-title">Nome: {{$email->name}}</h6>
                                 <h6 class="card-title">Indirizzo email: {{$email->email_address}}</h6>
                                 <p class="card-text"><small class="text-muted">Ricevuta il:{{$email->created_at}}</small></p>

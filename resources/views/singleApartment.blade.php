@@ -9,11 +9,9 @@
         <div class="row">
             <div class="col-12">
                 <h4>Invia un messaggio</h4>
-                <form action={{'user.emails.store'}} method="POST" enctype="multipart/form-data">
+                <form action={{'emails.store'}} method="POST">
                     @csrf
-                    @method('POST')
                     @guest
-                        
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nome</label>
                             <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Inserisci il tuo nome">

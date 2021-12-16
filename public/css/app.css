@@ -15006,8 +15006,17 @@ label {
   width: 750px;
 }
 
+.filtered-mex {
+  margin-bottom: 25px;
+}
+
 .email {
+  border-radius: 20px;
+  padding: 5px 0;
   position: relative;
+}
+.email .card-body {
+  padding: 15px;
 }
 .email a {
   text-decoration: none;
@@ -15018,5 +15027,10 @@ label {
   position: absolute;
   top: 5px;
   right: 5px;
+  margin-bottom: 25px;
   z-index: 5;
+}
+.email h4, .email h5, .email h6, .email p {
+  padding-bottom: 0;
+  margin-bottom: 5px;
 }

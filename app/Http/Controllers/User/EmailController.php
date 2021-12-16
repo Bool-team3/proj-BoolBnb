@@ -63,12 +63,7 @@ class EmailController extends Controller
      */
     public function store(Request $request)
     {
-        $email = new Email();
-
-        $data = $request->all();
-        dd($data);
-
-        return redirect()->view("home")->with('message-success', 'Messaggio inviato correttamente!');
+        //
     }
 
     /**
