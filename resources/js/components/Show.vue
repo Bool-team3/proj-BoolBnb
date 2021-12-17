@@ -1,13 +1,25 @@
 <template>
     <div class="container">
         <Loading v-if="loading"/>
-        <div class="card" v-else>
-        <div class="card-body">
+        <div class="card d-flex" v-else>
             <h2>{{apartment.title}}</h2>
-            <h2>{{apartment.id}}</h2>
-            <h3>{{apartment.city}}</h3>        
-        </div>    
-    </div>
+            <picture>
+                <img :src="apartment.img_url" alt="">   
+            </picture>
+            <div class="card-body">
+                <h5>Host: {{user.name}}</h5>
+                <h6>contact mail: {{user.email}}</h6>
+                <ol>
+                    <li v-if="apartment.room == 1">{{apartment.room}} stanza</li>
+                    <li v-else>{{apartment.room}} stanze</li>
+                    <li v-if="apartment.bedroom == 1">{{apartment.bedroom}} letto</li>
+                    <li v-else>{{apartment.bedroom}} letti</li>
+                    <li v-if="apartment.bathroom == 1">{{apartment.bathroom}} bagno</li>
+                    <li v-else>{{apartment.bathroom}} bagni</li>
+                    <li>{{apartment.mq}} mq</li>
+                </ol>
+            </div>    
+        </div>
     </div>
 </template>
 
@@ -19,6 +31,7 @@ export default {
     data() {
         return {
             apartment: [],
+            user: [],
             apID : '',
             loading: true,
         }      
@@ -34,8 +47,11 @@ export default {
         },
         getApartmentDetails(){
             axios.get(`/api/apartments/${this.apID}`)       
-            .then((response) => {              
+            .then((response) => {         
+                //riempio apartment
                 this.apartment = response.data.apartment;    
+                //riempio user
+                this.user = response.data.user;    
             }).catch( (error) =>{
                 console.log(error);
             }).then( () =>{
