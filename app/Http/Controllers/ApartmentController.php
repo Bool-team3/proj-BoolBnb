@@ -13,8 +13,8 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::findOrFail($id);
 
-        $serviceIds = Service::pluck('id')->toArray();
-        $services = Service::findOrFail($id)->id;
+        // $serviceIds = Service::pluck('id')->toArray();
+        // $services = Service::findOrFail($id)->id;
 
         // dd($services);
         

@@ -42,21 +42,10 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::find($id);
+        $apartment = Apartment::with(['services'])->get()->find($id);
         $user = User::findOrFail($apartment->user_id);
-        
-        // $serviceIds = Service::pluck('id')->toArray();
-        // dd($serviceIds);
-        // foreach($serviceIds as $service)
-        // {
-        //     if($service == $apartment->service->pivot->id)
-        //     {
-        //         dd('ciao');
 
-        //     }
-        // }
-
-        return response()->json(compact("apartment", 'user'));
+        return response()->json(compact("apartment" , 'user'));
     }
 
     /**

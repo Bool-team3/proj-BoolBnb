@@ -9,7 +9,8 @@
         <div class="row">
             <div class="card-body col-6">
                 <picture>
-                    <img :src="apartment.img_url" alt="">   
+                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/300x300.png/0099ee?text=team3+praesentium'" alt="">
+                    <img v-else :src="apartment.img_url" alt="">   
                 </picture>
                 <div>
                     <ol>
@@ -29,7 +30,7 @@
             </div>
             <div class="col-6">
                 <ul>
-                    <!-- <li v-for="(element, index) in services" :key="index">{{element}}</li> -->
+                    <li v-for="(element, index) in apartment.services" :key="index"><h2>{{element.name}}</h2></li>
                 </ul>
             </div>
         </div>
@@ -63,7 +64,7 @@ export default {
             
             if(lp === '') lp = parts[parts.length - 2];
             
-            this.apID = lp 
+            this.apID = lp;
         },
         getApartmentDetails(){
             axios.get(`/api/apartments/${this.apID}`)       
