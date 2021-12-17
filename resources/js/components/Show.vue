@@ -1,24 +1,63 @@
 <template>
     <div class="container">
         <Loading v-if="loading"/>
-        <div class="card d-flex" v-else>
-            <h2>{{apartment.title}}</h2>
-            <picture>
-                <img :src="apartment.img_url" alt="">   
-            </picture>
-            <div class="card-body">
-                <h5>Host: {{user.name}}</h5>
-                <h6>contact mail: {{user.email}}</h6>
-                <ol>
-                    <li v-if="apartment.room == 1">{{apartment.room}} stanza</li>
-                    <li v-else>{{apartment.room}} stanze</li>
-                    <li v-if="apartment.bedroom == 1">{{apartment.bedroom}} letto</li>
-                    <li v-else>{{apartment.bedroom}} letti</li>
-                    <li v-if="apartment.bathroom == 1">{{apartment.bathroom}} bagno</li>
-                    <li v-else>{{apartment.bathroom}} bagni</li>
-                    <li>{{apartment.mq}} mq</li>
-                </ol>
+        <!-- <div class="card d-flex" v-else>
+            <div>
+                <h2 class="text-center">{{apartment.title}}</h2>
+                <picture>
+                    <img :src="apartment.img_url" alt="">   
+                </picture>
+                <div class="card-body">
+                    <ol>
+                        <li v-if="apartment.room == 1">{{apartment.room}} stanza</li>
+                        <li v-else>{{apartment.room}} stanze</li>
+                        <li v-if="apartment.bedroom == 1">{{apartment.bedroom}} letto</li>
+                        <li v-else>{{apartment.bedroom}} letti</li>
+                        <li v-if="apartment.bathroom == 1">{{apartment.bathroom}} bagno</li>
+                        <li v-else>{{apartment.bathroom}} bagni</li>
+                        <li>{{apartment.mq}} mq</li>
+                    </ol>
+                    <div class="mt-5">
+                        <h5>Host: {{user.name}}</h5>
+                        <h6>contact mail: {{user.email}}</h6>
+                    </div>
+                </div>
             </div>    
+            <div class="col-6">
+                sdsfsdf
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">{{apartment.title}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body col-6">
+                <picture>
+                    <img :src="apartment.img_url" alt="">   
+                </picture>
+                <div>
+                    <ol>
+                        <li v-if="apartment.room == 1">{{apartment.room}} stanza</li>
+                        <li v-else>{{apartment.room}} stanze</li>
+                        <li v-if="apartment.bedroom == 1">{{apartment.bedroom}} letto</li>
+                        <li v-else>{{apartment.bedroom}} letti</li>
+                        <li v-if="apartment.bathroom == 1">{{apartment.bathroom}} bagno</li>
+                        <li v-else>{{apartment.bathroom}} bagni</li>
+                        <li>{{apartment.mq}} mq</li>
+                    </ol>
+                </div>
+                <div>
+                    <h5>Host: {{user.name}}</h5>
+                    <h6>contact mail: {{user.email}}</h6>
+                </div>
+            </div>
+            <div class="col-6">
+                <ul>
+                    
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -66,6 +105,22 @@ export default {
 }
 </script>
 
-<style>
 
-</style>
+<style scoped lang="scss">
+    .card{
+        flex-direction: row;
+    }
+    .card-body{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    ol{
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        display: inline;
+        margin-right: 10px;
+    }
+</style>>

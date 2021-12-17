@@ -44,6 +44,7 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::find($id);
         $user = User::findOrFail($apartment->user_id);
+        
         return response()->json(compact("apartment", 'user'));
     }
 
