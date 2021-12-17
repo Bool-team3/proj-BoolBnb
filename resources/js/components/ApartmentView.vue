@@ -123,11 +123,13 @@ export default {
 
                     var customMarker = document.createElement('div');
                     customMarker.id = 'marker-all';
+
                     var marker = new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
 
                     // POI Details Popup
                     var popup = new tt.Popup({offset: popupOffsets}).setHTML(`<strong>${element.poi.title}</strong> <br> <p>${element.poi.street_name} ${element.poi.street_number}, ${element.poi.city}</p>`);
                     marker.setPopup(popup);
+
                 });
                 map.setCenter(12, 41);
                 map.setZoom(9.5);
@@ -193,7 +195,6 @@ export default {
                     // POI Details Popup
                     var popup = new tt.Popup({offset: popupOffsets}).setHTML(`<strong>${element.title}</strong> <br> <p>${element.street_name} ${element.street_number}, ${element.city}</p>`);
                     marker.setPopup(popup);
-
                 });
                 map.setCenter(12, 41);
                 map.setZoom(9.5);
@@ -274,16 +275,6 @@ export default {
         this.getApartmentList();
     },
 
-    mounted() {
-        var map = tt.map({
-            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',
-            container: 'map',
-            center: [12, 41],
-            zoom: 4
-        });
-        map.addControl(new tt.FullscreenControl());
-        map.addControl(new tt.NavigationControl());
-    }
 }
 </script>
 
@@ -309,15 +300,15 @@ export default {
     height: 35px;
 }
 
+#apartments_list{
+    overflow-y: scroll;
+    overflow-y: hidden;
+}
+
 #mappa{
     position: fixed;
     right: 0;
     width: 100%;
     height: 100%;
-}
-
-#apartments_list{
-    overflow-y: scroll;
-    overflow-y: hidden;
 }
 </style>
