@@ -30,7 +30,29 @@
             </div>
             <div class="col-6">
                 <ul>
-                    <li v-for="(element, index) in apartment.services" :key="index"><h2>{{element.name}}</h2></li>
+                    <li v-for="(element, index) in apartment.services" :key="index">
+
+                        <h2 v-if="element.id == 1">
+                            <i class="fas fa-wifi"></i>
+                            {{element.name}}
+                        </h2>
+                        <h2 v-else-if="element.id == 2">
+                            <i class="fas fa-water"></i>
+                            {{element.name}}
+                        </h2>
+                        <h2 v-else-if="element.id == 3">
+                            <i class="fas fa-swimming-pool"></i>
+                            {{element.name}}
+                        </h2>
+                        <h2 v-else-if="element.id == 4">
+                            <i class="fas fa-concierge-bell"></i>
+                            {{element.name}}
+                        </h2>
+                        <h2 v-else-if="element.id == 5">
+                            <i class="fas fa-hot-tub"></i>
+                            {{element.name}}
+                        </h2>
+                    </li>
                 </ul>
             </div>
         </div>
