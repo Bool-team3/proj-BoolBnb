@@ -14876,6 +14876,9 @@ h3 {
 }
 
 @media screen and (max-width: 576px) {
+  #index-apartment .card-body {
+    padding: 10px;
+  }
   #index-apartment .btn-outline-info {
     padding: 0.3px;
     height: 28px;
