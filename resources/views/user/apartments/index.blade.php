@@ -48,7 +48,7 @@
                 @forelse ($apartments as $apartment)
                     <div class="card w-75 mb-2">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between flex-column flex-sm-row">
                                 <div>
                                     <h5 class="card-title"><strong>Appartamento: </strong>{{$apartment->title}}</h5>
 
@@ -94,23 +94,26 @@
                                         </div>
                                     </div>
                                 <div>
+                                <div>
+                                    
                                 @if ($apartment->sponsors()->exists('sponsor_id'))
                                     @foreach ($apartment->sponsors as $sponsor)
                                         <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}}</span>
                                         @switch($myID)
                                             @case(1)
-                                            <img src="{{ asset('storage/public/sponsor/basic.png') }}" alt="basic sponsor"> 
+                                            <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/basic.png') }}" alt="basic sponsor"> 
                                                 @break
                                             @case(2)
-                                                <img src="{{ asset('storage/public/sponsor/premium.png') }}" alt="premium sponsor">  
+                                                <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/premium.png') }}" alt="premium sponsor">  
                                                 @break
                                             @case(3)
-                                            <img src="{{ asset('storage/public/sponsor/business.png') }}" alt="business sponsor"> 
+                                            <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/business.png') }}" alt="business sponsor"> 
                                                 @break
                                             @default
                                         @endswitch         
                                     @endforeach
                                 @else
+                                </div id="sponsor-button">
                                     <a class="btn btn-primary" id="myBtn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>            
                                 @endif
                                     </div>

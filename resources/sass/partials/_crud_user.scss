@@ -2,7 +2,7 @@
     #add-house{
         width: 30px;
     }
-
+  
     .edit-delete-sponsor{
         position: relative;
         img{
@@ -27,6 +27,7 @@
             }
         }
     }
+
 
     .display-overlay{
       position: fixed;
@@ -110,7 +111,32 @@
       }
   }
 
+}
 
+@media screen and (max-width: 576px) {
+  #index-apartment{
+    .btn-outline-info{
+      padding: 0.3px;
+      height: 28px;
+      width: 125px;
+      font-size: 0.8rem;
+    }
+    h5{
+      font-size: 1rem;
+    }
+    .edit-delete-sponsor{
+        padding-top: 50px;
+        position: relative;
+
+      #myBtn{
+        margin-top: 10px;
+        height: 28px;
+        width: 125px;
+        font-size: 0.8rem;
+
+      }
+    }
+  }
 }
 
 #myBtn{
