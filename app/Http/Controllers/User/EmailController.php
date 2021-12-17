@@ -18,8 +18,6 @@ class EmailController extends Controller
      */
     public function index(Request $request)
     {
-        //prende tutti gli appartamenti
-        $allApp = Apartment::all();
         //prende solo gli appartamenti dell utente loggato
         $apartments = Apartment::where('user_id', Auth::user()->id)->get();
         $userApartments = $apartments->pluck('id')->toArray();
@@ -42,7 +40,7 @@ class EmailController extends Controller
         
         $allEmail = count($emailsCount);
 
-        return view('user.emails.index', compact('emails', 'allApp', 'allEmail', 'apartments'));
+        return view('user.emails.index', compact('emails', 'allEmail', 'apartments'));
     }
 
     /**

@@ -54,7 +54,7 @@ export default {
         Loading,
     },
     methods: {
-        getIDfromURL(){      
+        getIDfromURL(){
             var urlPreso = window.location.pathname;
 
             var parts = urlPreso.split("/");
