@@ -1,5 +1,17 @@
+.filtered-mex{
+    margin-bottom: 25px;
+}
+
 .email{
+
+    border-radius: 20px;
+    padding: 5px 0;
     position: relative;
+
+    .card-body{
+        padding: 15px;
+    }
+    
     a{
         text-decoration: none;
         color: black;
@@ -9,6 +21,120 @@
         position: absolute;
         top: 5px;
         right: 5px;
+        margin-bottom: 25px;
         z-index: 5;
+    }
+    h4,h5,h6,p{
+        padding-bottom: 0;
+        margin-bottom: 5px;
+    }
+    
+}
+
+.wrapper-mail{
+    background-color: white;
+    width: 60%;
+    margin: 100px auto;
+    padding: 25px;
+    border: 0.2px solid #6153CC;
+    border-radius: 20px;
+}
+.container{
+    position: relative;
+
+    .back-to-home{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: black;
+    
+        &:hover{
+          .fa-long-arrow-alt-left{
+            animation: move 0.7s linear infinite;
+            color: #6153CC;
+            cursor: pointer;
+          }
+        }
+    }
+}
+
+@keyframes move {
+from {margin-left: -10px;}
+to {margin-left: 10px;}
+}
+
+#myBtn{
+    background-color: white;
+    border-color: #6153CC;
+    color: #6153CC;
+
+    &:hover{
+        background-color: #6153CC;
+        color: white;
+
+    }
+}
+
+.display-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+.box-confirm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 40%;
+    left: 55%;
+    transform: translate(-65%, -50%);
+    height: 230px;
+    width: 450px;
+    z-index: 10;
+    background-color: #dddddd;
+    border-radius: 15px;
+    animation-name: showConfirm;
+    animation-duration: 0.3s;
+}
+
+.myBtn-confirm{
+    margin: 0 35px;
+}
+
+@keyframes showConfirm{
+    0%{
+        opacity: 0;
+        top: 15%;
+    }
+    75%{
+        opacity: 0.75;
+    }
+    100%{
+        opacity: 1;
+        top: 40%;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .box-confirm{
+        transform: translate(-50%, -50%);
+        height: 200px;
+        width: 320px;
+    }
+    .email{
+        position: relative;
+        form{
+            position: absolute;
+            top: 80%;
+            right: 2px;
+            // margin-bottom: 25px;
+            z-index: 5;
+        }
+        
     }
 }
