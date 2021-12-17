@@ -28,9 +28,15 @@ export default {
     },
     methods: {
         getIDfromURL(){
-            //prendo l'id dall0'url e sto.
-            this.apID =  window.location.pathname.split('/')[2];
-            console.log(this.apID);
+            var urlPreso = window.location.pathname;
+
+            var parts = urlPreso.split("/");
+            
+            var lp = parts[parts.length - 1];
+            
+            if(lp === '') lp = parts[parts.length - 2];
+            
+            this.apID = lp 
         },
         getApartmentDetails(){
             axios.get(`/api/apartments/${this.apID}`)       
