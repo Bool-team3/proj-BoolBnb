@@ -116,7 +116,11 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\node_modules\popper.js\dist\popper.js */"./node_modules/popper.js/dist/popper.js");
+=======
 module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\node_modules\popper.js\dist\popper.js */"./node_modules/popper.js/dist/popper.js");
+>>>>>>> a9f8c9d04ce2dacb3bd4dd8063558bb25dad9473
 
 
 /***/ })
