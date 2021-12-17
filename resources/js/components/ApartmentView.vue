@@ -3,30 +3,29 @@
         <div class="row">
             <div class="col-6" id="apartments_list">
                 <Loading v-if="loading"/>
-            
-                <div>
-                    <nav class="navbar navbar-light bg-light">
-                        <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>              
-                    </nav>
-                    <!-- Filters -->
-                    <label for="radius">Km area di ricerca</label>                     
-                    <input type="number" id="radius" min="1" v-model="radius"> 
-                    
-                    <label for="room">Numero stanze:</label>                       
-                    <input type="number" id="room" min="1" v-model="room"> 
-                    
-                    <label for="bed">Numero letti:</label>                      
-                    <input type="number" id="bed" min="1" v-model="bed"> 
-                    
-                    <div id="checkbox_service" class="form-check form-check-inline" v-for="service in serviceList" :key="service.id" >                                             
-                        <input class="form-check-input" type="checkbox" :id="`service-${service.id}`" :value="service.id" v-model="selectedServices">                         
-                        <label class="form-check-label" :for="`service-${service.id}`">{{service.name}}</label>
+                <div v-else>
+                    <div>
+                        <nav class="navbar navbar-light bg-light">
+                            <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>              
+                        </nav>
+                        <!-- Filters -->
+                        <label for="radius">Km area di ricerca</label>                     
+                        <input type="number" id="radius" min="1" v-model="radius"> 
+                        
+                        <label for="room">Numero stanze:</label>                       
+                        <input type="number" id="room" min="1" v-model="room"> 
+                        
+                        <label for="bed">Numero letti:</label>                      
+                        <input type="number" id="bed" min="1" v-model="bed"> 
+                        
+                        <div id="checkbox_service" class="form-check form-check-inline" v-for="service in serviceList" :key="service.id" >                                             
+                            <input class="form-check-input" type="checkbox" :id="`service-${service.id}`" :value="service.id" v-model="selectedServices">                         
+                            <label class="form-check-label" :for="`service-${service.id}`">{{service.name}}</label>
+                        </div>
                     </div>
-                </div>
-
-                <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />              
-
+                    <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />              
+                </div>  
             </div>
             <div class="col-6" id="mappa">
                 <div id='map'></div>

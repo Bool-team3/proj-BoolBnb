@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\User;
 
 class ApartmentController extends Controller
 {
@@ -49,7 +50,8 @@ class ApartmentController extends Controller
     public function show($id)
     {
         $apartment = Apartment::find($id);
-        return response()->json(compact("apartment"));
+        $user = User::findOrFail($apartment->user_id);
+        return response()->json(compact("apartment", 'user'));
     }
 
     /**
