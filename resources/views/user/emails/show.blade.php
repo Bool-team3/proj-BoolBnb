@@ -18,7 +18,7 @@
                         <p class="card-text">
                             <small class="text-muted">
                                 Appartamento: 
-                                <strong>{{$allApp[($email->apartment_id) - 2]->title}}</strong>
+                                <strong>{{$email->apartment->title}}</strong>
                             </small>
                         </p>
                     </div>

@@ -8,6 +8,7 @@
     @if(session('delete'))
         <div class="alert alert-success" role="alert">
             {{session('delete') }} è stato eliminato con successo!
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
         </div>
     @endif
 
@@ -37,7 +38,7 @@
     <div class="row">
         <div class="col-12">
             <h2>I tuoi messaggi</h2>
-            @if ($allEmail <= 1)
+            @if ($allEmail == 1)
                 <h4>Hai {{$allEmail}} messaggio</h4>
             @else
                 <h4>Hai {{$allEmail}} messaggi in totale</h4>
@@ -60,7 +61,7 @@
                     <div class="card">
                         <div class="d-flex">
                             <div class="card-body">
-                                <h4 class="card-title">Appartamento: {{$allApp[($email->apartment_id) - 2]->title}}</h4>
+                                <h4 class="card-title">Appartamento: {{$email->apartment->title}}</h4>
                                 <h5 class="card-title"><a class="stretched-link" href="{{route("user.emails.show", $email->id)}}">Oggetto: {{$email->subject}}</a></h5>
                                 <h6 class="card-title">Nome: {{$email->name}}</h6>
                                 <h6 class="card-title">Indirizzo email: {{$email->email_address}}</h6>

@@ -8,6 +8,7 @@
         @if(session('delete'))
             <div class="alert alert-success" role="alert">
                 {{session('delete') }} è stato eliminato con successo!
+                <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
             </div>
         @endif
 
