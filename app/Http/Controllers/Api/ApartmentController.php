@@ -49,9 +49,10 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::find($id);
+        $apartment = Apartment::with(['services'])->get()->find($id);
         $user = User::findOrFail($apartment->user_id);
-        return response()->json(compact("apartment", 'user'));
+
+        return response()->json(compact("apartment" , 'user'));
     }
 
     /**
