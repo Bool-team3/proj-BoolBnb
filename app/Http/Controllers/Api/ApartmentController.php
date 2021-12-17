@@ -18,10 +18,17 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartments = Apartment::with(["services", "sponsors"])->get();
+        $services = Service::all();
+
+
+        return response()->json(compact("apartments", "services"));       
 
         $services = Service::all();
         return response()->json(compact("apartments", "services"));
+
     }
+        
+
 
     /**
      * Store a newly created resource in storage.

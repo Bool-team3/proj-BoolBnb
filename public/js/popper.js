@@ -116,7 +116,15 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\laravel_ex\proj-BoolBnb\node_modules\popper.js\dist\popper.js */"./node_modules/popper.js/dist/popper.js");
+=======
+<<<<<<< HEAD
+module.exports = __webpack_require__(/*! C:\Users\cicci\Documents\proj-BoolBnb\node_modules\popper.js\dist\popper.js */"./node_modules/popper.js/dist/popper.js");
+=======
+module.exports = __webpack_require__(/*! C:\LaravelBooleanProj\proj-BoolBnb\node_modules\popper.js\dist\popper.js */"./node_modules/popper.js/dist/popper.js");
+>>>>>>> main
+>>>>>>> 35779e4dd7cf113f51f71bf86f5c0b11f409ba6d
 
 
 /***/ })

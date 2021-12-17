@@ -11,6 +11,14 @@ class EmailController extends Controller
 {
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name'=> 'required|string|max:25|',
+            'email_address' => 'required|email:rfc,dns',
+            'subject' => 'required|string|max:60',
+            'message' => 'required|string'
+        ]);
+
         $data = $request->all();
 
         // dd($data);
