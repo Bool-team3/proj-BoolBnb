@@ -59,21 +59,11 @@ export default {
 
             var parts = urlPreso.split("/");
             
-
             var lp = parts[parts.length - 1];
+            
             if(lp === '') lp = parts[parts.length - 2];
-                        
-            // console.log(lp);
-            // console.log(typeof(lp));
-
             
-            this.apiID = window.location.pathname.split('/')[lp];
-            console.log(this.apiID);
-            // this.apID = window.location.pathname.split('/')[2];
-
-            // console.log(typeof(window.location.pathname.split('/')[2]));
-            
-           
+            this.apID = lp 
         },
         getApartmentDetails(){
             axios.get(`/api/apartments/${this.apID}`)       
@@ -94,7 +84,7 @@ export default {
     },
     created(){
         this.getIDfromURL();
-        // this.getApartmentDetails();
+        this.getApartmentDetails();
     }
 }
 </script>
