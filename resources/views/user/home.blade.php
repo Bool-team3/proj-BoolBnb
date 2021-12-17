@@ -6,19 +6,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    {{-- <div class="card-header">{{ __('Dashboard') }}</div>
-
-                        <div class="card-body">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-
-                            {{ __('You are logged in!') }}
+                    <div class="card-body">
+                        <div class="card-title">
+                            Benvenuto {{Auth::user()->email}}
                         </div>
-                    </div> --}}
-                </div>
+                    </div>
+                  </div>
             </div>
         </div>
         <a href="{{route('user.apartments.index')}}">I tuoi appartamenti</a>

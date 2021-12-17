@@ -111,7 +111,7 @@ export default {
                 this.allCoords.forEach(element => {
                     // console.log(element);
                     var customMarker = document.createElement('div');
-                    customMarker.id = 'marker';
+                    customMarker.id = 'marker-all';
                     new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
                 });
                 map.setCenter(12, 41);
@@ -151,7 +151,7 @@ export default {
                 this.allCoords.forEach(element => {
                     // console.log(element);
                     var customMarker = document.createElement('div');
-                    customMarker.id = 'marker';
+                    customMarker.id = 'marker-all';
                     new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
                 });
                 map.setCenter(12, 41);
@@ -252,6 +252,15 @@ export default {
     background-repeat: no-repeat;
     width: 55px;
     height: 75px;
+}
+
+#marker-all{
+    background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
+    filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
 }
 
 #mappa{
