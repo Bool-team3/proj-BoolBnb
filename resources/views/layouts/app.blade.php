@@ -70,6 +70,7 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item ml-3"><a href="{{route('user.apartments.index')}}"><i class="fas fa-user"></i></a></li>
                         @endguest
                     </ul>
                 </div>
