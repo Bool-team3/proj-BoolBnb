@@ -15,7 +15,7 @@ Route::get('/apartments/{id}', 'ApartmentController@show');
 
 
 // Route per la store di un email che può essere effettuata da tutti e 3 i tipi di utente.
-Route::resource('/email', EmailController::class)->only(['create','store']);
+Route::resource('/email', EmailController::class)->only(['store']);
 
 Auth::routes();
 
