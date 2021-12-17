@@ -30,7 +30,7 @@
             </div>
             <div class="col-6">
                 <ul>
-                    <li v-for="(element, index) in apartment.services" :key="index"><h2>{{element.name}}</h2></li>
+                    <li v-for="(element, index) in apartment.services" :key="index">{{element.name}}</li>
                 </ul>
             </div>
         </div>

@@ -275,16 +275,6 @@ export default {
         this.getApartmentList();
     },
 
-    mounted() {
-        var map = tt.map({
-            key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',
-            container: 'map',
-            center: [12, 41],
-            zoom: 4
-        });
-        map.addControl(new tt.FullscreenControl());
-        map.addControl(new tt.NavigationControl());
-    }
 }
 </script>
 
@@ -314,4 +304,12 @@ export default {
     overflow-y: scroll;
     overflow-y: hidden;
 }
+
+#mappa{
+    position: fixed;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
 </style>
