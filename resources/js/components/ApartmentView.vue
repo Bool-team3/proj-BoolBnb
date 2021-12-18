@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-6">
                 <!-- filter sezioni  -->
@@ -34,7 +34,7 @@
                         <label class="form-check-label" :for="`service-${service.id}`">{{service.name}}</label>
                 </div>
             </div>
-            <div class="col-12 col-md-6" id="apartments_list">
+            <div class="col-12 col-md-7" id="apartments_list">
                 <Loading v-if="loading"/>
 
                 <div v-else>
@@ -60,7 +60,7 @@
             </div>
 
             <!-- mappa -->
-            <!-- <div class="col-6 d-none d-md-block" id="mappa">
+            <!-- <div class="col-5 d-none d-md-block" id="mappa">
                 <div id='map'></div>
             </div> -->
 

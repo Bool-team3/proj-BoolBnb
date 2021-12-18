@@ -15333,3 +15333,47 @@ label {
 #checkbox_service {
   padding: 0.5rem 1rem;
 }
+
+.card {
+  border-radius: 20px;
+}
+
+.container-content {
+  transition: all 0.2s ease-in-out;
+}
+.container-content:hover {
+  transform: scale(1.05);
+  margin: 10px 0;
+}
+.container-content .img-container img {
+  border-radius: 25px;
+  max-width: 300px;
+  max-height: 200px;
+}
+.container-content .text-container {
+  padding: 0.5rem 0;
+  padding-left: 15px;
+  flex-grow: 2;
+}
+.container-content .text-container h2 {
+  font-size: 1.6rem;
+}
+.container-content .text-container ul {
+  padding: 0;
+  list-style-type: circle;
+}
+.container-content .text-container ul li {
+  position: relative;
+  display: inline;
+  padding-left: 5px;
+  color: grey;
+}
+.container-content .text-container ul li::before {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Location_dot_grey.svg/768px-Location_dot_grey.svg.png");
+  background-size: 3px 3px;
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  vertical-align: 3px;
+  content: "";
+}
