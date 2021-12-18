@@ -7,7 +7,7 @@
                     <div>
                         <nav class="navbar navbar-light bg-light">
                             <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>
+                            <button id="myBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>
                         </nav>
                         <!-- Filters -->
                         <label for="radius">Km area di ricerca</label>

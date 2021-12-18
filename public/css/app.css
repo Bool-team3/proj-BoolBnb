@@ -15287,3 +15287,20 @@ label {
 #nav-header .white-nav a {
   color: black;
 }
+
+.page-link {
+  background-color: white;
+  border-color: #6153CC;
+  color: #6153CC;
+}
+.page-link:hover {
+  background-color: #6153CC;
+  border-color: #6153CC;
+  color: white;
+}
+
+.page-item.active .page-link {
+  background-color: #6153CC;
+  border-color: #6153CC;
+  color: white;
+}

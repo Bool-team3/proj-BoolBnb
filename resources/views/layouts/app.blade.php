@@ -71,7 +71,7 @@
                                     </form>
                                 </div>
                             </li>
-                            <li class="nav-item ml-3"><a href="{{route('user.apartments.index')}}"><i class="fas fa-user fa-2x"></i></a></li>
+                            <li class="nav-item ml-3" title="Vai al tuo profilo"><a href="{{route('user.apartments.index')}}"><i class="fas fa-user fa-2x"></i></a></li>
     
                         </div>
                         @endguest
