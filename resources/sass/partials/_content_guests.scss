@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+
 #myBtn{
     background-color: white;
     border-color: #6153CC;
@@ -18,8 +20,7 @@
     }
 }
 
-
-
+//header per guest 
 #nav-header{
     transition: all 0.5s ease;
     a{
@@ -41,6 +42,33 @@
     }
 }
 
+//jumbotron
+#jumbotron{
+    max-width: 100%;
+    height: calc(100vh - 85.22px);
+    background-color: #292b2c;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    h1{
+        font-size: 3rem;
+        margin-bottom: 50px;
+    }
+
+    .jumbotron-content{
+        background-image: url('/storage/public/jumbotron.jpg');
+        background-position: center;
+        border-radius: 75px;
+        width: 800px;
+        height: 400px;
+        margin-bottom: 25px;
+    }
+}
+
+//sezione cerca e filtri
 .page-link{
     background-color: white;
     border-color: #6153CC;

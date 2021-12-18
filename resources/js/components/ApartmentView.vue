@@ -1,8 +1,21 @@
 <template>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-12 p-0">
+                <div id="jumbotron">
+                    <div>
+                        <h1>I migliori appartamenti nella tua zona!</h1>
+                        <div class="jumbotron-content"></div>
+                        <legend>Be smart, use Bool bnb</legend>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <h3>Usa la ricerca per trovare l'appartamento che desideri</h3>
+            </div>
+
             <div class="col-12 col-md-6">
-                <!-- filter sezioni  -->
                 <nav class="navbar navbar-light bg-light">
                     <input id="search-bar" class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Cerca" aria-label="Search">
                     <button id="myBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Cerca</button>
@@ -326,10 +339,12 @@ export default {
 
 <style>
 #map{
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 125px;
     border-radius: 25px;
     height: 400px;
-    width: 500px;
+    max-width: 100%;
 }
 
 @media screen and (max-width: 860px) {
