@@ -1,52 +1,70 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-6" id="apartments_list">
-                <Loading v-if="loading"/>
-                <div v-else>
-                    <div>
-                        <nav class="navbar navbar-light bg-light">
-                            <input class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Search" aria-label="Search">
-                            <button id="myBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Search</button>
-                        </nav>
-                        <!-- Filters -->
+            <div class="col-12 col-md-6">
+                <!-- filter sezioni  -->
+                <nav class="navbar navbar-light bg-light">
+                    <input id="search-bar" class="form-control mr-sm-2" v-model.trim="search" @keyup.enter="searchApartment(search)" type="search" placeholder="Cerca" aria-label="Search">
+                    <button id="myBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  @click.left="searchApartment(search)">Cerca</button>
+                </nav> 
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <div class="filter-navbar">
+                    <div class="input-filter">
                         <label for="radius">Km area di ricerca</label>
-                        <input type="number" id="radius" min="1" v-model="radius">
-
-                        <label for="room">Numero stanze:</label>
-                        <input type="number" id="room" min="1" v-model="room">
-
-                        <label for="bed">Numero letti:</label>
-                        <input type="number" id="bed" min="1" v-model="bed">
-
-                        <div id="checkbox_service" class="form-check form-check-inline" v-for="service in serviceList" :key="service.id" >
-                            <input class="form-check-input" type="checkbox" :id="`service-${service.id}`" :value="service.id" v-model="selectedServices">
-                            <label class="form-check-label" :for="`service-${service.id}`">{{service.name}}</label>
-                        </div>
+                        <input type="number" class="form-control form-width" id="radius" min="1" v-model="radius">
                     </div>
-                    <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />
+                    
+                    <div class="input-filter">
+                        <label for="room">Numero di stanze:</label>
+                        <input type="number" class="form-control form-width" id="room" min="1" v-model="room">
+                    </div>
+                    
+                    <div class="input-filter">
+                        <label for="bed">Numero letti:</label>
+                        <input type="number" class="form-control form-width" id="bed" min="1" v-model="bed">
+                    </div>
                 </div>
             </div>
-            <div class="col-6" id="mappa">
-                <div id='map'></div>
+            
+            <div class="col-12">
+                <div id="checkbox_service" class="form-check form-check-inline" v-for="service in serviceList" :key="service.id" >
+                        <input class="form-check-input" type="checkbox" :id="`service-${service.id}`" :value="service.id" v-model="selectedServices">
+                        <label class="form-check-label" :for="`service-${service.id}`">{{service.name}}</label>
+                </div>
+            </div>
+            <div class="col-12 col-md-6" id="apartments_list">
+                <Loading v-if="loading"/>
+
+                <div v-else>
+                    <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />
+
+                    <!-- impaginazione -->
+                    <nav aria-label="navigation">
+                        <ul class="pagination p-3">
+                            <li v-if="currentPage > 1" class="page-item">
+                                <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
+                            </li>
+
+                            <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
+                                <a class="page-link" >{{ n }}</a>
+                            </li>
+
+                            <li class="page-item">
+                                <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
-            <!-- impaginazione -->
-            <nav aria-label="navigation">
-                <ul class="pagination">
-                    <li v-if="currentPage > 1" class="page-item">
-                        <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
-                    </li>
+            <!-- mappa -->
+            <!-- <div class="col-6 d-none d-md-block" id="mappa">
+                <div id='map'></div>
+            </div> -->
 
-                    <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
-                        <a class="page-link" >{{ n }}</a>
-                    </li>
-
-                    <li class="page-item">
-                        <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
-                    </li>
-                </ul>
-            </nav>
+            
         </div>
     </div>
 </template>

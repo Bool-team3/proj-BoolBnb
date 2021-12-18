@@ -30,7 +30,7 @@
         {{-- nav bar custom --}}
         <section id="nav-header" class="position-sticky sticky-top">
 
-            <nav class="navbar navbar-expand-lg navbar-dark black-nav">
+            <nav class="navbar navbar-expand-lg navbar-dark black-nav justify-content-between">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img style="width:100px" src="{{ asset('storage/public/logo/logo_small_black.png') }}" 
                         alt="Logo b&b" title="Torna alla Home">
