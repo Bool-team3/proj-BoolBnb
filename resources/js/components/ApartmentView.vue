@@ -60,11 +60,12 @@
             </div>
 
             <!-- mappa -->
-            <!-- <div class="col-5 d-none d-md-block" id="mappa">
-                <div id='map'></div>
-            </div> -->
+            <div class="col-5 d-none d-md-block">
+                <div class="col-map">
+                    <div id='map'></div>
+                </div>
+            </div>
 
-            
         </div>
     </div>
 </template>
@@ -325,8 +326,10 @@ export default {
 
 <style>
 #map{
-    height: 100%;
-    width: 100%;
+    position: fixed;
+    border-radius: 25px;
+    height: 400px;
+    width: 500px;
 }
 #marker{
     background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
@@ -350,11 +353,9 @@ export default {
     overflow-y: hidden;
 }
 
-#mappa{
+/* #mappa{
     position: fixed;
     right: 0;
-    width: 100%;
-    height: 100%;
-}
+} */
 
 </style>
