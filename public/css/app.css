@@ -15252,3 +15252,38 @@ label {
     z-index: 5;
   }
 }
+#myBtn {
+  background-color: white;
+  border-color: #6153CC;
+  color: #6153CC;
+}
+#myBtn:hover {
+  background-color: #6153CC;
+  color: white;
+}
+
+.fa-user {
+  color: #6153CC;
+}
+.fa-user:hover {
+  color: #7064c9;
+}
+
+#nav-header {
+  transition: all 0.5s ease;
+}
+#nav-header a {
+  font-size: 1.2rem;
+}
+#nav-header .black-nav {
+  background-color: #292b2c;
+}
+#nav-header .black-nav img {
+  filter: invert(99%) sepia(21%) saturate(317%) hue-rotate(103deg) brightness(112%) contrast(100%);
+}
+#nav-header .white-nav {
+  background-color: #ffffff;
+}
+#nav-header .white-nav a {
+  color: black;
+}

@@ -1,0 +1,42 @@
+#myBtn{
+    background-color: white;
+    border-color: #6153CC;
+    color: #6153CC;
+
+    &:hover{
+        background-color: #6153CC;
+        color: white;
+
+    }
+}
+
+.fa-user{
+    color: #6153CC;
+
+    &:hover{
+        color: #7064c9;
+    }
+}
+
+
+
+#nav-header{
+    transition: all 0.5s ease;
+    a{
+        font-size: 1.2rem;
+    }
+
+    .black-nav{
+        background-color: #292b2c;
+        img{
+            filter: invert(99%) sepia(21%) saturate(317%) hue-rotate(103deg) brightness(112%) contrast(100%);
+        }
+    }
+
+    .white-nav{
+        background-color: #ffffff;
+        a{
+            color: black;
+        }
+    }
+}
