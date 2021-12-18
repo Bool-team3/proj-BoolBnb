@@ -9,8 +9,14 @@ window.axios = require("axios");
 
 import App from "./components/App.vue";
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
 const app = new Vue({
     el: '#root',
     render: h=>h(App),
-});
+    mounted() {
+        AOS.init()
+    },
+}).$mount('#root');
 

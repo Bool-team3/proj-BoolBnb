@@ -38,7 +38,7 @@
                 <Loading v-if="loading"/>
 
                 <div v-else>
-                    <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element' />
+                    <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element'/>
 
                     <!-- impaginazione -->
                     <nav aria-label="navigation">
@@ -331,6 +331,14 @@ export default {
     height: 400px;
     width: 500px;
 }
+
+@media screen and (max-width: 860px) {
+    #map{
+        height: 300px;
+        width: 350px;
+    }
+}
+
 #marker{
     background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
     filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
@@ -353,9 +361,6 @@ export default {
     overflow-y: hidden;
 }
 
-/* #mappa{
-    position: fixed;
-    right: 0;
-} */
+
 
 </style>
