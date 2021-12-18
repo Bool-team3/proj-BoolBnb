@@ -30,6 +30,23 @@
             <div class="col-6" id="mappa">
                 <div id='map'></div>
             </div>
+
+            <!-- impaginazione -->
+            <nav aria-label="navigation">
+                <ul class="pagination">
+                    <li v-if="currentPage > 1" class="page-item">
+                        <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
+                    </li>
+
+                    <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
+                        <a class="page-link" >{{ n }}</a>
+                    </li>
+
+                    <li class="page-item">
+                        <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </template>
@@ -44,7 +61,6 @@ export default {
         return {
             apartmentList: [],
             apartmentResults: [],
-            alela: [],
             poiList: [],
             search: "",
             loading: true,
@@ -54,7 +70,11 @@ export default {
             room: 1,
             bed : 1,
             poi: [],
-            allCoords: []
+            allCoords: [],
+            //pagination
+            currentPage: 1,
+            lastPage: null
+
         }
     },
     components:{
@@ -63,18 +83,24 @@ export default {
     },
     methods:{
 
-        getApartmentList(){
-            axios.get("/api/apartments")
+        getApartmentList( page ){
+            axios.get(`/api/apartments/?page=${page}`)
             .then( (response) => {
-                console.log(response.data.apartments)
-                for(let element of response.data.apartments){
+                //prende la pagina corrente
+                this.currentPage = response.data.apartments.current_page;
+                //prende l'ultima pagina
+                this.lastPage = response.data.apartments.last_page;
+
+                //svuoto l'array
+                this.apartmentList = [];
+                // console.log(response.data.apartments.data);
+                for(let element of response.data.apartments.data){
                     if(element.visible){
                         this.apartmentList.push(element);
                         // Ordina La lista di appartamenti per sponsorizzazione
                         this.apartmentList.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
                     }
                 }
-                
                 this.apartmentResults = this.apartmentList;
 
                 this.serviceList = response.data.services;
@@ -150,6 +176,7 @@ export default {
                 return apartmentServiceIds.includes(service)
             })
         },
+
         searchApartment(search){
             delete axios.defaults.headers.common['X-Requested-With'];
             console.clear()
@@ -272,7 +299,7 @@ export default {
     },
 
     created(){
-        this.getApartmentList();
+        this.getApartmentList(1);
     },
 
 }
