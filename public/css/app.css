@@ -15373,19 +15373,17 @@ label {
   width: 100%;
 }
 
-.card {
+.container-content .card {
   border-radius: 20px;
 }
-
-.card-body {
+.container-content .card-body {
   display: flex;
 }
 
 @media screen and (max-width: 576px) {
-  .card-body {
+  .container-content .card-body {
     display: block;
   }
-
   .container-content .img-container {
     text-align: center;
   }

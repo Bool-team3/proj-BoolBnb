@@ -143,21 +143,27 @@ label{
 }
 
 //sezione apartmentCard
-.card{
-    border-radius: 20px;
-}
-
-.card-body{
-    display: flex;
+.container-content{
+    
+    .card{
+        border-radius: 20px;
+    }
+    
+    .card-body{
+        display: flex;
+    }
 }
 
 @media screen and (max-width: 576px) {
 
-    .card-body{
-        display: block;
-    }
+    
 
     .container-content{
+
+        .card-body{
+            display: block;
+        }
+        
         .img-container{
             text-align: center;
             img{

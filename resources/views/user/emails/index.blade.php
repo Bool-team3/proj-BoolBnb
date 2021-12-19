@@ -62,7 +62,7 @@
                         <div class="d-flex">
                             <div class="card-body">
                                 <h4 class="card-title">Appartamento: {{$email->apartment->title}}</h4>
-                                <h5 class="card-title"><a class="stretched-link" href="{{route("user.emails.show", $email->id)}}">Oggetto: {{$email->subject}}</a></h5>
+                                {{-- <h5 class="card-title"><a class="stretched-link" href="{{route("user.emails.show", $email->id)}}">Oggetto: {{$email->subject}}</a></h5> --}}
                                 <h6 class="card-title">Nome: {{$email->name}}</h6>
                                 <h6 class="card-title">Indirizzo email: {{$email->email_address}}</h6>
                                 <p class="card-text"><small class="text-muted">Ricevuta il:{{$email->created_at}}</small></p>
