@@ -1,8 +1,9 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 p-0">
-                <div id="jumbotron">
+            <Loading v-if="this.loading"/>
+            <div v-else class="col-12 p-0">
+                <div id="jumbotron" >
                     <div>
                         <h1>I migliori appartamenti nella tua zona!</h1>
                         <div class="jumbotron-content"></div>
@@ -102,7 +103,6 @@ export default {
             room: 1,
             bed : 1,
             poi: [],
-            allCoords: [],
             //pagination
             currentPage: 1,
             lastPage: null
@@ -123,8 +123,12 @@ export default {
                 //prende l'ultima pagina
                 this.lastPage = response.data.apartments.last_page;
 
-                //svuoto l'array
+                //svuoto gli array ad ogni chiamata
                 this.apartmentList = [];
+                this.apartmentResults = [];
+                this.poi = [];
+                this.poiList = [];
+
                 // console.log(response.data.apartments.data);
                 for(let element of response.data.apartments.data){
                     if(element.visible){
