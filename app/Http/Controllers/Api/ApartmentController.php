@@ -17,12 +17,12 @@ class ApartmentController extends Controller
      */
     public function index()
     {
+        $apartmentsAll = Apartment::with(["services", "sponsors"])->get();
         $apartments = Apartment::with(["services", "sponsors"])->paginate(15);
-        
+
         $services = Service::all();
 
-
-        return response()->json(compact("apartments", "services"));       
+        return response()->json(compact("apartments", "services", "apartmentsAll"));       
 
     }
         

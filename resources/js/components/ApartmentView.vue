@@ -55,21 +55,23 @@
                     <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element'/>
 
                     <!-- impaginazione -->
-                    <nav aria-label="navigation">
-                        <ul class="pagination p-3">
-                            <li v-if="currentPage > 1" class="page-item">
-                                <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
-                            </li>
+                    <div v-if="!find">
+                        <nav aria-label="navigation">
+                            <ul class="pagination p-3">
+                                <li v-if="currentPage > 1" class="page-item">
+                                    <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
+                                </li>
 
-                            <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
-                                <a class="page-link" >{{ n }}</a>
-                            </li>
+                                <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
+                                    <a class="page-link" >{{ n }}</a>
+                                </li>
 
-                            <li class="page-item">
-                                <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
-                            </li>
-                        </ul>
-                    </nav>
+                                <li class="page-item">
+                                    <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
 
@@ -94,15 +96,16 @@ export default {
         return {
             apartmentList: [],
             apartmentResults: [],
+            apartmentListAll: [],
             poiList: [],
             search: "",
+            find: false,
             loading: true,
             serviceList: [],
             selectedServices: [],
             radius: 20 ,
             room: 1,
             bed : 1,
-            poi: [],
             //pagination
             currentPage: 1,
             lastPage: null
@@ -130,6 +133,7 @@ export default {
                 this.poiList = [];
 
                 // console.log(response.data.apartments.data);
+                //per gli appartamenti della pagina corrente
                 for(let element of response.data.apartments.data){
                     if(element.visible){
                         this.apartmentList.push(element);
@@ -137,6 +141,15 @@ export default {
                         this.apartmentList.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
                     }
                 }
+                //per tutti gli appartamenti
+                for(let element of response.data.apartmentsAll){
+                    if(element.visible){
+                        this.apartmentListAll.push(element);
+                        // Ordina La lista di appartamenti per sponsorizzazione
+                        this.apartmentListAll.sort((a,b) => (a.sponsors < b.sponsors) ? 1 : ((b.sponsors < a.sponsors) ? -1 : 0))
+                    }
+                }
+                //pag corrente
                 this.apartmentResults = this.apartmentList;
 
                 this.serviceList = response.data.services;
@@ -146,7 +159,7 @@ export default {
             }).then( () =>{
                 this.loading = false;
 
-                for(let apartment of this.apartmentList){
+                for(let apartment of this.apartmentListAll){
                     
                     this.poiList.push({
                         "poi": {
@@ -213,22 +226,18 @@ export default {
             })
         },
 
+        //cerca appartamento
         searchApartment(search){
             delete axios.defaults.headers.common['X-Requested-With'];
             console.clear()
 
             if(search == ''){
-                this.apartmentResults=[];
+                this.apartmentResults = [];
+                this.find = false;
                 // this.apartmentResults = this.apartmentList;
                 for(let element of this.apartmentList){
                     if(element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
                         this.apartmentResults.push(element);
-                        this.poi.push({
-                            position: {
-                                lon: element.lon,
-                                lat: element.lat
-                            }
-                        });
                     }
                 }
                 var map = tt.map({
@@ -279,11 +288,12 @@ export default {
 
                     axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryList)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
                     .then( (response) => {
-                        this.apartmentResults=[];
+                        this.apartmentResults = [];
+                        this.find = true;
                         //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
                         for(let elementResult of response.data.results){
 
-                            for(let element of this.apartmentList){
+                            for(let element of this.apartmentListAll){
                                 if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
                                     this.apartmentResults.push(element);
                                 }
@@ -321,7 +331,6 @@ export default {
                         });
                         map.setCenter([this.apartmentResults[0].lon, this.apartmentResults[0].lat]);
                         map.setZoom(9.5);
-                        this.poi = [];
                     })
                 })
                 .catch( (error) =>{
