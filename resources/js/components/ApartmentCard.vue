@@ -3,7 +3,7 @@
         <div v-if="apartment.visible">
             <div class="displayBox" data-aos="fade-left">
                 <div class="card container-content">
-                    <div class="d-flex card-body">
+                    <div class="card-body">
                         <div class="img-container">
                             <div v-if="apartment.img_url">
                                 <img class="img-fluid" :src='apartment.img_url' alt="Immagine appartamento">

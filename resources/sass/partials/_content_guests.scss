@@ -59,8 +59,7 @@
     color: white;
     h1{
         font-size: 3rem;
-        margin-bottom: 50px;
-        padding: 0.5rem 1rem;
+        // padding: 0.5rem 1rem;
     }
 
     legend{
@@ -78,6 +77,7 @@
     }
 }
 
+//responsive immagine
 @media screen and (max-width: 820px) {
 
     #jumbotron{
@@ -146,6 +146,33 @@ label{
 .card{
     border-radius: 20px;
 }
+
+.card-body{
+    display: flex;
+}
+
+@media screen and (max-width: 576px) {
+
+    .card-body{
+        display: block;
+    }
+
+    .container-content{
+        .img-container{
+            text-align: center;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .text-container{
+            text-align: center;
+        }
+    }
+
+}
+
 .container-content{
     transition: all .2s ease-in-out;
     &:hover{
@@ -156,8 +183,8 @@ label{
     .img-container{
         img{
             border-radius: 25px;
-            max-width: 300px;
-            max-height: 200px;
+            width: 300px;
+            height: 200px;
         }
     }
 
