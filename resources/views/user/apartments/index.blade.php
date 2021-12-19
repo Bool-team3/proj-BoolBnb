@@ -93,9 +93,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                <div>
-                                <div>
-                                    
+                                <div>   
                                 @if ($apartment->sponsors()->exists('sponsor_id'))
                                     @foreach ($apartment->sponsors as $sponsor)
                                         <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}}</span>
@@ -113,8 +111,9 @@
                                         @endswitch         
                                     @endforeach
                                 @else
-                                </div id="sponsor-button">
-                                    <a class="btn btn-primary" id="myBtn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>            
+                                    <div class="sponsor-button">
+                                        <a class="btn btn-primary" id="myBtn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>            
+                                    </div>
                                 @endif
                                     </div>
                                 </div>

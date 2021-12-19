@@ -42,7 +42,7 @@
                         </div>
         
                         <div class="form-group w-50">
-                            <label for="title">Inserisci un  all'appartamento</label>
+                            <label for="title">Inserisci un nome all'appartamento</label>
                             <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $apartment->title) }}">
                         </div>
         
