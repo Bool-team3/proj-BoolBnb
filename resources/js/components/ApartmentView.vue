@@ -3,7 +3,7 @@
         <div class="row">
             <Loading v-if="this.loading"/>
             <div v-else class="col-12 p-0">
-                <div id="jumbotron" >
+                <div id="jumbotron">
                     <div>
                         <h1>I migliori appartamenti nella tua zona!</h1>
                         <div class="jumbotron-content"></div>

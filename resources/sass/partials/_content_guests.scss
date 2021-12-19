@@ -22,9 +22,12 @@
 
 //header per guest 
 #nav-header{
-    transition: all 0.5s ease;
     a{
         font-size: 1.2rem;
+    }
+
+    .navbar{
+        transition: all 0.2s ease;
     }
 
     .black-nav{
@@ -36,6 +39,7 @@
 
     .white-nav{
         background-color: #ffffff;
+        box-shadow: 1px 3px 10px 1px #888888;
         a{
             color: black;
         }

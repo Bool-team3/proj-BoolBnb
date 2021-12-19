@@ -15269,11 +15269,11 @@ label {
   color: #7064c9;
 }
 
-#nav-header {
-  transition: all 0.5s ease;
-}
 #nav-header a {
   font-size: 1.2rem;
+}
+#nav-header .navbar {
+  transition: all 0.2s ease;
 }
 #nav-header .black-nav {
   background-color: #292b2c;
@@ -15283,6 +15283,7 @@ label {
 }
 #nav-header .white-nav {
   background-color: #ffffff;
+  box-shadow: 1px 3px 10px 1px #888888;
 }
 #nav-header .white-nav a {
   color: black;

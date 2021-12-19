@@ -86,6 +86,29 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        const myNav = document.querySelector('.navbar');
+        window.onscroll = function () { 
+            "use strict";
+            if (window.scrollY >= 665 ) {
 
+                myNav.classList.add("white-nav");
+                myNav.classList.add("navbar-light");
+
+                myNav.classList.remove("navbar-dark");
+                myNav.classList.remove("black-nav");
+            } 
+            else {
+                myNav.classList.add("black-nav");
+                myNav.classList.add("navbar-dark");
+
+                myNav.classList.remove("white-nav");
+                myNav.classList.remove("navbar-light");
+
+
+            }
+        };
+
+    </script>
 </body>
 </html>
