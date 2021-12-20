@@ -53,3 +53,5 @@
     </section>
     <script src="{{asset('js/back.js')}}"></script>
 @endsection
+
+@section('page-title', 'Home - Show')

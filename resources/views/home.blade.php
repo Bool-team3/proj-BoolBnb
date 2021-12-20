@@ -14,3 +14,4 @@
     <script src="{{asset('js/front.js')}}"></script>
 
 @endsection
+@section('page-title', 'Home')
