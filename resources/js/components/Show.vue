@@ -28,7 +28,7 @@
                     <h6>contact mail: {{user.email}}</h6>
                 </div>
             </div>
-            <div class="col-6 d-flex justify-content-center align-items-center">
+            <div class="col-3 d-flex justify-content-center align-items-center">
                 <ul>
                     <li v-for="(element, index) in apartment.services" :key="index">
 
@@ -57,8 +57,12 @@
                             {{element.name}}
                         </h2>
                     </li>
-
                 </ul>
+            </div>
+            <div class="col-3">
+                <h5>{{apartment.city}}</h5>
+                <h5>{{apartment.street_name}}</h5>
+                <h5>{{apartment.street_number}}</h5>
             </div>
         </div>
         <div id="map" class="mb-3">
