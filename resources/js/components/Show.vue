@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="card-body col-6">
-                <picture>
+                <picture class="img-fluid">
                     <img v-if="!apartment.img_url" src="https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png" alt="">
                     <img v-else :src="`http://127.0.0.1:8000/storage/${apartment.img_url}`" alt="">   
                 </picture>
@@ -23,6 +23,7 @@
                         <li>{{apartment.mq}} mq</li>
                     </ol>
                 </div>
+                
                 <div>
                     <h5>Host: {{user.name}}</h5>
                     <h6>contact mail: {{user.email}}</h6>
