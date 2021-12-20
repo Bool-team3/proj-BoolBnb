@@ -99,28 +99,41 @@
                                             </form>
                                         </div>
                                     </div>
-                                <div>   
-                                @if ($apartment->sponsors()->exists('sponsor_id'))
-                                    @foreach ($apartment->sponsors as $sponsor)
-                                        <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}}</span>
-                                        @switch($myID)
-                                            @case(1)
-                                            <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/basic.png') }}" alt="basic sponsor"> 
-                                                @break
-                                            @case(2)
-                                                <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/premium.png') }}" alt="premium sponsor">  
-                                                @break
-                                            @case(3)
-                                            <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/business.png') }}" alt="business sponsor"> 
-                                                @break
-                                            @default
-                                        @endswitch         
-                                    @endforeach
-                                @else
-                                    <div class="sponsor-button">
-                                        <a class="btn btn-primary" id="myBtn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>            
-                                    </div>
-                                @endif
+                                    <div>   
+                                        @if ($apartment->sponsors()->exists('sponsor_id'))
+                                            @foreach ($apartment->sponsors as $sponsor)
+                                                <span class="d-none">{{$myID = $sponsor->pivot->sponsor_id}}</span>
+                                                @switch($myID)
+                                                    @case(1)
+                                                    <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/basic.png') }}" alt="basic sponsor">     
+                                                        @break
+                                                    @case(2)
+                                                        <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/premium.png') }}" alt="premium sponsor">  
+                                                        @break
+                                                    @case(3)
+                                                    <img class="d-none d-md-block d-lg-block" src="{{ asset('storage/public/sponsor/business.png') }}" alt="business sponsor"> 
+                                                        @break
+                                                    @default
+                                                @endswitch         
+                                                @if ($sponsor->pivot->expiration_date < now())
+                                                    <span class="expiration_date_output">SCADUTO!</span> 
+                                                    @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%D') >= 1)
+                                                        <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%D')}} giorni</span>
+                                                    @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%H') > 1 && now()->diff($sponsor->pivot->expiration_date)->format('%H') < 24)
+                                                        <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%H')}} ore</span>    
+                                                    @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%H') <= 1)
+                                                        <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%I')}} minuti</span>
+                                                    @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%I') < 1 )
+                                                        <span class="expiration_date_output">Scade tra qualche secondo..</span>                             
+                                                    @else
+                                                        <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%H')}} ore</span>    
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <div class="sponsor-button">
+                                                <a class="btn btn-primary" id="myBtn" href=" {{ route('user.sponsors.show', $apartment) }} ">Sponsorizza</a>            
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 
