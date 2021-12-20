@@ -126,11 +126,14 @@ export default {
         padding: 0;
         li{
             display: inline;
-            margin-right: 10px;
+            margin-right: 10px;           
         }
     }
 
     li{
         list-style-type: none;
+        h2{
+            display: inline;
+        }
     }
 </style>>
