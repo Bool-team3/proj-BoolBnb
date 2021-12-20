@@ -7,6 +7,7 @@
                         <div class="img-container">
                             <div v-if="apartment.img_url">
                                 <img class="img-fluid" :src='apartment.img_url' alt="Immagine appartamento">
+                                {{apartment.img}}
                             </div>
                             <div v-else>
                                 <img class="img-fluid" src="https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png" alt="Immagine appartamento">
