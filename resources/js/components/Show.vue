@@ -9,7 +9,7 @@
         <div class="row">
             <div class="card-body col-6">
                 <picture>
-                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/300x300.png/0099ee?text=team3+praesentium'" alt="">
+                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/200x300.png/0099ee?text=team3+praesentium'" alt="">
                     <img v-else :src="apartment.img_url" alt="">   
                 </picture>
                 <div>
@@ -71,7 +71,7 @@ export default {
             user: [],
             // services: [],
             apID : '',
-            loading: true
+            loading: true,  
         }      
     },
     components:{           
@@ -104,7 +104,72 @@ export default {
             }).then( () =>{
                 this.loading = false;
             });
-        }
+        },
+        // searchApartment(search){
+        //     delete axios.defaults.headers.common['X-Requested-With'];
+        //     console.clear()
+  
+        //     axios.get(`https://api.tomtom.com/search/2/geocode/${search}.json`,{
+        //         params: {
+        //             key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'                   
+        //         }
+        //     })
+        //     .then( (response) => {
+        //         let geometryList =
+        //             {
+        //                 "type":"CIRCLE", 
+        //                 "position": `${response.data.results[0].position.lat}, ${response.data.results[0].position.lon}`, 
+        //                 "radius": this.radius*1000
+        //             }
+                
+        //         axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryList)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
+        //         .then( (response) => {
+        //             this.apartmentResults=[];
+        //             //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
+        //             for(let elementResult of response.data.results){
+        //                 console.log(elementResult.poi.id)
+        //                 for(let element of this.apartmentList){
+        //                     if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
+        //                         this.apartmentResults.push(element);
+        //                         this.poi.push({
+        //                             position: {
+        //                                 lon: element.lon, 
+        //                                 lat: element.lat
+        //                             }
+        //                         });
+        //                     }
+        //                 }
+        //             }
+                    
+        //             //creazione mappa
+        //             var map = tt.map({
+        //                 key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
+        //                 container: 'map',
+        //                 center: [12, 41],
+        //                 zoom: 4
+        //             });
+        //             map.addControl(new tt.FullscreenControl());
+        //             map.addControl(new tt.NavigationControl());
+
+        //             //stampa i marker dalle nostre coordinate
+        //             this.poi.forEach(element => {
+                        
+        //                 var customMarker = document.createElement('div');
+        //                 customMarker.id = 'marker';
+        //                 new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
+        //             });
+        //             map.setCenter([this.poi[0].position.lon, this.poi[0].position.lat]);
+        //             map.setZoom(9.5);
+        //             this.poi = [];
+        //         })
+        //     })
+        //     .catch( (error) =>{
+        //         console.log(error);
+        //     })
+        //     .then( () =>{
+        //         this.loading = false;
+        //     });
+        // },
     },
     created(){
         this.getIDfromURL();
@@ -125,10 +190,12 @@ export default {
     }
     ol{
         padding: 0;
+        li{
+            display: inline;
+            margin-right: 10px;           
+        }
     }
     li{
         list-style-type: none;
-        display: inline;
-        margin-right: 10px;
     }
 </style>>
