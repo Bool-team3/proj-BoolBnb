@@ -12,7 +12,9 @@
                     <img v-if="!apartment.img_url" src="https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png" alt="">
                     <img v-else :src="`http://127.0.0.1:8000/storage/${apartment.img_url}`" alt="">   
                 </picture>
-                <div>
+                 <legend class="mt-2">{{apartment.city}}, {{apartment.street_name}} {{apartment.street_number}}, {{apartment.postal_code}}<span v-if="apartment.province.toUpperCase() != apartment.city.toUpperCase()">, {{apartment.province}}</span>
+                </legend>
+                <div class="mb-3">
                     <ol>
                         <li v-if="apartment.room == 1">{{apartment.room}} stanza</li>
                         <li v-else>{{apartment.room}} stanze</li>
@@ -22,8 +24,8 @@
                         <li v-else>{{apartment.bathroom}} bagni</li>
                         <li>{{apartment.mq}} mq</li>
                     </ol>
-                </div>
-                
+                </div>              
+                     
                 <div>
                     <h5>Host: {{user.name}}</h5>
                     <h6>contact mail: {{user.email}}</h6>
@@ -183,6 +185,9 @@ li{
     list-style-type: none;
     display: inline;
     margin-right: 10px;
+}
+legend{
+    font-size: 1.4rem;
 }
 #map{
     position: -webkit-sticky;
