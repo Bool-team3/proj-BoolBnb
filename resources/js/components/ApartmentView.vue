@@ -372,6 +372,7 @@ export default {
     filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: bottom;
     width: 55px;
     height: 75px;
 }

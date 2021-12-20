@@ -9,8 +9,8 @@
         <div class="row">
             <div class="card-body col-6">
                 <picture>
-                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/300x300.png/0099ee?text=team3+praesentium'" alt="">
-                    <img v-else :src="apartment.img_url" alt="">   
+                    <img v-if="!apartment.img_url" src="https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png" alt="">
+                    <img v-else :src="`http://127.0.0.1:8000/storage/${apartment.img_url}`" alt="">   
                 </picture>
                 <div>
                     <ol>
