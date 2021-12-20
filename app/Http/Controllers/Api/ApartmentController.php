@@ -18,7 +18,7 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartmentsAll = Apartment::with(["services", "sponsors"])->get();
-        $apartments = Apartment::with(["services", "sponsors"])->paginate(15);
+        $apartments = Apartment::with(["services", "sponsors"])->paginate(10);
         
         $services = Service::all();
 

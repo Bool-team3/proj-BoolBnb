@@ -9,8 +9,8 @@
         <div class="row">
             <div class="card-body col-6">
                 <picture>
-                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/300x300.png/0099ee?text=team3+praesentium'" alt="">
-                    <img v-else :src="apartment.img_url" alt="">   
+                    <img v-if="!apartment.img_url" src="https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png" alt="">
+                    <img v-else :src="`http://127.0.0.1:8000/storage/${apartment.img_url}`" alt="">   
                 </picture>
                 <div>
                     <ol>
@@ -28,7 +28,7 @@
                     <h6>contact mail: {{user.email}}</h6>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 d-flex justify-content-center align-items-center">
                 <ul>
                     <li v-for="(element, index) in apartment.services" :key="index">
 
@@ -45,10 +45,14 @@
                             {{element.name}}
                         </h2>
                         <h2 v-else-if="element.id == 4">
-                            <i class="fas fa-concierge-bell"></i>
+                            <i class="fas fa-parking"></i>
                             {{element.name}}
                         </h2>
                         <h2 v-else-if="element.id == 5">
+                            <i class="fas fa-concierge-bell"></i>
+                            {{element.name}}
+                        </h2>
+                        <h2 v-else-if="element.id == 6">
                             <i class="fas fa-hot-tub"></i>
                             {{element.name}}
                         </h2>
@@ -56,6 +60,9 @@
 
                 </ul>
             </div>
+        </div>
+        <div id="map" class="mb-3">
+
         </div>
     </div>
 </template>
@@ -71,7 +78,7 @@ export default {
             user: [],
             // services: [],
             apID : '',
-            loading: true
+            loading: true,  
         }      
     },
     components:{           
@@ -95,8 +102,39 @@ export default {
                 //riempio apartment
                 this.apartment = response.data.apartment;    
                 //riempio user
-                this.user = response.data.user;    
+                this.user = response.data.user;
+                console.log(this.apartment);
+                // mappa
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                // Poi Details Settings
+                var popupOffsets = {
+                    top: [0, 0],
+                    bottom: [0, -70],
+                    'bottom-right': [0, -70],
+                    'bottom-left': [0, -70],
+                    left: [25, -35],
+                    right: [-25, -35]
+                }
 
+                // var markerCustom = document.createElement('div');
+                // markerCustom.id = 'marker-show';
+
+                var marker = new tt.Marker().setLngLat([this.apartment.lon, this.apartment.lat]).addTo(map);
+
+                // POI Details Popup
+                var popup = new tt.Popup({offset: popupOffsets}).setHTML(`<strong>${this.apartment.title}</strong> <br> <p>${this.apartment.street_name} ${this.apartment.street_number}, ${this.apartment.city}</p>`);
+                marker.setPopup(popup);
+
+                map.setCenter([this.apartment.lon, this.apartment.lat]);
+                map.setZoom(9.5);
+            
                 // this.services = response.data.services;    
                 
             }).catch( (error) =>{
@@ -104,31 +142,60 @@ export default {
             }).then( () =>{
                 this.loading = false;
             });
-        }
+        },
     },
     created(){
         this.getIDfromURL();
         this.getApartmentDetails();
     }
+    
 }
 </script>
 
 
 <style scoped lang="scss">
-    .card{
-        flex-direction: row;
+
+
+.card{
+    flex-direction: row;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+ol{
+    padding: 0;
+}
+li{
+    list-style-type: none;
+    display: inline;
+    margin-right: 10px;
+}
+#map{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 125px;
+    border-radius: 25px;
+    height: 400px;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 860px) {
+    #map{
+        height: 300px;
+        width: 350px;
     }
-    .card-body{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    ol{
-        padding: 0;
-    }
-    li{
-        list-style-type: none;
-        display: inline;
-        margin-right: 10px;
-    }
-</style>>
+}
+
+// #marker-show{
+//     background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
+//     filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//     width: 55px;
+//     height: 75px;
+// }
+
+
+</style>
