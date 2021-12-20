@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pt-5">
         <Loading v-if="loading"/>
         <div class="row">
             <div class="col-12">
@@ -12,7 +12,7 @@
                     <img v-if="!apartment.img_url" src="https://www.pianetacasafacile.it/uploads/cache/profile_mid/uploads/property_images/2018/01/property_no_photo.png" alt="">
                     <img v-else :src="`http://127.0.0.1:8000/storage/${apartment.img_url}`" alt="">   
                 </picture>
-                 <legend class="mt-2">{{apartment.city}}, {{apartment.street_name}} {{apartment.street_number}}, {{apartment.postal_code}}<span v-if="apartment.province.toUpperCase() != apartment.city.toUpperCase()">, {{apartment.province}}</span>
+                 <legend class="mt-2">{{apartment.city}}, {{apartment.street_name}} {{apartment.street_number}}, {{apartment.postal_code}}<span v-if="apartment.province != apartment.city">, {{apartment.province}}</span>
                 </legend>
                 <div class="mb-3">
                     <ol>
@@ -170,7 +170,7 @@ export default {
 
 picture{
     width: 512px;
-    height: 341px;  
+    height: 100%;  
 
     img{
         width: 100%;
@@ -187,6 +187,7 @@ li{
     margin-right: 10px;
 }
 legend{
+    // text-transform: uppercase;
     font-size: 1.4rem;
 }
 #map{
