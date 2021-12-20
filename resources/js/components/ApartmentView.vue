@@ -260,7 +260,6 @@ export default {
                         right: [-25, -35]
                     }
                     var customMarker = document.createElement('div');
-
                     customMarker.id = 'marker-all';
                     var marker = new tt.Marker({element: customMarker}).setLngLat([element.lon, element.lat]).addTo(map);
 

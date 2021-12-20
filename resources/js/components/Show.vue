@@ -57,6 +57,9 @@
                 </ul>
             </div>
         </div>
+        <div id="map" class="mb-3">
+
+        </div>
     </div>
 </template>
 
@@ -95,8 +98,39 @@ export default {
                 //riempio apartment
                 this.apartment = response.data.apartment;    
                 //riempio user
-                this.user = response.data.user;    
+                this.user = response.data.user;
+                console.log(this.apartment);
+                // mappa
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                // Poi Details Settings
+                var popupOffsets = {
+                    top: [0, 0],
+                    bottom: [0, -70],
+                    'bottom-right': [0, -70],
+                    'bottom-left': [0, -70],
+                    left: [25, -35],
+                    right: [-25, -35]
+                }
 
+                // var markerCustom = document.createElement('div');
+                // markerCustom.id = 'marker-show';
+
+                var marker = new tt.Marker().setLngLat([this.apartment.lon, this.apartment.lat]).addTo(map);
+
+                // POI Details Popup
+                var popup = new tt.Popup({offset: popupOffsets}).setHTML(`<strong>${this.apartment.title}</strong> <br> <p>${this.apartment.street_name} ${this.apartment.street_number}, ${this.apartment.city}</p>`);
+                marker.setPopup(popup);
+
+                map.setCenter([this.apartment.lon, this.apartment.lat]);
+                map.setZoom(9.5);
+            
                 // this.services = response.data.services;    
                 
             }).catch( (error) =>{
@@ -115,20 +149,46 @@ export default {
 
 
 <style scoped lang="scss">
-    .card{
-        flex-direction: row;
+.card{
+    flex-direction: row;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+ol{
+    padding: 0;
+}
+li{
+    list-style-type: none;
+    display: inline;
+    margin-right: 10px;
+}
+#map{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 125px;
+    border-radius: 25px;
+    height: 400px;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 860px) {
+    #map{
+        height: 300px;
+        width: 350px;
     }
-    .card-body{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    ol{
-        padding: 0;
-    }
-    li{
-        list-style-type: none;
-        display: inline;
-        margin-right: 10px;
-    }
-</style>>
+}
+
+// #marker-show{
+//     background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
+//     filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//     width: 55px;
+//     height: 75px;
+// }
+
+
+</style>
