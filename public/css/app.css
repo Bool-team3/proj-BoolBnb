@@ -15497,3 +15497,13 @@ label {
 #sponsor-section #dropin-container {
   z-index: 5;
 }
+
+@media screen and (max-width: 576px) {
+  #sponsor-section {
+    width: 100%;
+    height: 100%;
+  }
+  #sponsor-section .row {
+    padding-top: 50px;
+  }
+}
