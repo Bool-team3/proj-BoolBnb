@@ -55,29 +55,30 @@
                     <div v-if="apartmentResults.length > 0">
 
                         <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element'/>
+
+                        <!-- impaginazione -->
+                        <div v-if="!find">
+                            <nav aria-label="navigation">
+                                <ul class="pagination p-3">
+                                    <li v-if="currentPage > 1" class="page-item">
+                                        <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
+                                    </li>
+
+                                    <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
+                                        <a class="page-link" >{{ n }}</a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                     <div v-else>
-                        <h3>Nessun risultato coincide con la ricerca</h3>
+                        <h3 class="pt-5 text-center">Nessun risultato coincide con la ricerca</h3>
                     </div>
 
-                    <!-- impaginazione -->
-                    <div v-if="!find">
-                        <nav aria-label="navigation">
-                            <ul class="pagination p-3">
-                                <li v-if="currentPage > 1" class="page-item">
-                                    <button class="page-link" @click="getApartmentList(currentPage - 1)">Precedente</button>
-                                </li>
-
-                                <li :class="{ active: n === currentPage }" v-for="(n, index) in lastPage" :key="index+n" class="page-item" @click="getApartmentList(n)">
-                                    <a class="page-link" >{{ n }}</a>
-                                </li>
-
-                                <li class="page-item">
-                                    <button v-if="currentPage < lastPage" class="page-link" @click="getApartmentList( currentPage + 1 )">Successivo</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
             </div>
 
