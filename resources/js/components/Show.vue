@@ -28,7 +28,7 @@
                     <h6>contact mail: {{user.email}}</h6>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 d-flex justify-content-center align-items-center">
                 <ul>
                     <li v-for="(element, index) in apartment.services" :key="index">
 
@@ -45,10 +45,14 @@
                             {{element.name}}
                         </h2>
                         <h2 v-else-if="element.id == 4">
-                            <i class="fas fa-concierge-bell"></i>
+                            <i class="fas fa-parking"></i>
                             {{element.name}}
                         </h2>
                         <h2 v-else-if="element.id == 5">
+                            <i class="fas fa-concierge-bell"></i>
+                            {{element.name}}
+                        </h2>
+                        <h2 v-else-if="element.id == 6">
                             <i class="fas fa-hot-tub"></i>
                             {{element.name}}
                         </h2>
@@ -144,11 +148,13 @@ export default {
         this.getIDfromURL();
         this.getApartmentDetails();
     }
+    
 }
 </script>
 
 
 <style scoped lang="scss">
+
 
 .card{
     flex-direction: row;
