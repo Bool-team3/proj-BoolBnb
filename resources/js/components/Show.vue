@@ -164,6 +164,17 @@ export default {
     flex-direction: column;
     justify-content: space-between;
 }
+
+picture{
+    width: 512px;
+    height: 341px;  
+
+    img{
+        width: 100%;
+        object-fit: contain;
+        height: 100%;
+    }
+}
 ol{
     padding: 0;
 }
