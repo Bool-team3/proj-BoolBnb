@@ -9,7 +9,7 @@
         <div class="row">
             <div class="card-body col-6">
                 <picture>
-                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/300x300.png/0099ee?text=team3+praesentium'" alt="">
+                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/200x300.png/0099ee?text=team3+praesentium'" alt="">
                     <img v-else :src="apartment.img_url" alt="">   
                 </picture>
                 <div>
@@ -74,7 +74,7 @@ export default {
             user: [],
             // services: [],
             apID : '',
-            loading: true
+            loading: true,  
         }      
     },
     components:{           
@@ -138,7 +138,7 @@ export default {
             }).then( () =>{
                 this.loading = false;
             });
-        }
+        },
     },
     created(){
         this.getIDfromURL();
@@ -149,6 +149,7 @@ export default {
 
 
 <style scoped lang="scss">
+
 .card{
     flex-direction: row;
 }
