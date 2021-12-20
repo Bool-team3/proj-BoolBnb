@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Home - Show')
 
 @section('content')   
     <div id="prova"></div>
@@ -15,8 +16,9 @@
     </div>        
     @endif
     
-    <section id="send-email">
+    <section id="send-email" class="mb-3">
         <div class="container">
+            <h3>Contattaci</h3>
             <form action="{{ route('email.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="apartment_id" value="{{$apartment->id}}"> 
@@ -53,5 +55,3 @@
     </section>
     <script src="{{asset('js/back.js')}}"></script>
 @endsection
-
-@section('page-title', 'Home - Show')

@@ -52,7 +52,13 @@
                 <Loading v-if="loading"/>
 
                 <div v-else>
-                    <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element'/>
+                    <div v-if="apartmentResults.length > 0">
+
+                        <ApartmentCard v-for="element in apartmentResults" :key="element.id" :apartment='element'/>
+                    </div>
+                    <div v-else>
+                        <h3>Nessun risultato coincide con la ricerca</h3>
+                    </div>
 
                     <!-- impaginazione -->
                     <div v-if="!find">
@@ -260,7 +266,6 @@ export default {
                         right: [-25, -35]
                     }
                     var customMarker = document.createElement('div');
-
                     customMarker.id = 'marker-all';
                     var marker = new tt.Marker({element: customMarker}).setLngLat([element.lon, element.lat]).addTo(map);
 
