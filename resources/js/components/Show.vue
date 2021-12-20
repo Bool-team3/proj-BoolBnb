@@ -9,7 +9,7 @@
         <div class="row">
             <div class="card-body col-6">
                 <picture>
-                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/300x300.png/0099ee?text=team3+praesentium'" alt="">
+                    <img v-if="!apartment.img_url" :src="'https://via.placeholder.com/200x300.png/0099ee?text=team3+praesentium'" alt="">
                     <img v-else :src="apartment.img_url" alt="">   
                 </picture>
                 <div>
@@ -124,10 +124,13 @@ export default {
     }
     ol{
         padding: 0;
+        li{
+            display: inline;
+            margin-right: 10px;
+        }
     }
+
     li{
         list-style-type: none;
-        display: inline;
-        margin-right: 10px;
     }
 </style>>
