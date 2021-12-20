@@ -63,7 +63,7 @@ class SponsorController extends Controller
                 ["expiration_date" => Carbon::now()->addDays($sponsor->time)]]);
         }
 
-        return redirect()->route('user.apartments.index');
+        return redirect()->route('user.apartments.index')->with('sponsor', 'Il tuo appartamento è stato sponsorizzato');
     }
 
     /**
