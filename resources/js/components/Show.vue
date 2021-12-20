@@ -202,8 +202,6 @@ export default {
 
     ul{
         display: flex;
-        // justify-content: center;
-        // align-items: center;
         flex-direction: column;
     }
     li{
