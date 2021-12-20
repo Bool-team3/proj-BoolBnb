@@ -11,6 +11,12 @@
                 <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
             </div>
         @endif
+        @if(session('sponsor'))
+            <div class="alert alert-success" role="alert">
+                {{session('sponsor') }}
+                <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            </div>
+        @endif
 
         <div id="confirm" class="d-none">
             <div class="display-overlay"></div>

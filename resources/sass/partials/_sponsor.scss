@@ -1,0 +1,76 @@
+#sponsor-section{
+
+    position: relative;
+    background-image: url('/storage/public/bg-sponsor.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+
+    .back-to-home{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: black;
+        
+        &:hover{
+          .fa-long-arrow-alt-left{
+            animation: move 0.7s linear infinite;
+            color: #6153CC;
+            cursor: pointer;
+          }
+        }
+    }
+
+    .container-fluid{
+        height: 100%;
+    }
+
+    .row{
+        height: 100%;
+        align-items: center;
+    }
+
+    .card{
+        width: 70%;
+        margin: 0 auto;
+        background-color: #6153CC;
+
+        &:hover{
+            box-shadow: 1px 1px 8px 8px goldenrod;
+        }
+    }
+
+    .card-header{
+        text-transform: uppercase;
+    }
+
+    h6{
+        font-size: 1.2rem;
+    }
+
+    #bg-braintree{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color: white, $alpha: .5);
+        z-index: 2;
+    }
+
+    #container-braintree{
+        width: 500px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #dropin-container{
+        z-index: 5;
+    }
+
+}
