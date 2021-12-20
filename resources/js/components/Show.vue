@@ -61,6 +61,9 @@
                 </ul>
             </div>
         </div>
+        <div id="map" class="mb-3">
+
+        </div>
     </div>
 </template>
 
@@ -99,8 +102,39 @@ export default {
                 //riempio apartment
                 this.apartment = response.data.apartment;    
                 //riempio user
-                this.user = response.data.user;    
+                this.user = response.data.user;
+                console.log(this.apartment);
+                // mappa
+                var map = tt.map({
+                    key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',
+                    container: 'map',
+                    center: [12, 41],
+                    zoom: 4
+                });
+                map.addControl(new tt.FullscreenControl());
+                map.addControl(new tt.NavigationControl());
+                // Poi Details Settings
+                var popupOffsets = {
+                    top: [0, 0],
+                    bottom: [0, -70],
+                    'bottom-right': [0, -70],
+                    'bottom-left': [0, -70],
+                    left: [25, -35],
+                    right: [-25, -35]
+                }
 
+                // var markerCustom = document.createElement('div');
+                // markerCustom.id = 'marker-show';
+
+                var marker = new tt.Marker().setLngLat([this.apartment.lon, this.apartment.lat]).addTo(map);
+
+                // POI Details Popup
+                var popup = new tt.Popup({offset: popupOffsets}).setHTML(`<strong>${this.apartment.title}</strong> <br> <p>${this.apartment.street_name} ${this.apartment.street_number}, ${this.apartment.city}</p>`);
+                marker.setPopup(popup);
+
+                map.setCenter([this.apartment.lon, this.apartment.lat]);
+                map.setZoom(9.5);
+            
                 // this.services = response.data.services;    
                 
             }).catch( (error) =>{
@@ -109,102 +143,59 @@ export default {
                 this.loading = false;
             });
         },
-        // searchApartment(search){
-        //     delete axios.defaults.headers.common['X-Requested-With'];
-        //     console.clear()
-  
-        //     axios.get(`https://api.tomtom.com/search/2/geocode/${search}.json`,{
-        //         params: {
-        //             key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4'                   
-        //         }
-        //     })
-        //     .then( (response) => {
-        //         let geometryList =
-        //             {
-        //                 "type":"CIRCLE", 
-        //                 "position": `${response.data.results[0].position.lat}, ${response.data.results[0].position.lon}`, 
-        //                 "radius": this.radius*1000
-        //             }
-                
-        //         axios.get(`https://api.tomtom.com/search/2/geometryFilter.json?geometryList=[${JSON.stringify(geometryList)}]&poiList=${JSON.stringify(this.poiList)}&key=cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4`)
-        //         .then( (response) => {
-        //             this.apartmentResults=[];
-        //             //Se il risultato della ricerca degli appartamenti trovati coincide con la lista intera degli appartamenti pusha l'oggetto appartamento dentro 'arrayResults'
-        //             for(let elementResult of response.data.results){
-        //                 console.log(elementResult.poi.id)
-        //                 for(let element of this.apartmentList){
-        //                     if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
-        //                         this.apartmentResults.push(element);
-        //                         this.poi.push({
-        //                             position: {
-        //                                 lon: element.lon, 
-        //                                 lat: element.lat
-        //                             }
-        //                         });
-        //                     }
-        //                 }
-        //             }
-                    
-        //             //creazione mappa
-        //             var map = tt.map({
-        //                 key : 'cYyxBH2UYfaHsG6A0diGa8DtWRABbSR4',                  
-        //                 container: 'map',
-        //                 center: [12, 41],
-        //                 zoom: 4
-        //             });
-        //             map.addControl(new tt.FullscreenControl());
-        //             map.addControl(new tt.NavigationControl());
-
-        //             //stampa i marker dalle nostre coordinate
-        //             this.poi.forEach(element => {
-                        
-        //                 var customMarker = document.createElement('div');
-        //                 customMarker.id = 'marker';
-        //                 new tt.Marker({element: customMarker}).setLngLat([element.position.lon, element.position.lat]).addTo(map);
-        //             });
-        //             map.setCenter([this.poi[0].position.lon, this.poi[0].position.lat]);
-        //             map.setZoom(9.5);
-        //             this.poi = [];
-        //         })
-        //     })
-        //     .catch( (error) =>{
-        //         console.log(error);
-        //     })
-        //     .then( () =>{
-        //         this.loading = false;
-        //     });
-        // },
     },
     created(){
         this.getIDfromURL();
         this.getApartmentDetails();
     }
+    
 }
 </script>
 
 
 <style scoped lang="scss">
-    .card{
-        flex-direction: row;
-    }
-    .card-body{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    ol{
-        padding: 0;
-        li{
-            display: inline;
-            margin-right: 10px;           
-        }
-    }
 
-    ul{
-        display: flex;
-        flex-direction: column;
+
+.card{
+    flex-direction: row;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+ol{
+    padding: 0;
+}
+li{
+    list-style-type: none;
+    display: inline;
+    margin-right: 10px;
+}
+#map{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 125px;
+    border-radius: 25px;
+    height: 400px;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 860px) {
+    #map{
+        height: 300px;
+        width: 350px;
     }
-    li{
-        list-style-type: none;
-    }
-</style>>
+}
+
+// #marker-show{
+//     background-image: url('https://i.pinimg.com/originals/6c/e9/12/6ce9124ba178121ec828d8e2e566c1f4.png');
+//     filter: invert(37%) sepia(37%) saturate(1831%) hue-rotate(218deg) brightness(87%) contrast(90%);
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//     width: 55px;
+//     height: 75px;
+// }
+
+
+</style>

@@ -82,7 +82,7 @@
             </nav>
         </section>
     
-        <main>
+        <main class="mb-1">
             @yield('content')
         </main>
         <footer class="bg-dark text-center text-white">
