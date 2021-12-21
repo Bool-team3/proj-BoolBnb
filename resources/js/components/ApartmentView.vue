@@ -242,9 +242,8 @@ export default {
                 this.apartmentResults = [];
                 this.find = false;
                 // this.apartmentResults = this.apartmentList;
-                for(let element of this.apartmentListAll){
+                for(let element of this.apartmentList){
                     if(element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
-                        this.find = true;
                         this.apartmentResults.push(element);
                     }
                 }
