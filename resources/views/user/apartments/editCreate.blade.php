@@ -94,7 +94,7 @@
                     
                         <div class="form-group w-50">
                             <label for="street_name">Indirizzo:</label>
-                            <input type="text" class="form-control" id="street_name" name="street_name" value="{{ old('city', $apartment->street_name) }}">
+                            <input type="text" class="form-control" id="street_name" name="street_name" value="{{ old('street_name', $apartment->street_name) }}">
                         </div>
                         
                         <div class="form-group w-50">
