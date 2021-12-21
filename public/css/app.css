@@ -15484,7 +15484,7 @@ label {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
 }
 #sponsor-section #container-braintree {
@@ -15493,11 +15493,28 @@ label {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  -webkit-animation-name: showConfirm;
+          animation-name: showConfirm;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
 }
 #sponsor-section #dropin-container {
   z-index: 5;
 }
 
+@keyframes showConfirm {
+  0% {
+    opacity: 0;
+    top: 15%;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+    top: 50%;
+  }
+}
 @media screen and (max-width: 576px) {
   #sponsor-section {
     width: 100%;
@@ -15505,5 +15522,10 @@ label {
   }
   #sponsor-section .row {
     padding-top: 50px;
+  }
+
+  #dropin-container {
+    width: 300px;
+    margin: 0 auto;
   }
 }

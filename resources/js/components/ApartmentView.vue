@@ -242,8 +242,9 @@ export default {
                 this.apartmentResults = [];
                 this.find = false;
                 // this.apartmentResults = this.apartmentList;
-                for(let element of this.apartmentList){
+                for(let element of this.apartmentListAll){
                     if(element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
+                        this.find = true;
                         this.apartmentResults.push(element);
                     }
                 }
@@ -301,6 +302,7 @@ export default {
 
                             for(let element of this.apartmentListAll){
                                 if(elementResult.poi.id == element.id && element.room >= this.room && element.bed >= this.bed && this.isInSelectedServices(element)){
+                                    this.find = true;
                                     this.apartmentResults.push(element);
                                 }
                             }
