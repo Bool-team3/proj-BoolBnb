@@ -34,7 +34,7 @@ class EmailController extends Controller
 
         $data = "";
         
-        $emails = Email::whereIn('apartment_id', $userApartments)->paginate(7);
+        $emails = Email::whereIn('apartment_id', $userApartments)->orderBy('created_at', 'desc')->paginate(7);
         $emailsCount = Email::whereIn('apartment_id', $userApartments)->get();
 
         

@@ -115,9 +115,9 @@
                                                         @break
                                                     @default
                                                 @endswitch         
-                                                @if ($sponsor->pivot->expiration_date < now())
-                                                    <span class="expiration_date_output">SCADUTO!</span> 
-                                                    @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%D') >= 1)
+                                                {{-- @if ($sponsor->pivot->expiration_date < now()) --}}
+                                                    {{-- <span class="expiration_date_output"></span>  --}}
+                                                    {{-- @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%D') >= 1)
                                                         <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%D')}} giorni</span>
                                                     @elseif(now()->diff($sponsor->pivot->expiration_date)->format('%H') > 1 && now()->diff($sponsor->pivot->expiration_date)->format('%H') < 24)
                                                         <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%H')}} ore</span>    
@@ -127,7 +127,7 @@
                                                         <span class="expiration_date_output">Scade tra qualche secondo..</span>                             
                                                     @else
                                                         <span class="expiration_date_output">Scade tra circa {{now()->diff($sponsor->pivot->expiration_date)->format('%H')}} ore</span>    
-                                                @endif
+                                                @endif --}}
                                             @endforeach
                                         @else
                                             <div class="sponsor-button">
